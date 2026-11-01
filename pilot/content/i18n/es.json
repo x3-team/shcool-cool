@@ -1,0 +1,827 @@
+{
+ "ui": {
+  "langName": "Español",
+  "appTitle": "School Cool — piloto",
+  "hello": "Aprende con las manos",
+  "pilotIntro": "Piloto de School Cool: dos unidades, 20 lecciones. Cada lección tiene una página de libro, un experimento en 3D, una regla y ejercicios con pistas.",
+  "pilotNote": "Esta es una versión piloto. Las lecciones, las escenas 3D y las traducciones las preparó una IA; antes de mostrarlas a los niños, docentes y hablantes nativos revisarán una muestra.",
+  "curriculum": "PROGRAMA",
+  "noMap": "Sin correspondencia con este programa",
+  "sparks": "Chispas por ejercicios resueltos",
+  "language": "Idioma",
+  "theme": "Tema claro u oscuro",
+  "scene": "Escena 3D",
+  "steps": "Pasos de la lección",
+  "step": {
+   "page": "Página",
+   "predict": "Predice",
+   "explore": "Explora",
+   "explain": "Comprende",
+   "tasks": "Ejercicios",
+   "sandbox": "Arenero"
+  },
+  "next": "Siguiente",
+  "back": "Atrás",
+  "reset": "Empezar de nuevo",
+  "toCatalog": "Siguiente lección",
+  "predictRight": "¡Correcto!",
+  "predictCheck": "Vamos a comprobarlo",
+  "goalTodo": "Hazlo en la escena",
+  "goalDone": "¡Lo lograste!",
+  "summary": "Ejercicios resueltos: {s} de {n}.",
+  "answer": "Respuesta",
+  "whole": "Parte entera",
+  "numerator": "Numerador",
+  "denominator": "Denominador",
+  "sceneAnswer": "Responde directamente en la escena 3D y luego pulsa «Comprobar».",
+  "check": "Comprobar",
+  "hint": "Pista {n}",
+  "hintN": "Pista {n}",
+  "noMoreHints": "No hay más pistas",
+  "solution": "Solución explicada",
+  "another": "Otro ejercicio",
+  "typeAnswer": "Primero escribe tu respuesta.",
+  "right": "Derecha",
+  "correct": "¡Correcto!",
+  "sparkPlus": "+1 chispa",
+  "nextTask": "Siguiente ejercicio",
+  "notYet": "Todavía no",
+  "wrong": "Revísalo otra vez. Una pista te puede ayudar.",
+  "level1": "Inicial",
+  "level2": "Intermedio",
+  "level3": "Avanzado",
+  "unitN": "N",
+  "unitKg": "kg",
+  "unitNkg": "N/kg",
+  "unitCm": "cm",
+  "unitNm": "N/m",
+  "slices": "Porciones",
+  "clear": "Borrar",
+  "parts": "Partes",
+  "point": "Cuenta",
+  "mass": "Masa",
+  "weights": "Pesas",
+  "pull": "Tirón",
+  "friction": "Rozamiento",
+  "sliding": "se desliza",
+  "left": "Izquierda",
+  "dir_left": "hacia la izquierda",
+  "dir_right": "hacia la derecha",
+  "balanced": "Las fuerzas están equilibradas",
+  "resultant": "Fuerza resultante",
+  "planets": {
+   "earth": "la Tierra",
+   "moon": "la Luna",
+   "mars": "Marte",
+   "jupiter": "Júpiter"
+  },
+  "surfaces": {
+   "ice": "Hielo",
+   "wood": "Madera",
+   "rubber": "Goma"
+  }
+ },
+ "curricula": {
+  "ru-fgos": {
+   "name": "Rusia · FGOS",
+   "grade": "{g}.º grado",
+   "units": {
+    "math5-fractions": "Fracciones comunes",
+    "phys7-forces": "Interacción de los cuerpos"
+   }
+  },
+  "us-ccss": {
+   "name": "EE. UU. · Common Core y NGSS",
+   "grade": "Grado {g}",
+   "units": {
+    "math5-fractions": "Números y operaciones: fracciones",
+    "phys7-forces": "Fuerzas e interacciones"
+   }
+  },
+  "in-ncert": {
+   "name": "India · NCERT",
+   "grade": "Clase {g}",
+   "units": {
+    "math5-fractions": "Fracciones",
+    "phys7-forces": "Fuerza y presión, rozamiento"
+   }
+  }
+ },
+ "units": {
+  "math5-fractions": {
+   "title": "Fracciones"
+  },
+  "phys7-forces": {
+   "title": "Fuerzas"
+  }
+ },
+ "tasks": {
+  "frac.read": {
+   "prompt": "¿Qué parte del pastel está coloreada? Escríbela como fracción.",
+   "h1": "Cuenta en cuántas porciones iguales está cortado el pastel. Ese es el denominador, el número de abajo.",
+   "h2": "Ahora cuenta las porciones coloreadas. Ese es el numerador, el número de arriba.",
+   "h3": "El pastel está cortado en {n} porciones y hay {k} coloreadas.",
+   "sol": "Hay {n} porciones en total y {k} están coloreadas. Entonces está coloreado [[k/n]] del pastel.",
+   "err": {
+    "flip": "El numerador y el denominador están intercambiados. Arriba va cuántas porciones tomamos; abajo, en cuántas porciones se cortó el entero.",
+    "unshaded": "Contaste las porciones sin colorear. Hay que contar las coloreadas."
+   }
+  },
+  "frac.shade": {
+   "prompt": "Colorea [[k/n]] del pastel. Si hace falta, cambia el número de porciones con los botones de debajo de la escena.",
+   "h1": "El denominador {n} indica en cuántas porciones iguales cortar el pastel.",
+   "h2": "El numerador {k} indica cuántas porciones colorear.",
+   "h3": "Haz {n} porciones y toca {k} de ellas.",
+   "sol": "Cortamos el pastel en {n} porciones iguales y coloreamos {k}. Eso es [[k/n]].",
+   "err": {
+    "slices": "Revisa el número de porciones: para [[k/n]] el pastel se corta en {n} partes iguales.",
+    "count": "El número de porciones está bien, pero no hay {k} coloreadas. Vuelve a contarlas."
+   }
+  },
+  "frac.numline": {
+   "prompt": "¿Qué fracción marca la cuenta en la recta?",
+   "h1": "Mira en cuántas partes iguales está dividido el segmento de 0 a 1. Cuenta los espacios, no las rayitas.",
+   "h2": "El segmento de 0 a 1 está dividido en {n} partes. Ese es el denominador.",
+   "h3": "Cuenta cuántas de esas partes hay desde 0 hasta la cuenta.",
+   "sol": "Cada parte es [[1/n]]. De 0 a la cuenta hay {k} partes, así que es [[k/n]].",
+   "err": {
+    "ticks": "Parece que contaste las rayitas y no los espacios entre ellas. Hay una parte menos que rayitas.",
+    "flip": "El numerador y el denominador están intercambiados."
+   }
+  },
+  "frac.place": {
+   "prompt": "Pon la cuenta en [[k/n]]. Arrástrala con el dedo o usa las flechas de debajo de la escena.",
+   "h1": "Primero haz que el segmento de 0 a 1 esté dividido en {n} partes.",
+   "h2": "Cada parte es [[1/n]].",
+   "h3": "Cuenta {k} partes desde el cero.",
+   "sol": "Dividimos el segmento de 0 a 1 en {n} partes iguales y contamos {k} desde el cero.",
+   "err": {
+    "offByOne": "¡Casi! La cuenta está en la marca de al lado. Vuelve a contar las partes desde el cero."
+   }
+  },
+  "frac.equiv": {
+   "prompt": "¿Qué número va en lugar del signo de interrogación? [[a/b]] = ? / {bm}",
+   "h1": "¿Cuántas veces es {bm} mayor que {b}?",
+   "h2": "El denominador se multiplicó por {m}. Para que la fracción no cambie, el numerador se multiplica por el mismo número.",
+   "h3": "{a} · {m} = ?",
+   "sol": "{bm} = {b} · {m}, así que el numerador también se multiplica por {m}: {a} · {m} = {am}. Entonces [[a/b]] = [[am/bm]].",
+   "err": {
+    "add": "Sumaste al numerador lo mismo que al denominador. Así la fracción cambia. Hay que multiplicar el numerador y el denominador por el mismo número.",
+    "same": "El denominador creció, así que las porciones son más pequeñas. Para que la cantidad sea la misma, el numerador también tiene que crecer."
+   }
+  },
+  "frac.simplify": {
+   "prompt": "Simplifica la fracción [[ag/bg]] todo lo posible.",
+   "h1": "Busca un número que divida a {ag} y a {bg}.",
+   "h2": "Prueba a dividir los dos números entre {g}.",
+   "h3": "{ag} : {g} = ?   {bg} : {g} = ?",
+   "sol": "{ag} y {bg} son divisibles entre {g}: [[ag/bg]] = [[a/b]]. Ya no se puede simplificar más.",
+   "err": {
+    "notLowest": "La fracción es equivalente, pero todavía se puede simplificar. Busca un divisor común del numerador y el denominador."
+   }
+  },
+  "frac.compare": {
+   "prompt": "Compara las fracciones: [[a/b]] ? [[c/d]]",
+   "h1": "Si los denominadores son iguales, es mayor la fracción con el numerador mayor.",
+   "h2": "Si los numeradores son iguales, es mayor la fracción con el denominador menor: sus porciones son más grandes.",
+   "h3": "Si todo es distinto, pasa las dos al denominador común {l}: quedan [[al/l]] y [[cl/l]].",
+   "sol": "Pasamos al denominador {l}: [[a/b]] = [[al/l]], [[c/d]] = [[cl/l]]. Comparamos los numeradores {al} y {cl}.",
+   "err": {
+    "bigDen": "Los numeradores son iguales y el denominador es mayor, así que las porciones son más pequeñas. Esa fracción es menor, no mayor."
+   }
+  },
+  "frac.addSame": {
+   "prompt": "Suma: [[a/n]] + [[b/n]]",
+   "h1": "Las porciones son iguales, de [[1/n]] cada una. Solo se suma cuántas porciones hay.",
+   "h2": "{a} + {b} = ?",
+   "h3": "El denominador sigue siendo {n}.",
+   "sol": "[[a/n]] + [[b/n]] = [[s/n]]: se suman los numeradores y el denominador no cambia.",
+   "err": {
+    "addDen": "Los denominadores no se suman: el tamaño de la porción no cambia, solo cuántas hay."
+   }
+  },
+  "frac.subSame": {
+   "prompt": "Resta: [[a/n]] − [[b/n]]",
+   "h1": "Había {a} porciones de [[1/n]] y se quitaron {b}.",
+   "h2": "{a} − {b} = ?",
+   "h3": "El denominador sigue siendo {n}.",
+   "sol": "[[a/n]] − [[b/n]] = [[s/n]]: se restan los numeradores y el denominador no cambia.",
+   "err": {
+    "subDen": "Los denominadores no se restan: el tamaño de la porción no cambia."
+   }
+  },
+  "frac.lcd": {
+   "prompt": "Halla el mínimo común denominador de dos fracciones con denominadores {b} y {d}.",
+   "h1": "El denominador común es divisible entre {b} y entre {d}.",
+   "h2": "Escribe los múltiplos de {b}: {b}, {b*2}, {b*3}… ¿Cuál es el primero que es divisible entre {d}?",
+   "h3": "El producto {b} · {d} = {p} siempre sirve, pero a veces hay un número menor.",
+   "sol": "El menor número divisible entre {b} y entre {d} es {l}.",
+   "err": {
+    "product": "{p} sirve, pero no es el mínimo común denominador. Busca un número menor.",
+    "notLeast": "Es un denominador común, pero no el mínimo. Hay un número menor."
+   }
+  },
+  "frac.addUnlike": {
+   "prompt": "Calcula: [[a/b]] {op} [[c/d]]",
+   "h1": "Los denominadores son distintos, así que primero pasa las fracciones a un denominador común.",
+   "h2": "El denominador común es {l}: [[a/b]] = [[al/l]], [[c/d]] = [[cl/l]].",
+   "h3": "Ahora {al} {op} {cl} = ?",
+   "sol": "[[a/b]] {op} [[c/d]] = [[al/l]] {op} [[cl/l]] = [[s/l]]. Simplificada: [[sn/sd]].",
+   "err": {
+    "addDen": "No se pueden sumar ni restar numeradores y denominadores por separado: las porciones son de distinto tamaño. Primero busca un denominador común.",
+    "noScale": "El denominador es común, pero también hay que multiplicar los numeradores: [[a/b]] = [[al/l]], [[c/d]] = [[cl/l]]."
+   }
+  },
+  "frac.toImproper": {
+   "prompt": "Escribe [[w a/n]] como fracción impropia. ¿Qué número va en el numerador? ? / {n}",
+   "h1": "En un entero hay {n} porciones de [[1/n]].",
+   "h2": "En {w} enteros: {w} · {n} = {wn} porciones.",
+   "h3": "Suma {a} más.",
+   "sol": "{w} · {n} + {a} = {t}, así que [[w a/n]] = [[t/n]].",
+   "err": {
+    "wPlusA": "La parte entera hay que multiplicarla por el denominador, no solo sumarla.",
+    "forgotA": "No olvides sumar la parte fraccionaria: {a} porciones más."
+   }
+  },
+  "frac.toMixed": {
+   "prompt": "Escribe como número mixto: [[t/n]]",
+   "h1": "¿Cuántas veces enteras cabe {n} en {t}?",
+   "h2": "{t} : {n} = {w}, resto {a}.",
+   "h3": "La parte entera es el cociente, el numerador es el resto y el denominador es el mismo.",
+   "sol": "{t} : {n} = {w}, resto {a}. Entonces [[t/n]] = [[w a/n]].",
+   "err": {
+    "swap": "La parte entera y el numerador están intercambiados. La parte entera es cuántas veces cabe el denominador en el numerador."
+   }
+  },
+  "frac.ofNumber": {
+   "prompt": "Halla [[a/b]] de {N}. Puedes partir tiras de la tableta de chocolate.",
+   "h1": "Primero halla una parte: divide {N} entre {b}.",
+   "h2": "[[1/b]] de {N} es {q}.",
+   "h3": "Ahora toma {a} de esas partes.",
+   "sol": "{N} : {b} = {q}, y luego {q} · {a} = {ans}.",
+   "err": {
+    "divOnly": "Eso es solo [[1/b]]. Hay que tomar {a} de esas partes.",
+    "mulOnly": "Primero divide entre el denominador y luego multiplica por el numerador."
+   }
+  },
+  "frac.toDecimal": {
+   "prompt": "Escribe como número decimal: [[k/d]]",
+   "h1": "El denominador es {d}. ¿Cuántas cifras habrá después de la coma?",
+   "h2": "[[1/10]] = 0,1 y [[1/100]] = 0,01.",
+   "h3": "Escribe el numerador {k} de modo que su última cifra quede en el lugar correcto.",
+   "sol": "[[k/d]] = {x}.",
+   "err": {
+    "place": "Las cifras están bien, pero no en su lugar. Las centésimas tienen dos cifras después de la coma; las décimas, una."
+   }
+  },
+  "force.gravity": {
+   "prompt": "Una caja de {m} kg de masa está sobre la Tierra. ¿Con qué fuerza la atrae la Tierra? Usa g = 10 N/kg.",
+   "h1": "Fuerza de gravedad: F = m · g.",
+   "h2": "m = {m} kg, g = 10 N/kg.",
+   "h3": "{m} · 10 = ?",
+   "sol": "F = m · g = {m} kg · 10 N/kg = {F} N.",
+   "err": {
+    "noG": "Esa es la masa en kilogramos, pero se pide una fuerza en newtons. Multiplica la masa por g."
+   }
+  },
+  "force.gravityGrams": {
+   "prompt": "Un cuerpo tiene una masa de {mg} g. Halla la fuerza de gravedad que actúa sobre él. Usa g = 10 N/kg.",
+   "h1": "Primero pasa los gramos a kilogramos: 1 kg son 1000 g.",
+   "h2": "{mg} g = {m} kg.",
+   "h3": "F = {m} · 10 = ?",
+   "sol": "{mg} g = {m} kg. F = {m} kg · 10 N/kg = {F} N.",
+   "err": {
+    "grams": "Hay que pasar la masa a kilogramos: {mg} g = {m} kg.",
+    "noG": "Se pide una fuerza en newtons: multiplica la masa en kilogramos por g."
+   }
+  },
+  "force.planet": {
+   "prompt": "Un vehículo explorador de {m} kg está en la superficie. Planeta: {planet}, g = {g} N/kg. ¿Con qué fuerza lo atrae?",
+   "h1": "La fórmula es la misma: F = m · g, solo cambia g.",
+   "h2": "Aquí g = {g} N/kg, no 10.",
+   "h3": "{m} · {g} = ?",
+   "sol": "F = {m} kg · {g} N/kg = {F} N.",
+   "err": {
+    "earthG": "Usaste la g de la Tierra. Aquí g = {g} N/kg."
+   }
+  },
+  "force.massFromWeight": {
+   "prompt": "Sobre un cuerpo actúa una fuerza de gravedad de {P} N. ¿Cuál es su masa? Usa g = 10 N/kg.",
+   "h1": "F = m · g, así que m = F : g.",
+   "h2": "{P} : 10 = ?",
+   "h3": "La respuesta sale en kilogramos.",
+   "sol": "m = F : g = {P} N : 10 N/kg = {m} kg.",
+   "err": {
+    "mult": "No hay que multiplicar, sino dividir: m = F : g."
+   }
+  },
+  "force.hooke": {
+   "prompt": "Un resorte tiene una constante de {k} N/m. Se estiró {cm} cm. ¿Qué fuerza elástica aparece?",
+   "h1": "Ley de Hooke: F = k · Δl.",
+   "h2": "Pasa los centímetros a metros: {cm} cm = {x} m.",
+   "h3": "{k} · {x} = ?",
+   "sol": "F = k · Δl = {k} N/m · {x} m = {F} N.",
+   "err": {
+    "cm": "El estiramiento tiene que estar en metros: {cm} cm = {x} m."
+   }
+  },
+  "force.stiffness": {
+   "prompt": "Una fuerza de {F} N estiró un resorte {cm} cm. Halla su constante elástica.",
+   "h1": "De F = k · Δl se obtiene k = F : Δl.",
+   "h2": "Δl = {cm} cm = {x} m.",
+   "h3": "{F} : {x} = ?",
+   "sol": "k = F : Δl = {F} N : {x} m = {k} N/m.",
+   "err": {
+    "cm": "El estiramiento tiene que estar en metros: {cm} cm = {x} m.",
+    "invert": "Hay que dividir la fuerza entre el estiramiento, no multiplicar."
+   }
+  },
+  "force.springScene": {
+   "prompt": "La constante del resorte es {k} N/m y cada pesa pesa 1 N. Cuelga las pesas necesarias para que el resorte se estire {cm} cm.",
+   "h1": "La fuerza necesaria para ese estiramiento: F = k · Δl.",
+   "h2": "Δl = {x} m, así que F = {k} · {x}.",
+   "h3": "Hace falta una fuerza de {F} N, y cada pesa da 1 N.",
+   "sol": "F = {k} N/m · {x} m = {F} N. Son {n} pesas de 1 N.",
+   "err": {
+    "tooMany": "Demasiadas: el resorte se estiró de más. Quita una pesa.",
+    "tooFew": "Todavía faltan: el estiramiento es menor de lo necesario. Añade una pesa."
+   }
+  },
+  "force.sumSame": {
+   "prompt": "Dos niños tiran de un trineo en el mismo sentido con fuerzas de {a} N y {b} N. Halla la fuerza resultante.",
+   "h1": "Las fuerzas van en el mismo sentido y se ayudan.",
+   "h2": "Entonces hay que sumarlas.",
+   "h3": "{a} + {b} = ?",
+   "sol": "R = {a} N + {b} N = {R} N, en el mismo sentido.",
+   "err": {
+    "diff": "Las fuerzas en el mismo sentido se suman, no se restan."
+   }
+  },
+  "force.sumOpp": {
+   "prompt": "Tiran de una caja hacia la izquierda con una fuerza de {a} N y hacia la derecha con una fuerza de {b} N. Halla la fuerza resultante.",
+   "h1": "Las fuerzas van en sentidos opuestos y se estorban.",
+   "h2": "A la fuerza mayor réstale la menor.",
+   "h3": "La caja se moverá hacia donde la fuerza es mayor: {side}.",
+   "sol": "R = {R} N (la fuerza mayor menos la menor), y la caja se moverá {side}.",
+   "err": {
+    "sum": "Las fuerzas en sentidos opuestos no se suman: a la mayor se le resta la menor."
+   }
+  },
+  "force.tugScene": {
+   "prompt": "Tiran de la caja hacia la izquierda con una fuerza de {a} N. Elige la fuerza de la derecha para que la caja no se mueva.",
+   "h1": "La caja está en reposo si las fuerzas están equilibradas.",
+   "h2": "Equilibradas quiere decir iguales en tamaño y en sentidos opuestos.",
+   "h3": "A la derecha hace falta la misma fuerza que a la izquierda.",
+   "sol": "A la derecha hacen falta {a} N; así la fuerza resultante es cero.",
+   "err": {
+    "tooMany": "La fuerza de la derecha es mayor y la caja se mueve a la derecha. Redúcela.",
+    "tooFew": "La fuerza de la derecha es menor y la caja se mueve a la izquierda. Auméntala."
+   }
+  },
+  "force.friction": {
+   "prompt": "Arrastran por el suelo una caja de {m} kg. El coeficiente de rozamiento es μ = {mu}. ¿Qué fuerza de rozamiento actúa sobre la caja? Usa g = 10 N/kg.",
+   "h1": "Fuerza de rozamiento: F = μ · N, donde N es la fuerza con la que la caja presiona el suelo.",
+   "h2": "En un suelo horizontal N = m · g = {N} N.",
+   "h3": "{mu} · {N} = ?",
+   "sol": "F = μ · m · g = {mu} · {m} kg · 10 N/kg = {F} N.",
+   "err": {
+    "noG": "Multiplicaste μ por la masa. Hace falta la fuerza con la que presiona: N = m · g.",
+    "noMu": "Esa es la fuerza con la que presiona el suelo. Multiplícala por el coeficiente de rozamiento μ."
+   }
+  },
+  "force.uniform": {
+   "prompt": "Arrastran una caja por el suelo a velocidad constante. El dinamómetro marca {F} N. ¿Cuánto vale la fuerza de rozamiento?",
+   "h1": "Velocidad constante quiere decir que las fuerzas a lo largo del suelo están equilibradas.",
+   "h2": "A lo largo del suelo solo actúan el tirón y el rozamiento.",
+   "h3": "La fuerza de rozamiento es igual al tirón.",
+   "sol": "Con movimiento uniforme, el rozamiento es igual al tirón: {F} N.",
+   "err": {
+    "zero": "La caja se desliza por el suelo, así que hay rozamiento. A velocidad constante es igual al tirón."
+   }
+  }
+ },
+ "lessons": {
+  "math5.fr01-parts": {
+   "title": "Partes y fracciones",
+   "hook": "¿Cómo repartir un pastel de forma justa entre cuatro?",
+   "page": "Si cortamos un entero en partes iguales, cada parte se llama porción.\nUna fracción dice cuántas de esas porciones tomamos. Abajo escribimos en cuántas porciones se cortó el entero: es el denominador. Arriba, cuántas porciones tomamos: es el numerador.",
+   "predict": {
+    "q": "Una pizza se cortó en 8 trozos iguales y te comiste 2. ¿Qué parte de la pizza te comiste?",
+    "opts": [
+     "[[2/6]]",
+     "[[2/8]]",
+     "[[8/2]]"
+    ],
+    "why": "Hay 8 trozos iguales en total: es el denominador. Tomaste 2: es el numerador. Sale [[2/8]]."
+   },
+   "explore": [
+    "Toca un trozo del pastel para colorearlo. Es un cuarto: [[1/4]].",
+    "Colorea dos trozos más. ¿Cuánto hay coloreado ahora? Es [[3/4]].",
+    "Con los botones «Porciones» de debajo de la escena, corta el pastel en 8 partes.",
+    "Colorea [[5/8]] del pastel."
+   ],
+   "explain": "La fracción [[3/4]] se lee «tres cuartos».\nEl denominador (4) indica en cuántas partes **iguales** se dividió el entero. El numerador (3), cuántas de esas partes tomamos.\nSi las partes no son iguales, no se pueden llamar fracción.",
+   "formula": "[[3/4]]: se toman 3 porciones de 4",
+   "sandbox": "Corta pasteles en cualquier número de porciones y coloréalas. Intenta encontrar dos fracciones distintas que coloreen lo mismo."
+  },
+  "math5.fr02-number-line": {
+   "title": "La fracción en la recta numérica",
+   "hook": "¿Dónde vive [[1/2]]? ¡Entre 0 y 1!",
+   "page": "Una fracción también es un número. Tiene su propio lugar en la recta numérica.\nPara encontrar [[3/4]], dividimos el segmento de 0 a 1 en 4 partes iguales y contamos tres desde el cero.",
+   "predict": {
+    "q": "¿Dónde está [[1/2]] en el segmento de 0 a 1?",
+    "opts": [
+     "Más cerca de 0",
+     "Justo en el medio",
+     "Más cerca de 1"
+    ],
+    "why": "La mitad divide el segmento en dos partes iguales, así que [[1/2]] está justo en el medio."
+   },
+   "explore": [
+    "Arrastra la cuenta hasta [[3/4]]. Con el dedo o con las flechas.",
+    "Pulsa «+» junto a «Partes» hasta que haya 8. La cuenta no se movió, pero ahora es [[6/8]].",
+    "Esta recta llega hasta 2. Pon la cuenta en [[4/3]], una fracción mayor que uno."
+   ],
+   "explain": "Para marcar una fracción, dividimos el segmento de 0 a 1 en tantas partes iguales como indica el denominador y contamos desde el cero tantas partes como indica el numerador.\nSi el numerador es mayor que el denominador, la fracción es mayor que uno y está a la derecha del 1.",
+   "sandbox": "Mueve la cuenta y cambia el número de partes. Encuentra en la recta dos escrituras distintas del mismo número."
+  },
+  "math5.fr03-equivalent": {
+   "title": "Fracciones equivalentes",
+   "hook": "Media pizza o dos cuartos: ¿qué es más?",
+   "page": "La misma parte de un entero se puede escribir con fracciones distintas.\nSi cortamos cada porción por la mitad, hay el doble de porciones, pero también el doble de porciones tomadas.",
+   "predict": {
+    "q": "¿Qué es más: [[1/2]] de pastel o [[2/4]] de pastel?",
+    "opts": [
+     "[[1/2]] es más",
+     "Es lo mismo",
+     "[[2/4]] es más"
+    ],
+    "why": "Dos cuartos forman justo una mitad. Es la misma parte del pastel."
+   },
+   "explore": [
+    "A la izquierda está coloreada la mitad. En el segundo pastel, colorea los cuartos necesarios para que haya lo mismo.",
+    "Ahora [[1/3]]. ¿Cuántos sextos hay que colorear para que sea lo mismo?",
+    "[[2/3]] = ? / 9. Colorea en el segundo pastel los novenos necesarios."
+   ],
+   "explain": "Si multiplicamos el numerador y el denominador por el mismo número, la fracción no cambia.\n[[1/2]] = [[2/4]] = [[3/6]] = [[4/8]]. Esto se llama propiedad fundamental de las fracciones.",
+   "formula": "[[2/3]] = [[4/6]] = [[6/9]]",
+   "sandbox": "Corta pasteles en distinto número de porciones y busca fracciones equivalentes."
+  },
+  "math5.fr04-simplify": {
+   "title": "Simplificar fracciones",
+   "hook": "[[6/8]] y [[3/4]] son lo mismo. ¿Cuál es más sencilla?",
+   "page": "La propiedad fundamental también funciona al revés: el numerador y el denominador se pueden dividir entre el mismo número.\nEsto se llama simplificar. La fracción se hace más corta, pero la parte del entero es la misma.",
+   "predict": {
+    "q": "[[6/8]] de pastel, ¿cuántos cuartos son?",
+    "opts": [
+     "[[2/4]]",
+     "[[3/4]]",
+     "[[6/4]]"
+    ],
+    "why": "Cada dos octavos forman un cuarto. Seis octavos son tres cuartos."
+   },
+   "explore": [
+    "Baja el número de porciones a 4 con el botón «−». Lo coloreado no cambia: [[6/8]] se convierte en [[3/4]].",
+    "[[4/10]]: simplifica a quintos, haz 5 porciones."
+   ],
+   "explain": "Para simplificar una fracción, dividimos el numerador y el denominador entre un divisor común.\n[[6/8]]: los dos números son divisibles entre 2 y obtenemos [[3/4]]. 3 y 4 no tienen divisores comunes, así que la fracción es irreducible.",
+   "formula": "[[6/8]] = [[3/4]]",
+   "sandbox": "Intenta simplificar [[8/12]] de pastel bajando el número de porciones."
+  },
+  "math5.fr05-compare": {
+   "title": "Comparar fracciones",
+   "hook": "¿Qué es mejor: [[1/3]] de tarta o [[1/5]] de tarta?",
+   "page": "Comparar fracciones es fácil si tienen el mismo denominador o el mismo numerador.\nSi todo es distinto, primero hacemos que las porciones sean iguales.",
+   "predict": {
+    "q": "¿Qué es mayor: [[1/3]] o [[1/5]]?",
+    "opts": [
+     "[[1/3]]",
+     "Son iguales",
+     "[[1/5]]"
+    ],
+    "why": "Cuantas más partes tiene el entero, más pequeña es cada una. Un tercio es mayor que un quinto."
+   },
+   "explore": [
+    "Los denominadores son iguales: [[2/6]] y [[5/6]]. Es mayor la fracción con más porciones coloreadas.",
+    "Los numeradores son iguales: [[1/3]] y [[1/5]]. Compara qué trozo es más grande.",
+    "[[2/3]] y [[3/4]]. Corta los dos pasteles en 12 porciones y compara dónde hay más coloreado."
+   ],
+   "explain": "Mismo denominador: es mayor la fracción con el numerador mayor.\nMismo numerador: es mayor la fracción con el denominador menor.\nTodo distinto: pasamos a un denominador común y comparamos los numeradores. [[2/3]] = [[8/12]], [[3/4]] = [[9/12]], así que [[3/4]] es mayor.",
+   "sandbox": "Haz dos pasteles e intenta colorearlos de modo que las fracciones sean distintas pero lo coloreado sea igual."
+  },
+  "math5.fr06-add-same": {
+   "title": "Suma y resta con el mismo denominador",
+   "hook": "Tres octavos más dos octavos, ¿cuántos octavos son?",
+   "page": "Cuando las porciones son iguales, sumarlas es fácil: contamos cuántas porciones hay.\nEl tamaño de la porción no cambia, así que el denominador se queda igual.",
+   "predict": {
+    "q": "[[3/8]] + [[2/8]] = ?",
+    "opts": [
+     "[[5/16]]",
+     "[[5/8]]",
+     "[[6/8]]"
+    ],
+    "why": "Sumamos porciones: 3 + 2 = 5 porciones de [[1/8]]. Las porciones no se hicieron más pequeñas, así que el denominador sigue siendo 8."
+   },
+   "explore": [
+    "En el primer pastel hay 3 porciones de 8; en el segundo, 2. ¿Cuántas porciones hay en total?",
+    "Súmalas en un solo pastel: colorea 3 + 2 porciones.",
+    "Resta: había [[5/6]] y se comieron [[3/6]]. Quita el color a tres porciones."
+   ],
+   "explain": "Para sumar fracciones con el mismo denominador, sumamos los numeradores y dejamos el denominador.\nCon la resta es igual: restamos los numeradores y el denominador no cambia.",
+   "formula": "[[3/8]] + [[2/8]] = [[5/8]]",
+   "sandbox": "Inventa tu propia suma y muéstrala con pasteles."
+  },
+  "math5.fr07-common-denominator": {
+   "title": "Denominador común",
+   "hook": "¿Cómo sumar una mitad y un tercio si los trozos son de distinto tamaño?",
+   "page": "Solo se pueden sumar porciones iguales. Por eso primero cortamos los dos enteros en porciones iguales.\nEl número de porciones que sirve para los dos se llama denominador común.",
+   "predict": {
+    "q": "¿Cómo se suman [[1/2]] y [[1/3]]?",
+    "opts": [
+     "Sumando numeradores y denominadores: [[2/5]]",
+     "Cortando los dos pasteles en porciones iguales",
+     "No se puede, no se pueden sumar"
+    ],
+    "why": "La mitad y el tercio se pueden cortar en sextos: [[1/2]] = [[3/6]], [[1/3]] = [[2/6]]. Ahora las porciones son iguales."
+   },
+   "explore": [
+    "Haz el mismo número de porciones en los dos pasteles sin cambiar lo coloreado. Prueba con 6.",
+    "[[1/4]] y [[1/6]]: 24 porciones sirven, pero hay un número menor. Encuéntralo."
+   ],
+   "explain": "El denominador común es divisible entre los dos denominadores. Lo más cómodo es el menor.\nSe puede encontrar así: escribimos los múltiplos del denominador mayor hasta encontrar uno que también sea divisible entre el menor.\nPara 4 y 6: 6, 12, y sirve 12.",
+   "sandbox": "Elige dos fracciones cualesquiera y encuentra su denominador común con los pasteles."
+  },
+  "math5.fr08-add-unlike": {
+   "title": "Suma con distinto denominador",
+   "hook": "¿Cuánto es [[1/2]] + [[1/4]]?",
+   "page": "Primero pasamos las fracciones a un denominador común y luego sumamos los numeradores.\nSi la respuesta se puede simplificar, la simplificamos.",
+   "predict": {
+    "q": "[[1/2]] + [[1/4]] = ?",
+    "opts": [
+     "[[2/6]]",
+     "[[3/4]]",
+     "[[2/4]]"
+    ],
+    "why": "La mitad son dos cuartos. [[2/4]] + [[1/4]] = [[3/4]]."
+   },
+   "explore": [
+    "Corta el primer pastel en cuartos. ¿Cuántos cuartos hay coloreados?",
+    "Súmalos en un solo pastel: [[2/4]] + [[1/4]].",
+    "[[2/3]] − [[1/2]]: pasa los dos pasteles a sextos y compara."
+   ],
+   "explain": "1. Buscamos un denominador común.\n2. Multiplicamos el numerador y el denominador de cada fracción para obtener ese denominador.\n3. Sumamos o restamos los numeradores.\n4. Simplificamos la respuesta si se puede.",
+   "formula": "[[2/3]] − [[1/2]] = [[4/6]] − [[3/6]] = [[1/6]]",
+   "sandbox": "Compruébalo con los pasteles: ¿[[2/3]] + [[1/4]] = [[11/12]]?"
+  },
+  "math5.fr09-mixed": {
+   "title": "Números mixtos",
+   "hook": "Un pastel y medio, ¿cuántas mitades son?",
+   "page": "Si hay más porciones de las que caben en un entero, sale una fracción impropia, por ejemplo [[7/4]].\nTambién se puede escribir con una parte entera y una fraccionaria: [[1 3/4]]. Es un número mixto.",
+   "predict": {
+    "q": "¿Cuántos cuartos hay en [[1 3/4]]?",
+    "opts": [
+     "4",
+     "7",
+     "13"
+    ],
+    "why": "En un entero hay 4 cuartos, y 3 más: 7 en total. [[1 3/4]] = [[7/4]]."
+   },
+   "explore": [
+    "Un pastel entero y [[3/4]] más. Es el número mixto [[1 3/4]], o [[7/4]].",
+    "Haz [[2 2/3]]: colorea en el tercer pastel las porciones necesarias. ¿Cuántos tercios hay en total?"
+   ],
+   "explain": "De número mixto a fracción: multiplicamos la parte entera por el denominador y sumamos el numerador.\nDe fracción a número mixto: dividimos el numerador entre el denominador con resto. El cociente es la parte entera y el resto, el nuevo numerador.",
+   "formula": "[[2 2/3]] = [[8/3]]",
+   "sandbox": "Forma un número mixto con pasteles y escríbelo como fracción impropia."
+  },
+  "math5.fr10-of-number": {
+   "title": "Fracción de un número",
+   "hook": "Una tableta de chocolate tiene 12 cuadritos. ¿Cuántos son dos tercios?",
+   "page": "Para hallar la fracción de un número, dividimos el número entre el denominador: así obtenemos una parte.\nLuego multiplicamos por el numerador: tomamos las partes necesarias.",
+   "predict": {
+    "q": "Una tableta de chocolate tiene 12 cuadritos. ¿Cuántos cuadritos hay en [[2/3]] de la tableta?",
+    "opts": [
+     "6",
+     "8",
+     "9"
+    ],
+    "why": "Un tercio de 12 son 4 cuadritos. Dos tercios son 8 cuadritos."
+   },
+   "explore": [
+    "La tableta está dividida en 3 tiras iguales. Parte [[2/3]]: toca 2 tiras.",
+    "20 cuadritos, 4 tiras. Parte [[3/4]]. ¿Cuántos cuadritos son?"
+   ],
+   "explain": "Para hallar la fracción de un número, primero dividimos el número entre el denominador y luego multiplicamos por el numerador.\n[[2/3]] de 12: 12 : 3 = 4, 4 · 2 = 8.",
+   "formula": "[[2/3]] de 12 = 12 : 3 · 2 = 8",
+   "sandbox": "Parte tiras y cuenta: ¿qué parte de la tableta tienes y cuántos cuadritos son?"
+  },
+  "math5.fr11-decimals": {
+   "title": "Números decimales",
+   "hook": "¡[[3/10]] se puede escribir más corto!",
+   "page": "Las fracciones con denominador 10, 100 o 1000 se escriben cómodamente con coma.\n[[3/10]] = 0,3: tres décimas. [[7/100]] = 0,07: siete centésimas.",
+   "predict": {
+    "q": "¿De qué otra forma se puede escribir [[3/10]]?",
+    "opts": [
+     "3,10",
+     "0,3",
+     "0,03"
+    ],
+    "why": "Las décimas se escriben en el primer lugar después de la coma: [[3/10]] = 0,3."
+   },
+   "explore": [
+    "El segmento de 0 a 1 está dividido en 10 partes. Pon la cuenta en 0,7, que es [[7/10]].",
+    "¿Dónde está 0,5? Fíjate: también es la mitad."
+   ],
+   "explain": "La primera cifra después de la coma son las décimas; la segunda, las centésimas.\n[[45/100]] = 0,45. [[5/100]] = 0,05: el cero de las décimas es obligatorio.",
+   "formula": "[[7/10]] = 0,7   [[7/100]] = 0,07",
+   "sandbox": "Mueve la cuenta y mira cómo cambia la escritura decimal."
+  },
+  "math5.fr12-mission": {
+   "title": "Misión final: fracciones",
+   "hook": "Seis ejercicios sobre todo lo que aprendiste de las fracciones.",
+   "page": "En esta misión hay ejercicios de distintas lecciones: leer una fracción, encontrarla en la recta, simplificar, comparar, sumar y hallar la fracción de un número.\nSi olvidaste algo, las pistas te ayudarán.",
+   "predict": {
+    "q": "¿Qué fracción es mayor que uno?",
+    "opts": [
+     "[[7/8]]",
+     "[[8/8]]",
+     "[[9/8]]"
+    ],
+    "why": "[[8/8]] es exactamente un pastel entero. [[9/8]] es un pastel entero y un octavo más."
+   },
+   "explore": [
+    "Calentamiento: colorea [[9/8]] con dos pasteles."
+   ],
+   "explain": "Chuleta.\nEl numerador es cuántas porciones tomamos; el denominador, en cuántas porciones se dividió el entero.\nSe puede multiplicar o dividir el numerador y el denominador por el mismo número: la fracción no cambia.\nSolo se pueden sumar porciones iguales.",
+   "sandbox": "Juego libre con pasteles: inventa un ejercicio para un amigo."
+  },
+  "phys7.f01-force": {
+   "title": "¿Qué es una fuerza?",
+   "hook": "¿Por qué una caja se mueve si tiras de ella y se queda quieta si tiran de los dos lados?",
+   "page": "Una fuerza es la acción de un cuerpo sobre otro. Una fuerza puede mover un cuerpo, detenerlo o cambiar su forma.\nLa fuerza se mide en newtons (N). En los dibujos la fuerza se representa con una flecha: la dirección de la flecha indica hacia dónde actúa la fuerza y su longitud, lo grande que es.",
+   "predict": {
+    "q": "Dos personas tiran de una caja en sentidos opuestos con la misma fuerza. ¿Qué pasará?",
+    "opts": [
+     "Se moverá a la izquierda",
+     "Se quedará quieta",
+     "Se moverá a la derecha"
+    ],
+    "why": "Fuerzas iguales en sentidos opuestos se equilibran. La caja se queda quieta."
+   },
+   "explore": [
+    "Tiran de la caja con 20 N a la izquierda y a la derecha. Las flechas miden lo mismo y la caja está quieta.",
+    "Aumenta la fuerza de la derecha a 40 N. ¿Hacia dónde se movió la caja?",
+    "Ahora equilibra la caja: haz que la fuerza de la izquierda sea igual."
+   ],
+   "explain": "Una fuerza tiene tamaño y dirección.\nLa unidad de fuerza es el newton (N). La Tierra atrae una manzana de 100 g con una fuerza de aproximadamente 1 N.",
+   "sandbox": "Cambia las fuerzas de la izquierda y la derecha y mira hacia dónde va la caja."
+  },
+  "phys7.f02-gravity": {
+   "title": "La fuerza de gravedad",
+   "hook": "¿Por qué todo cae hacia abajo y por qué en la Luna es más fácil saltar?",
+   "page": "La Tierra atrae hacia sí todos los cuerpos. Esta fuerza se llama fuerza de gravedad.\nCuanto mayor es la masa de un cuerpo, con más fuerza lo atrae la Tierra. En otros planetas la atracción es distinta.",
+   "predict": {
+    "q": "¿Qué caja atrae la Tierra con más fuerza?",
+    "opts": [
+     "La de 1 kg",
+     "Las dos igual",
+     "La de 10 kg"
+    ],
+    "why": "La fuerza de gravedad es proporcional a la masa: 10 kg se atraen 10 veces más que 1 kg."
+   },
+   "explore": [
+    "Aumenta la masa de la caja a 10 kg. Mira la flecha y el número.",
+    "Lleva la caja a la Luna. La masa es la misma, ¿y la fuerza?",
+    "Y ahora a Júpiter."
+   ],
+   "explain": "Fuerza de gravedad: F = m · g.\nm es la masa en kilogramos; g, cuántos newtons corresponden a cada kilogramo. En la Tierra g ≈ 9,8 N/kg, y en los ejercicios se usa 10 N/kg.\nEn la Luna g ≈ 1,6 N/kg, por eso allí todo cuesta unas 6 veces menos levantarlo.",
+   "formula": "F = m · g",
+   "sandbox": "Elige la masa y el planeta. ¿Dónde te resultaría más fácil saltar?"
+  },
+  "phys7.f03-spring": {
+   "title": "La fuerza elástica",
+   "hook": "¿Cómo sabe un resorte qué peso cuelga de él?",
+   "page": "Si estiramos o comprimimos un resorte, aparece en él una fuerza elástica. Esta fuerza intenta devolver al resorte su forma original.\nCuanto más se estira el resorte, mayor es la fuerza elástica. Así funciona el dinamómetro, un instrumento para medir fuerzas.",
+   "predict": {
+    "q": "Con una pesa el resorte se estiró 2 cm. ¿Cuánto se estirará con tres pesas iguales?",
+    "opts": [
+     "3 cm",
+     "6 cm",
+     "9 cm"
+    ],
+    "why": "El estiramiento es proporcional a la fuerza: el triple de peso da el triple de estiramiento, 6 cm."
+   },
+   "explore": [
+    "Cuelga una pesa de 100 g: sobre ella actúa una fuerza de gravedad de 1 N. Toca la pila de pesas de la mesa.",
+    "Añade dos pesas más. ¿Cuántas veces creció el estiramiento?",
+    "Toma un resorte más rígido: 100 N/m. ¿Qué pasó con el estiramiento?"
+   ],
+   "explain": "Ley de Hooke: la fuerza elástica es proporcional al estiramiento.\nF = k · Δl, donde Δl es el estiramiento en metros y k es la constante elástica del resorte en N/m.\nUn resorte rígido se estira menos con la misma fuerza.",
+   "formula": "F = k · Δl",
+   "sandbox": "Cuelga pesas y cambia de resorte. Haz tu propio dinamómetro: recuerda cuántos centímetros da 1 N."
+  },
+  "phys7.f04-weight": {
+   "title": "El peso",
+   "hook": "¿La masa y el peso son lo mismo?",
+   "page": "El peso es la fuerza con la que un cuerpo presiona sobre su apoyo o estira aquello de lo que cuelga. El peso se mide en newtons, y la masa, en kilogramos.\nSi el cuerpo y el apoyo están quietos, el peso es igual a la fuerza de gravedad: P = m · g.",
+   "predict": {
+    "q": "Una manzana tiene una masa de 200 g. ¿Cuál es su peso en la Tierra?",
+    "opts": [
+     "200 N",
+     "2 N",
+     "0,2 N"
+    ],
+    "why": "200 g = 0,2 kg. P = 0,2 kg · 10 N/kg = 2 N."
+   },
+   "explore": [
+    "Pon 1 kg sobre el apoyo. El peso es la fuerza con la que la caja presiona el apoyo.",
+    "Lleva la caja a la Luna. La masa es la misma, pero el peso es unas 6 veces menor."
+   ],
+   "explain": "La masa indica cuánta materia hay en un cuerpo y no depende del planeta.\nEl peso es una fuerza y depende de g: P = m · g.\nEn la Luna tu masa es la misma, pero tu peso es 6 veces menor.",
+   "formula": "P = m · g",
+   "sandbox": "Compara el peso de la misma caja en distintos planetas."
+  },
+  "phys7.f05-friction": {
+   "title": "La fuerza de rozamiento",
+   "hook": "¿Por qué cuesta tanto mover un armario pesado?",
+   "page": "Cuando un cuerpo se desliza sobre otro, aparece una fuerza de rozamiento. Va en contra del movimiento.\nEl rozamiento depende de las superficies y de lo fuerte que el cuerpo presiona sobre su apoyo.",
+   "predict": {
+    "q": "Alguien tira de una caja, pero no se mueve. ¿Por qué?",
+    "opts": [
+     "El tirón es mayor que el rozamiento",
+     "El rozamiento equilibra el tirón",
+     "Sobre la caja no actúa nada"
+    ],
+    "why": "Mientras la caja está quieta, el rozamiento estático es igual al tirón y lo equilibra."
+   },
+   "explore": [
+    "Tira del anillo azul del dinamómetro o pulsa «+». ¿Con qué fuerza empieza a moverse la caja?",
+    "Pon la caja sobre hielo. ¿Cuánta fuerza hace falta ahora para moverla?",
+    "Aumenta la masa a 10 kg. ¿Cómo cambió el rozamiento?"
+   ],
+   "explain": "Rozamiento por deslizamiento: F = μ · N.\nN es la fuerza con la que el cuerpo presiona su apoyo. En un suelo horizontal N = m · g.\nμ es el coeficiente de rozamiento: en el hielo es pequeño y en la goma, grande.",
+   "formula": "F = μ · m · g",
+   "sandbox": "Prueba todas las superficies y distintas masas. ¿Dónde es menor el rozamiento?"
+  },
+  "phys7.f06-sum": {
+   "title": "Suma de fuerzas",
+   "hook": "Si tiran dos personas, ¿la fuerza es el doble?",
+   "page": "Si sobre un cuerpo actúan varias fuerzas, se pueden sustituir por una sola: la fuerza resultante.\nLas fuerzas en el mismo sentido se suman. Las fuerzas en sentidos opuestos se restan, y la resultante va hacia el lado de la mayor.",
+   "predict": {
+    "q": "Dos personas tiran de una caja hacia la derecha: una con 30 N y otra con 20 N. ¿Con qué fuerza tiran juntas?",
+    "opts": [
+     "10 N",
+     "50 N",
+     "600 N"
+    ],
+    "why": "Las fuerzas van en el mismo sentido, así que se suman: 30 + 20 = 50 N."
+   },
+   "explore": [
+    "Ahora tiran de la caja hacia la derecha con 30 N. Añade otros 20 N a la derecha.",
+    "30 N a la izquierda y 50 N a la derecha. La resultante es 20 N hacia la derecha: la mayor menos la menor.",
+    "Aumenta la fuerza de la izquierda a 50 N. ¿Qué pasó con la resultante?"
+   ],
+   "explain": "Fuerzas sobre una misma recta:\nen el mismo sentido: R = F₁ + F₂;\nen sentidos opuestos: R = mayor − menor, hacia el lado de la mayor.\nSi R = 0, el cuerpo se comporta como si no hubiera fuerzas.",
+   "sandbox": "Elige las fuerzas para que la resultante sea 10 N hacia la izquierda."
+  },
+  "phys7.f07-balance": {
+   "title": "Equilibrio",
+   "hook": "¿Por qué no se cae una lámpara colgada?",
+   "page": "Un cuerpo está en equilibrio si todas las fuerzas que actúan sobre él se equilibran. Entonces la resultante es cero.\nUn cuerpo en reposo sigue en reposo, y uno en movimiento se mueve a velocidad constante.",
+   "predict": {
+    "q": "Una caja está quieta. Eso significa que sobre ella…",
+    "opts": [
+     "No actúa ninguna fuerza",
+     "Actúan fuerzas equilibradas",
+     "Solo actúa la gravedad"
+    ],
+    "why": "Sobre la caja siempre actúa la gravedad. Está quieta porque el apoyo la equilibra."
+   },
+   "explore": [
+    "60 N a la izquierda y 20 N a la derecha. Equilibra la caja añadiendo fuerza a la derecha.",
+    "Una pesa cuelga quieta de un resorte: la fuerza elástica hacia arriba es igual a la gravedad hacia abajo."
+   ],
+   "explain": "Equilibrio: la resultante de todas las fuerzas es cero.\nPara una pesa en un resorte: k · Δl = m · g.\nPara una caja de la que tiran por los dos lados: F izquierda = F derecha.",
+   "sandbox": "Consigue el equilibrio de la caja con distintas fuerzas."
+  },
+  "phys7.f08-mission": {
+   "title": "Misión final: fuerzas",
+   "hook": "Seis ejercicios para una ingeniera o un ingeniero de verdad.",
+   "page": "En la misión aparecen la gravedad, los resortes, el rozamiento y la suma de fuerzas.\nEn todos los ejercicios g = 10 N/kg, salvo que se diga otra cosa. Las pistas están a mano.",
+   "predict": {
+    "q": "Una astronauta levanta una pesa en la Luna. ¿Qué cambió en comparación con la Tierra?",
+    "opts": [
+     "La masa de la pesa",
+     "El peso de la pesa",
+     "La masa y el peso"
+    ],
+    "why": "La masa no depende del planeta. Cambia el peso, porque en la Luna g es menor."
+   },
+   "explore": [
+    "Lleva una pesa de 20 kg a Marte y mira la fuerza de gravedad."
+   ],
+   "explain": "Chuleta.\nF = m · g: fuerza de gravedad.\nF = k · Δl: fuerza elástica (Δl en metros).\nF = μ · m · g: rozamiento por deslizamiento.\nLas fuerzas en el mismo sentido se suman; en sentidos opuestos, se restan.",
+   "sandbox": "Laboratorio libre: arrastra la caja por hielo y por goma."
+  }
+ }
+}

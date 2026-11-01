@@ -1,0 +1,185 @@
+{
+ "id": "math5.fr08-add-unlike",
+ "unit": "math5-fractions",
+ "track": "core",
+ "skills": [
+  "math.frac.add-unlike-den"
+ ],
+ "prereq": [
+  "math.frac.common-denominator",
+  "math.frac.add-same-den"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 5
+  },
+  "us-ccss": {
+   "grade": 5,
+   "code": "5.NF.A.1"
+  },
+  "in-ncert": {
+   "grade": 6
+  }
+ },
+ "scene": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 2,
+     "k": 1
+    },
+    {
+     "n": 4,
+     "k": 1
+    }
+   ]
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 2,
+      "k": 1
+     },
+     {
+      "n": 4,
+      "k": 1
+     }
+    ]
+   },
+   "goal": {
+    "pies.0.n": 4
+   }
+  },
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 4,
+      "k": 0
+     }
+    ]
+   },
+   "goal": {
+    "pies.0.k": 3
+   }
+  },
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 3,
+      "k": 2
+     },
+     {
+      "n": 2,
+      "k": 1
+     }
+    ]
+   },
+   "goal": {
+    "pies.0.n": 6,
+    "pies.1.n": 6
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "frac.addUnlike",
+   "level": 1,
+   "params": {
+    "dens": [
+     2,
+     4,
+     8
+    ]
+   }
+  },
+  {
+   "type": "frac.addUnlike",
+   "level": 1,
+   "params": {
+    "dens": [
+     3,
+     6
+    ]
+   }
+  },
+  {
+   "type": "frac.addUnlike",
+   "level": 2,
+   "params": {
+    "dens": [
+     2,
+     3,
+     4,
+     6
+    ]
+   }
+  },
+  {
+   "type": "frac.addUnlike",
+   "level": 2,
+   "params": {
+    "op": "-",
+    "dens": [
+     2,
+     3,
+     4,
+     6
+    ]
+   }
+  },
+  {
+   "type": "frac.addUnlike",
+   "level": 3,
+   "params": {
+    "overOne": true,
+    "dens": [
+     3,
+     4,
+     5,
+     6,
+     8
+    ]
+   }
+  },
+  {
+   "type": "frac.addUnlike",
+   "level": 3,
+   "params": {
+    "op": "-",
+    "dens": [
+     4,
+     6,
+     8,
+     9,
+     10,
+     12
+    ]
+   }
+  }
+ ],
+ "sandbox": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 3,
+     "k": 2
+    },
+    {
+     "n": 4,
+     "k": 1
+    }
+   ]
+  }
+ }
+}

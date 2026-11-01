@@ -1,0 +1,91 @@
+{
+ "id": "phys7.f03-spring",
+ "unit": "phys7-forces",
+ "track": "core",
+ "skills": [
+  "phys.force.elastic"
+ ],
+ "prereq": [
+  "phys.force.meaning"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 7
+  },
+  "us-ccss": {
+   "grade": "6–8",
+   "code": "MS-PS2-2"
+  },
+  "in-ncert": {
+   "grade": 8
+  }
+ },
+ "scene": {
+  "instrument": "forces-lab",
+  "state": {
+   "mode": "spring",
+   "k": 50,
+   "weights": 2
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "mode": "spring",
+    "k": 50,
+    "weights": 0
+   },
+   "goal": {
+    "weights": 1
+   }
+  },
+  {
+   "goal": {
+    "weights": 3
+   }
+  },
+  {
+   "goal": {
+    "k": 100
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "force.hooke",
+   "level": 1
+  },
+  {
+   "type": "force.hooke",
+   "level": 1
+  },
+  {
+   "type": "force.springScene",
+   "level": 2
+  },
+  {
+   "type": "force.springScene",
+   "level": 2
+  },
+  {
+   "type": "force.stiffness",
+   "level": 3
+  },
+  {
+   "type": "force.stiffness",
+   "level": 3
+  }
+ ],
+ "sandbox": {
+  "instrument": "forces-lab",
+  "state": {
+   "mode": "spring",
+   "k": 50,
+   "weights": 0
+  }
+ }
+}

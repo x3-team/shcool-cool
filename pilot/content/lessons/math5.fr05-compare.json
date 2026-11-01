@@ -1,0 +1,149 @@
+{
+ "id": "math5.fr05-compare",
+ "unit": "math5-fractions",
+ "track": "core",
+ "skills": [
+  "math.frac.compare"
+ ],
+ "prereq": [
+  "math.frac.equivalent"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 5
+  },
+  "us-ccss": {
+   "grade": 4,
+   "code": "4.NF.A.2"
+  },
+  "in-ncert": {
+   "grade": 6
+  }
+ },
+ "scene": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 5,
+     "k": 2
+    },
+    {
+     "n": 5,
+     "k": 4
+    }
+   ]
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 0
+ },
+ "explore": [
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 6,
+      "k": 2
+     },
+     {
+      "n": 6,
+      "k": 5
+     }
+    ]
+   }
+  },
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 3,
+      "k": 1
+     },
+     {
+      "n": 5,
+      "k": 1
+     }
+    ]
+   }
+  },
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 3,
+      "k": 2
+     },
+     {
+      "n": 4,
+      "k": 3
+     }
+    ]
+   },
+   "goal": {
+    "pies.0.n": 12,
+    "pies.1.n": 12
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "frac.compare",
+   "level": 1,
+   "params": {
+    "mode": "sameDen"
+   }
+  },
+  {
+   "type": "frac.compare",
+   "level": 1,
+   "params": {
+    "mode": "sameDen"
+   }
+  },
+  {
+   "type": "frac.compare",
+   "level": 2,
+   "params": {
+    "mode": "sameNum"
+   }
+  },
+  {
+   "type": "frac.compare",
+   "level": 2,
+   "params": {
+    "mode": "sameNum"
+   }
+  },
+  {
+   "type": "frac.compare",
+   "level": 3,
+   "params": {
+    "mode": "any"
+   }
+  },
+  {
+   "type": "frac.compare",
+   "level": 3,
+   "params": {
+    "mode": "any"
+   }
+  }
+ ],
+ "sandbox": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 3,
+     "k": 2
+    },
+    {
+     "n": 4,
+     "k": 3
+    }
+   ]
+  }
+ }
+}

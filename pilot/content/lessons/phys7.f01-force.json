@@ -1,0 +1,92 @@
+{
+ "id": "phys7.f01-force",
+ "unit": "phys7-forces",
+ "track": "core",
+ "skills": [
+  "phys.force.meaning"
+ ],
+ "prereq": [],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 7
+  },
+  "us-ccss": {
+   "grade": "6–8",
+   "code": "MS-PS2-2"
+  },
+  "in-ncert": {
+   "grade": 8
+  }
+ },
+ "scene": {
+  "instrument": "forces-lab",
+  "state": {
+   "mode": "tug",
+   "left": 20,
+   "right": 20
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "mode": "tug",
+    "left": 20,
+    "right": 20
+   }
+  },
+  {
+   "state": {
+    "mode": "tug",
+    "left": 20,
+    "right": 20
+   },
+   "goal": {
+    "right": 40
+   }
+  },
+  {
+   "goal": {
+    "left": 40,
+    "right": 40
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "force.tugScene",
+   "level": 1
+  },
+  {
+   "type": "force.tugScene",
+   "level": 1
+  },
+  {
+   "type": "force.sumOpp",
+   "level": 2
+  },
+  {
+   "type": "force.sumOpp",
+   "level": 2
+  },
+  {
+   "type": "force.sumSame",
+   "level": 3
+  },
+  {
+   "type": "force.sumOpp",
+   "level": 3
+  }
+ ],
+ "sandbox": {
+  "instrument": "forces-lab",
+  "state": {
+   "mode": "tug",
+   "left": 30,
+   "right": 50
+  }
+ }
+}

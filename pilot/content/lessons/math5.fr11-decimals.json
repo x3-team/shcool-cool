@@ -1,0 +1,121 @@
+{
+ "id": "math5.fr11-decimals",
+ "unit": "math5-fractions",
+ "track": "core",
+ "skills": [
+  "math.frac.decimal-tenths"
+ ],
+ "prereq": [
+  "math.frac.number-line"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 5
+  },
+  "us-ccss": {
+   "grade": 4,
+   "code": "4.NF.C.6"
+  },
+  "in-ncert": {
+   "grade": 6
+  }
+ },
+ "scene": {
+  "instrument": "number-line",
+  "state": {
+   "n": 10,
+   "max": 1,
+   "point": 3,
+   "decimals": true
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "n": 10,
+    "max": 1,
+    "point": 0,
+    "decimals": true
+   },
+   "goal": {
+    "point": 7
+   }
+  },
+  {
+   "goal": {
+    "point": 5
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "frac.toDecimal",
+   "level": 1,
+   "params": {
+    "dens": [
+     10
+    ]
+   }
+  },
+  {
+   "type": "frac.toDecimal",
+   "level": 1,
+   "params": {
+    "dens": [
+     10
+    ]
+   }
+  },
+  {
+   "type": "frac.toDecimal",
+   "level": 2,
+   "params": {
+    "dens": [
+     100
+    ]
+   }
+  },
+  {
+   "type": "frac.toDecimal",
+   "level": 2,
+   "params": {
+    "dens": [
+     100
+    ]
+   }
+  },
+  {
+   "type": "frac.toDecimal",
+   "level": 3,
+   "params": {
+    "dens": [
+     10,
+     100
+    ]
+   }
+  },
+  {
+   "type": "frac.toDecimal",
+   "level": 3,
+   "params": {
+    "dens": [
+     10,
+     100
+    ]
+   }
+  }
+ ],
+ "sandbox": {
+  "instrument": "number-line",
+  "state": {
+   "n": 10,
+   "max": 1,
+   "point": 5,
+   "decimals": true
+  }
+ }
+}

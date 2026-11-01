@@ -1,0 +1,827 @@
+{
+ "ui": {
+  "langName": "English",
+  "appTitle": "School Cool — pilot",
+  "hello": "Learn with your hands",
+  "pilotIntro": "School Cool pilot: two units, 20 lessons. Every lesson has a book page, a 3D experiment, a rule and practice problems with hints.",
+  "pilotNote": "This is a pilot. The lessons, 3D scenes and translations were prepared by AI; teachers and native speakers will spot-check them before children use them.",
+  "curriculum": "CURRICULUM",
+  "noMap": "Not mapped to this curriculum",
+  "sparks": "Sparks for solved problems",
+  "language": "Language",
+  "theme": "Light or dark theme",
+  "scene": "3D scene",
+  "steps": "Lesson steps",
+  "step": {
+   "page": "Page",
+   "predict": "Predict",
+   "explore": "Explore",
+   "explain": "Understand",
+   "tasks": "Practice",
+   "sandbox": "Sandbox"
+  },
+  "next": "Next",
+  "back": "Back",
+  "reset": "Start over",
+  "toCatalog": "Next lesson",
+  "predictRight": "Correct!",
+  "predictCheck": "Let's check",
+  "goalTodo": "Do this in the scene",
+  "goalDone": "You did it!",
+  "summary": "Problems solved: {s} of {n}.",
+  "answer": "Answer",
+  "whole": "Whole number",
+  "numerator": "Numerator",
+  "denominator": "Denominator",
+  "sceneAnswer": "Answer right in the 3D scene, then press “Check”.",
+  "check": "Check",
+  "hint": "Hint {n}",
+  "hintN": "Hint {n}",
+  "noMoreHints": "No more hints",
+  "solution": "Worked solution",
+  "another": "Another problem",
+  "typeAnswer": "Type your answer first.",
+  "right": "Right",
+  "correct": "Correct!",
+  "sparkPlus": "+1 spark",
+  "nextTask": "Next problem",
+  "notYet": "Not quite yet",
+  "wrong": "Check again. A hint can help.",
+  "level1": "Beginner",
+  "level2": "Intermediate",
+  "level3": "Advanced",
+  "unitN": "N",
+  "unitKg": "kg",
+  "unitNkg": "N/kg",
+  "unitCm": "cm",
+  "unitNm": "N/m",
+  "slices": "Slices",
+  "clear": "Clear",
+  "parts": "Parts",
+  "point": "Bead",
+  "mass": "Mass",
+  "weights": "Weights",
+  "pull": "Pull",
+  "friction": "Friction",
+  "sliding": "sliding",
+  "left": "Left",
+  "dir_left": "to the left",
+  "dir_right": "to the right",
+  "balanced": "Forces are balanced",
+  "resultant": "Net force",
+  "planets": {
+   "earth": "Earth",
+   "moon": "the Moon",
+   "mars": "Mars",
+   "jupiter": "Jupiter"
+  },
+  "surfaces": {
+   "ice": "Ice",
+   "wood": "Wood",
+   "rubber": "Rubber"
+  }
+ },
+ "curricula": {
+  "ru-fgos": {
+   "name": "Russia · FGOS",
+   "grade": "Grade {g}",
+   "units": {
+    "math5-fractions": "Common fractions",
+    "phys7-forces": "Interaction of bodies"
+   }
+  },
+  "us-ccss": {
+   "name": "USA · Common Core & NGSS",
+   "grade": "Grade {g}",
+   "units": {
+    "math5-fractions": "Number and Operations — Fractions",
+    "phys7-forces": "Forces and Interactions"
+   }
+  },
+  "in-ncert": {
+   "name": "India · NCERT",
+   "grade": "Class {g}",
+   "units": {
+    "math5-fractions": "Fractions",
+    "phys7-forces": "Force and Pressure, Friction"
+   }
+  }
+ },
+ "units": {
+  "math5-fractions": {
+   "title": "Fractions"
+  },
+  "phys7-forces": {
+   "title": "Forces"
+  }
+ },
+ "tasks": {
+  "frac.read": {
+   "prompt": "What part of the pie is shaded? Write it as a fraction.",
+   "h1": "Count how many equal slices the pie is cut into. That is the denominator, the number below the line.",
+   "h2": "Now count the shaded slices. That is the numerator, the number above the line.",
+   "h3": "The pie is cut into {n} slices, and {k} are shaded.",
+   "sol": "There are {n} slices in all and {k} are shaded. So [[k/n]] of the pie is shaded.",
+   "err": {
+    "flip": "The numerator and denominator have swapped places. On top we write how many slices we took; below, how many slices the whole was cut into.",
+    "unshaded": "You counted the unshaded slices. Count the shaded ones."
+   }
+  },
+  "frac.shade": {
+   "prompt": "Shade [[k/n]] of the pie. If you need to, change the number of slices with the buttons under the scene.",
+   "h1": "The denominator {n} tells you how many equal slices to cut the pie into.",
+   "h2": "The numerator {k} tells you how many slices to shade.",
+   "h3": "Make {n} slices and tap {k} of them.",
+   "sol": "Cut the pie into {n} equal slices and shade {k}. That is [[k/n]].",
+   "err": {
+    "slices": "Check the number of slices: for [[k/n]] the pie is cut into {n} equal parts.",
+    "count": "The number of slices is right, but the number shaded is not {k}. Count the shaded slices again."
+   }
+  },
+  "frac.numline": {
+   "prompt": "Which fraction does the bead mark on the line?",
+   "h1": "Look at how many equal parts the segment from 0 to 1 is split into. Count the gaps, not the tick marks.",
+   "h2": "The segment from 0 to 1 is split into {n} parts. That is the denominator.",
+   "h3": "Count how many of those parts there are from 0 to the bead.",
+   "sol": "Each part is [[1/n]]. From 0 to the bead there are {k} parts, so it is [[k/n]].",
+   "err": {
+    "ticks": "It looks like you counted the tick marks, not the gaps between them. There is one part fewer than tick marks.",
+    "flip": "The numerator and denominator have swapped places."
+   }
+  },
+  "frac.place": {
+   "prompt": "Put the bead on [[k/n]]. Drag it with your finger or use the arrows under the scene.",
+   "h1": "First make the segment from 0 to 1 split into {n} parts.",
+   "h2": "Each part is [[1/n]].",
+   "h3": "Count {k} parts from zero.",
+   "sol": "Split the segment from 0 to 1 into {n} equal parts and count {k} of them from zero.",
+   "err": {
+    "offByOne": "Almost! The bead is on the next mark over. Count the parts from zero again."
+   }
+  },
+  "frac.equiv": {
+   "prompt": "Which number goes in place of the question mark? [[a/b]] = ? / {bm}",
+   "h1": "How many times bigger is {bm} than {b}?",
+   "h2": "The denominator was multiplied by {m}. To keep the fraction the same, multiply the numerator by the same number.",
+   "h3": "{a} × {m} = ?",
+   "sol": "{bm} = {b} × {m}, so we multiply the numerator by {m} too: {a} × {m} = {am}. So [[a/b]] = [[am/bm]].",
+   "err": {
+    "add": "You added the same amount to the numerator as to the denominator. That changes the fraction. Multiply the numerator and denominator by the same number.",
+    "same": "The denominator got bigger, so the slices got smaller. To keep the same amount, the numerator has to get bigger too."
+   }
+  },
+  "frac.simplify": {
+   "prompt": "Simplify [[ag/bg]] as far as it will go.",
+   "h1": "Find a number that divides both {ag} and {bg}.",
+   "h2": "Try dividing both numbers by {g}.",
+   "h3": "{ag} ÷ {g} = ?   {bg} ÷ {g} = ?",
+   "sol": "{ag} and {bg} are both divisible by {g}: [[ag/bg]] = [[a/b]]. It can't be simplified any further.",
+   "err": {
+    "notLowest": "This fraction is equal to the right one, but it can be simplified more. Find a common factor of the numerator and denominator."
+   }
+  },
+  "frac.compare": {
+   "prompt": "Compare the fractions: [[a/b]] ? [[c/d]]",
+   "h1": "If the denominators are the same, the fraction with the bigger numerator is bigger.",
+   "h2": "If the numerators are the same, the fraction with the smaller denominator is bigger: its slices are larger.",
+   "h3": "If everything is different, rewrite both with the common denominator {l}: you get [[al/l]] and [[cl/l]].",
+   "sol": "Rewrite with denominator {l}: [[a/b]] = [[al/l]], [[c/d]] = [[cl/l]]. Compare the numerators {al} and {cl}.",
+   "err": {
+    "bigDen": "The numerators are the same and the denominator is bigger, so the slices are smaller. That fraction is smaller, not bigger."
+   }
+  },
+  "frac.addSame": {
+   "prompt": "Add: [[a/n]] + [[b/n]]",
+   "h1": "The slices are the same size, [[1/n]] each. Just add up how many slices there are.",
+   "h2": "{a} + {b} = ?",
+   "h3": "The denominator stays {n}.",
+   "sol": "[[a/n]] + [[b/n]] = [[s/n]]: add the numerators, the denominator doesn't change.",
+   "err": {
+    "addDen": "Don't add the denominators: the size of a slice doesn't change, only how many slices there are."
+   }
+  },
+  "frac.subSame": {
+   "prompt": "Subtract: [[a/n]] − [[b/n]]",
+   "h1": "There were {a} slices of [[1/n]], and {b} were taken away.",
+   "h2": "{a} − {b} = ?",
+   "h3": "The denominator stays {n}.",
+   "sol": "[[a/n]] − [[b/n]] = [[s/n]]: subtract the numerators, the denominator doesn't change.",
+   "err": {
+    "subDen": "Don't subtract the denominators: the size of a slice doesn't change."
+   }
+  },
+  "frac.lcd": {
+   "prompt": "Find the least common denominator for fractions with denominators {b} and {d}.",
+   "h1": "A common denominator is divisible by both {b} and {d}.",
+   "h2": "List the multiples of {b}: {b}, {b*2}, {b*3}… Which one is the first to be divisible by {d}?",
+   "h3": "The product {b} × {d} = {p} always works, but sometimes there is a smaller number.",
+   "sol": "The smallest number divisible by both {b} and {d} is {l}.",
+   "err": {
+    "product": "{p} works, but it isn't the least common denominator. Look for a smaller number.",
+    "notLeast": "That is a common denominator, but not the least one. There is a smaller number."
+   }
+  },
+  "frac.addUnlike": {
+   "prompt": "Calculate: [[a/b]] {op} [[c/d]]",
+   "h1": "The denominators are different, so first rewrite the fractions with a common denominator.",
+   "h2": "The common denominator is {l}: [[a/b]] = [[al/l]], [[c/d]] = [[cl/l]].",
+   "h3": "Now {al} {op} {cl} = ?",
+   "sol": "[[a/b]] {op} [[c/d]] = [[al/l]] {op} [[cl/l]] = [[s/l]]. In simplest form: [[sn/sd]].",
+   "err": {
+    "addDen": "You can't add or subtract the numerators and denominators separately: the slices are different sizes. First find a common denominator.",
+    "noScale": "The denominator is common, but the numerators need to be multiplied too: [[a/b]] = [[al/l]], [[c/d]] = [[cl/l]]."
+   }
+  },
+  "frac.toImproper": {
+   "prompt": "Write [[w a/n]] as an improper fraction. What is the numerator? ? / {n}",
+   "h1": "One whole has {n} slices of [[1/n]].",
+   "h2": "{w} wholes have {w} × {n} = {wn} slices.",
+   "h3": "Add {a} more.",
+   "sol": "{w} × {n} + {a} = {t}, so [[w a/n]] = [[t/n]].",
+   "err": {
+    "wPlusA": "Multiply the whole number by the denominator, don't just add it.",
+    "forgotA": "Don't forget to add the fraction part: {a} more slices."
+   }
+  },
+  "frac.toMixed": {
+   "prompt": "Write as a mixed number: [[t/n]]",
+   "h1": "How many whole times does {n} go into {t}?",
+   "h2": "{t} ÷ {n} = {w}, remainder {a}.",
+   "h3": "The whole number is the quotient, the numerator is the remainder, and the denominator stays the same.",
+   "sol": "{t} ÷ {n} = {w}, remainder {a}. So [[t/n]] = [[w a/n]].",
+   "err": {
+    "swap": "The whole number and the numerator have swapped places. The whole number is how many times the denominator goes into the numerator."
+   }
+  },
+  "frac.ofNumber": {
+   "prompt": "Find [[a/b]] of {N}. You can break off strips of the chocolate bar.",
+   "h1": "First find one part: divide {N} by {b}.",
+   "h2": "[[1/b]] of {N} is {q}.",
+   "h3": "Now take {a} of those parts.",
+   "sol": "{N} ÷ {b} = {q}, then {q} × {a} = {ans}.",
+   "err": {
+    "divOnly": "That is only [[1/b]]. You need {a} of those parts.",
+    "mulOnly": "First divide by the denominator, then multiply by the numerator."
+   }
+  },
+  "frac.toDecimal": {
+   "prompt": "Write as a decimal: [[k/d]]",
+   "h1": "The denominator is {d}. How many digits will there be after the decimal point?",
+   "h2": "[[1/10]] = 0.1, and [[1/100]] = 0.01.",
+   "h3": "Write the numerator {k} so that its last digit lands in the right place.",
+   "sol": "[[k/d]] = {x}.",
+   "err": {
+    "place": "The digits are right, but they are in the wrong places. Hundredths have two digits after the decimal point, tenths have one."
+   }
+  },
+  "force.gravity": {
+   "prompt": "A crate with a mass of {m} kg is sitting on Earth. How strongly does Earth pull on it? Use g = 10 N/kg.",
+   "h1": "Force of gravity: F = m · g.",
+   "h2": "m = {m} kg, g = 10 N/kg.",
+   "h3": "{m} × 10 = ?",
+   "sol": "F = m · g = {m} kg × 10 N/kg = {F} N.",
+   "err": {
+    "noG": "That is the mass in kilograms, but we need the force in newtons. Multiply the mass by g."
+   }
+  },
+  "force.gravityGrams": {
+   "prompt": "An object has a mass of {mg} g. Find the force of gravity on it. Use g = 10 N/kg.",
+   "h1": "First change grams to kilograms: 1 kg is 1000 g.",
+   "h2": "{mg} g = {m} kg.",
+   "h3": "F = {m} × 10 = ?",
+   "sol": "{mg} g = {m} kg. F = {m} kg × 10 N/kg = {F} N.",
+   "err": {
+    "grams": "Change the mass to kilograms first: {mg} g = {m} kg.",
+    "noG": "We need a force in newtons: multiply the mass in kilograms by g."
+   }
+  },
+  "force.planet": {
+   "prompt": "A rover with a mass of {m} kg is standing on the surface. Planet: {planet}, g = {g} N/kg. How strongly does it pull on the rover?",
+   "h1": "Same formula: F = m · g, only g is different.",
+   "h2": "Here g = {g} N/kg, not 10.",
+   "h3": "{m} × {g} = ?",
+   "sol": "F = {m} kg × {g} N/kg = {F} N.",
+   "err": {
+    "earthG": "You used g for Earth. Here g = {g} N/kg."
+   }
+  },
+  "force.massFromWeight": {
+   "prompt": "The force of gravity on an object is {P} N. What is its mass? Use g = 10 N/kg.",
+   "h1": "F = m · g, so m = F ÷ g.",
+   "h2": "{P} ÷ 10 = ?",
+   "h3": "The answer will be in kilograms.",
+   "sol": "m = F ÷ g = {P} N ÷ 10 N/kg = {m} kg.",
+   "err": {
+    "mult": "Don't multiply, divide: m = F ÷ g."
+   }
+  },
+  "force.hooke": {
+   "prompt": "A spring has a stiffness of {k} N/m. It is stretched by {cm} cm. What elastic force does it produce?",
+   "h1": "Hooke's law: F = k · Δl.",
+   "h2": "Change centimeters to meters: {cm} cm = {x} m.",
+   "h3": "{k} × {x} = ?",
+   "sol": "F = k · Δl = {k} N/m × {x} m = {F} N.",
+   "err": {
+    "cm": "The stretch has to be in meters: {cm} cm = {x} m."
+   }
+  },
+  "force.stiffness": {
+   "prompt": "A force of {F} N stretched a spring by {cm} cm. Find its stiffness.",
+   "h1": "From F = k · Δl we get k = F ÷ Δl.",
+   "h2": "Δl = {cm} cm = {x} m.",
+   "h3": "{F} ÷ {x} = ?",
+   "sol": "k = F ÷ Δl = {F} N ÷ {x} m = {k} N/m.",
+   "err": {
+    "cm": "The stretch has to be in meters: {cm} cm = {x} m.",
+    "invert": "Divide the force by the stretch, don't multiply."
+   }
+  },
+  "force.springScene": {
+   "prompt": "The spring's stiffness is {k} N/m, and each weight is 1 N. Hang enough weights to stretch the spring by {cm} cm.",
+   "h1": "The force needed for that stretch: F = k · Δl.",
+   "h2": "Δl = {x} m, so F = {k} × {x}.",
+   "h3": "You need a force of {F} N, and each weight gives 1 N.",
+   "sol": "F = {k} N/m × {x} m = {F} N. That is {n} weights of 1 N each.",
+   "err": {
+    "tooMany": "Too many: the spring stretched too far. Take a weight off.",
+    "tooFew": "Not enough yet: the stretch is too small. Add a weight."
+   }
+  },
+  "force.sumSame": {
+   "prompt": "Two children pull a sled in the same direction with forces of {a} N and {b} N. Find the net force.",
+   "h1": "The forces point the same way and help each other.",
+   "h2": "So add them.",
+   "h3": "{a} + {b} = ?",
+   "sol": "R = {a} N + {b} N = {R} N, in the same direction.",
+   "err": {
+    "diff": "Forces in the same direction add up; you don't subtract them."
+   }
+  },
+  "force.sumOpp": {
+   "prompt": "A crate is pulled to the left with a force of {a} N and to the right with a force of {b} N. Find the net force.",
+   "h1": "The forces point in opposite directions and work against each other.",
+   "h2": "Subtract the smaller force from the bigger one.",
+   "h3": "The crate moves toward the bigger force: {side}.",
+   "sol": "R = {R} N (bigger force minus smaller force), and the crate moves {side}.",
+   "err": {
+    "sum": "Opposite forces don't add up: subtract the smaller from the bigger."
+   }
+  },
+  "force.tugScene": {
+   "prompt": "The crate is pulled to the left with a force of {a} N. Choose a force on the right so the crate stays put.",
+   "h1": "The crate stays still if the forces are balanced.",
+   "h2": "Balanced means equal in size and pointing in opposite directions.",
+   "h3": "The right side needs the same force as the left.",
+   "sol": "The right side needs {a} N; then the net force is zero.",
+   "err": {
+    "tooMany": "The force on the right is bigger, so the crate moves right. Make it smaller.",
+    "tooFew": "The force on the right is smaller, so the crate moves left. Make it bigger."
+   }
+  },
+  "force.friction": {
+   "prompt": "A crate with a mass of {m} kg is pulled across the floor. The coefficient of friction is μ = {mu}. What sliding friction force acts on the crate? Use g = 10 N/kg.",
+   "h1": "Friction force: F = μ · N, where N is how hard the crate presses on the floor.",
+   "h2": "On a flat floor N = m · g = {N} N.",
+   "h3": "{mu} × {N} = ?",
+   "sol": "F = μ · m · g = {mu} × {m} kg × 10 N/kg = {F} N.",
+   "err": {
+    "noG": "You multiplied μ by the mass. You need the pressing force: N = m · g.",
+    "noMu": "That is the force pressing on the floor. Multiply it by the coefficient of friction μ."
+   }
+  },
+  "force.uniform": {
+   "prompt": "A crate is pulled across the floor at a constant speed. The spring scale reads {F} N. What is the friction force?",
+   "h1": "Constant speed means the forces along the floor are balanced.",
+   "h2": "Only the pull and friction act along the floor.",
+   "h3": "The friction force equals the pull.",
+   "sol": "When the motion is steady, friction equals the pull: {F} N.",
+   "err": {
+    "zero": "The crate is sliding on the floor, so there is friction. At steady speed it equals the pull."
+   }
+  }
+ },
+ "lessons": {
+  "math5.fr01-parts": {
+   "title": "Parts and fractions",
+   "hook": "How do you share a pie fairly among four people?",
+   "page": "If you cut a whole into equal parts, each part is called a share.\nA fraction tells how many of those shares we took. Below the line we write how many shares the whole was cut into: that is the denominator. Above the line we write how many shares we took: that is the numerator.",
+   "predict": {
+    "q": "A pizza is cut into 8 equal slices and you eat 2. What part of the pizza did you eat?",
+    "opts": [
+     "[[2/6]]",
+     "[[2/8]]",
+     "[[8/2]]"
+    ],
+    "why": "There are 8 equal slices in all: that is the denominator. You took 2: that is the numerator. So it is [[2/8]]."
+   },
+   "explore": [
+    "Tap one slice of the pie to shade it. That is one fourth: [[1/4]].",
+    "Shade two more slices. How much is shaded now? That is [[3/4]].",
+    "Use the “Slices” buttons under the scene to cut the pie into 8 pieces.",
+    "Shade [[5/8]] of the pie."
+   ],
+   "explain": "The fraction [[3/4]] is read “three fourths”.\nThe denominator (4) shows how many **equal** parts the whole was split into. The numerator (3) shows how many of those parts we took.\nIf the parts are not equal, you can't call them a fraction.",
+   "formula": "[[3/4]]: 3 parts taken out of 4",
+   "sandbox": "Cut pies into any number of slices and shade them. Try to find two different fractions that shade the same amount."
+  },
+  "math5.fr02-number-line": {
+   "title": "Fractions on the number line",
+   "hook": "Where does [[1/2]] live? Between 0 and 1!",
+   "page": "A fraction is a number too. It has its own place on the number line.\nTo find [[3/4]], split the segment from 0 to 1 into 4 equal parts and count three of them from zero.",
+   "predict": {
+    "q": "Where on the segment from 0 to 1 is [[1/2]]?",
+    "opts": [
+     "Closer to 0",
+     "Exactly in the middle",
+     "Closer to 1"
+    ],
+    "why": "A half splits the segment into two equal parts, so [[1/2]] is exactly in the middle."
+   },
+   "explore": [
+    "Drag the bead to [[3/4]]. Use your finger or the arrows.",
+    "Press “+” next to “Parts” until there are 8. The bead stayed in place, but now it is [[6/8]].",
+    "This line goes up to 2. Put the bead on [[4/3]], a fraction greater than one."
+   ],
+   "explain": "To mark a fraction, split the segment from 0 to 1 into as many equal parts as the denominator says, and count as many parts from zero as the numerator says.\nIf the numerator is bigger than the denominator, the fraction is greater than one and sits to the right of 1.",
+   "sandbox": "Move the bead and change the number of parts. Find two different ways to write the same number on the line."
+  },
+  "math5.fr03-equivalent": {
+   "title": "Equivalent fractions",
+   "hook": "Half a pizza or two quarters: which is more?",
+   "page": "The same part of a whole can be written as different fractions.\nIf you cut every slice in half, there are twice as many slices, but you also have twice as many slices taken.",
+   "predict": {
+    "q": "Which is more: [[1/2]] of a pie or [[2/4]] of a pie?",
+    "opts": [
+     "[[1/2]] is more",
+     "They are the same",
+     "[[2/4]] is more"
+    ],
+    "why": "Two quarters make exactly one half. It is the same part of the pie."
+   },
+   "explore": [
+    "Half of the pie on the left is shaded. On the second pie, shade enough quarters to cover the same amount.",
+    "Now [[1/3]]. How many sixths do you need to shade to get the same amount?",
+    "[[2/3]] = ? / 9. Shade the right number of ninths on the second pie."
+   ],
+   "explain": "If you multiply the numerator and denominator by the same number, the fraction doesn't change.\n[[1/2]] = [[2/4]] = [[3/6]] = [[4/8]]. This is called the basic property of a fraction.",
+   "formula": "[[2/3]] = [[4/6]] = [[6/9]]",
+   "sandbox": "Cut pies into different numbers of slices and look for equivalent fractions."
+  },
+  "math5.fr04-simplify": {
+   "title": "Simplifying fractions",
+   "hook": "[[6/8]] and [[3/4]] are the same. Which one is simpler to write?",
+   "page": "The basic property of a fraction also works backwards: you can divide the numerator and denominator by the same number.\nThis is called simplifying. The fraction gets shorter, but the part of the whole stays the same.",
+   "predict": {
+    "q": "[[6/8]] of a pie is how many quarters?",
+    "opts": [
+     "[[2/4]]",
+     "[[3/4]]",
+     "[[6/4]]"
+    ],
+    "why": "Every two eighths make one quarter. Six eighths are three quarters."
+   },
+   "explore": [
+    "Lower the number of slices to 4 with the “−” button. The shaded part stays the same: [[6/8]] turns into [[3/4]].",
+    "[[4/10]]: simplify it to fifths by making 5 slices."
+   ],
+   "explain": "To simplify a fraction, divide the numerator and denominator by a common factor.\n[[6/8]]: both numbers are divisible by 2, so we get [[3/4]]. 3 and 4 have no common factors, so the fraction is in simplest form.",
+   "formula": "[[6/8]] = [[3/4]]",
+   "sandbox": "Try to simplify [[8/12]] of a pie by lowering the number of slices."
+  },
+  "math5.fr05-compare": {
+   "title": "Comparing fractions",
+   "hook": "Which is better: [[1/3]] of a cake or [[1/5]] of a cake?",
+   "page": "Comparing fractions is easy when they have the same denominators or the same numerators.\nIf everything is different, first make the slices the same size.",
+   "predict": {
+    "q": "Which is bigger: [[1/3]] or [[1/5]]?",
+    "opts": [
+     "[[1/3]]",
+     "They are the same",
+     "[[1/5]]"
+    ],
+    "why": "The more parts a whole is cut into, the smaller each part is. A third is bigger than a fifth."
+   },
+   "explore": [
+    "The denominators are the same: [[2/6]] and [[5/6]]. The fraction with more shaded slices is bigger.",
+    "The numerators are the same: [[1/3]] and [[1/5]]. Compare which piece is larger.",
+    "[[2/3]] and [[3/4]]. Cut both pies into 12 slices and compare which has more shaded."
+   ],
+   "explain": "Same denominators: the fraction with the bigger numerator is bigger.\nSame numerators: the fraction with the smaller denominator is bigger.\nEverything different: rewrite with a common denominator and compare the numerators. [[2/3]] = [[8/12]], [[3/4]] = [[9/12]], so [[3/4]] is bigger.",
+   "sandbox": "Make two pies and try to shade them so the fractions are different but the shaded amount is the same."
+  },
+  "math5.fr06-add-same": {
+   "title": "Adding and subtracting with like denominators",
+   "hook": "Three eighths plus two eighths is how many eighths?",
+   "page": "When the slices are the same size, adding them is easy: count how many slices there are now.\nThe size of a slice doesn't change, so the denominator stays the same.",
+   "predict": {
+    "q": "[[3/8]] + [[2/8]] = ?",
+    "opts": [
+     "[[5/16]]",
+     "[[5/8]]",
+     "[[6/8]]"
+    ],
+    "why": "Add the slices: 3 + 2 = 5 slices of [[1/8]]. The slices didn't get smaller, so the denominator stays 8."
+   },
+   "explore": [
+    "The first pie has 3 slices out of 8, the second has 2. How many slices are there together?",
+    "Add them on one pie: shade 3 + 2 slices.",
+    "Subtraction: there was [[5/6]], and [[3/6]] was eaten. Unshade three slices."
+   ],
+   "explain": "To add fractions with the same denominator, add the numerators and keep the denominator.\nSubtraction works the same way: subtract the numerators, the denominator doesn't change.",
+   "formula": "[[3/8]] + [[2/8]] = [[5/8]]",
+   "sandbox": "Make up your own addition problem and show it with pies."
+  },
+  "math5.fr07-common-denominator": {
+   "title": "Common denominator",
+   "hook": "How do you add a half and a third if the pieces are different sizes?",
+   "page": "You can only add slices of the same size. So first cut both wholes into the same kind of slices.\nA number of slices that works for both is called a common denominator.",
+   "predict": {
+    "q": "How do you add [[1/2]] and [[1/3]]?",
+    "opts": [
+     "Add the numerators and the denominators: [[2/5]]",
+     "Cut both pies into slices of the same size",
+     "You can't, they can't be added"
+    ],
+    "why": "A half and a third can both be cut into sixths: [[1/2]] = [[3/6]], [[1/3]] = [[2/6]]. Now the slices are the same size."
+   },
+   "explore": [
+    "Give both pies the same number of slices without changing the shaded amounts. Try 6.",
+    "[[1/4]] and [[1/6]]: 24 slices would work, but there is a smaller number. Find it."
+   ],
+   "explain": "A common denominator is divisible by both denominators. The least one is the most convenient.\nHere is how to find it: list the multiples of the bigger denominator until you find one that the smaller one also divides.\nFor 4 and 6: 6, 12, and 12 works.",
+   "sandbox": "Pick any two fractions and find a common denominator for them with the pies."
+  },
+  "math5.fr08-add-unlike": {
+   "title": "Adding with unlike denominators",
+   "hook": "What is [[1/2]] + [[1/4]]?",
+   "page": "First rewrite the fractions with a common denominator, then add the numerators.\nIf the answer can be simplified, simplify it.",
+   "predict": {
+    "q": "[[1/2]] + [[1/4]] = ?",
+    "opts": [
+     "[[2/6]]",
+     "[[3/4]]",
+     "[[2/4]]"
+    ],
+    "why": "A half is two quarters. [[2/4]] + [[1/4]] = [[3/4]]."
+   },
+   "explore": [
+    "Cut the first pie into quarters. How many quarters are shaded?",
+    "Add them on one pie: [[2/4]] + [[1/4]].",
+    "[[2/3]] − [[1/2]]: turn both pies into sixths and compare."
+   ],
+   "explain": "1. Find a common denominator.\n2. Multiply the numerator and denominator of each fraction to get that denominator.\n3. Add or subtract the numerators.\n4. Simplify the answer if you can.",
+   "formula": "[[2/3]] − [[1/2]] = [[4/6]] − [[3/6]] = [[1/6]]",
+   "sandbox": "Check it with pies: does [[2/3]] + [[1/4]] = [[11/12]]?"
+  },
+  "math5.fr09-mixed": {
+   "title": "Mixed numbers",
+   "hook": "One and a half pies is how many halves?",
+   "page": "If there are more slices than fit in one whole, you get an improper fraction, such as [[7/4]].\nIt can also be written as a whole number and a fraction: [[1 3/4]]. That is a mixed number.",
+   "predict": {
+    "q": "How many quarters are in [[1 3/4]]?",
+    "opts": [
+     "4",
+     "7",
+     "13"
+    ],
+    "why": "One whole has 4 quarters, plus 3 more: 7 in all. [[1 3/4]] = [[7/4]]."
+   },
+   "explore": [
+    "One whole pie and [[3/4]] more. That is the mixed number [[1 3/4]], or [[7/4]].",
+    "Make [[2 2/3]]: shade the right number of slices on the third pie. How many thirds are there in all?"
+   ],
+   "explain": "Mixed number to fraction: multiply the whole number by the denominator and add the numerator.\nFraction to mixed number: divide the numerator by the denominator with a remainder. The quotient is the whole number, and the remainder is the new numerator.",
+   "formula": "[[2 2/3]] = [[8/3]]",
+   "sandbox": "Build a mixed number from pies and write it as an improper fraction."
+  },
+  "math5.fr10-of-number": {
+   "title": "A fraction of a number",
+   "hook": "A chocolate bar has 12 squares. How many squares are in two thirds of it?",
+   "page": "To find a fraction of a number, divide the number by the denominator: that gives one part.\nThen multiply by the numerator to take the right number of parts.",
+   "predict": {
+    "q": "A chocolate bar has 12 squares. How many squares are in [[2/3]] of the bar?",
+    "opts": [
+     "6",
+     "8",
+     "9"
+    ],
+    "why": "A third of 12 is 4 squares. Two thirds is 8 squares."
+   },
+   "explore": [
+    "The chocolate bar is split into 3 equal strips. Break off [[2/3]]: tap 2 strips.",
+    "20 squares, 4 strips. Break off [[3/4]]. How many squares is that?"
+   ],
+   "explain": "To find a fraction of a number, first divide the number by the denominator, then multiply by the numerator.\n[[2/3]] of 12: 12 ÷ 3 = 4, 4 × 2 = 8.",
+   "formula": "[[2/3]] of 12 = 12 ÷ 3 × 2 = 8",
+   "sandbox": "Break off strips and count: what part of the bar do you have, and how many squares is it?"
+  },
+  "math5.fr11-decimals": {
+   "title": "Decimals",
+   "hook": "[[3/10]] can be written more briefly!",
+   "page": "Fractions with denominators 10, 100 and 1000 are handy to write with a decimal point.\n[[3/10]] = 0.3, three tenths. [[7/100]] = 0.07, seven hundredths.",
+   "predict": {
+    "q": "How else can you write [[3/10]]?",
+    "opts": [
+     "3.10",
+     "0.3",
+     "0.03"
+    ],
+    "why": "Tenths go in the first place after the decimal point: [[3/10]] = 0.3."
+   },
+   "explore": [
+    "The segment from 0 to 1 is split into 10 parts. Put the bead on 0.7, which is [[7/10]].",
+    "Where is 0.5? Notice that it is also one half."
+   ],
+   "explain": "The first digit after the decimal point is tenths, the second is hundredths.\n[[45/100]] = 0.45. [[5/100]] = 0.05: the zero in the tenths place is required.",
+   "formula": "[[7/10]] = 0.7   [[7/100]] = 0.07",
+   "sandbox": "Move the bead and watch the decimal change."
+  },
+  "math5.fr12-mission": {
+   "title": "Final mission: fractions",
+   "hook": "Six problems on everything you learned about fractions.",
+   "page": "This mission has problems from different lessons: read a fraction, find it on the number line, simplify, compare, add, and find a fraction of a number.\nIf you forget something, the hints will help.",
+   "predict": {
+    "q": "Which fraction is greater than one?",
+    "opts": [
+     "[[7/8]]",
+     "[[8/8]]",
+     "[[9/8]]"
+    ],
+    "why": "[[8/8]] is exactly one whole pie. [[9/8]] is a whole pie and one more eighth."
+   },
+   "explore": [
+    "Warm-up: shade [[9/8]] using two pies."
+   ],
+   "explain": "Cheat sheet.\nThe numerator is how many parts we took; the denominator is how many parts the whole was split into.\nYou can multiply or divide the numerator and denominator by the same number: the fraction doesn't change.\nYou can only add slices of the same size.",
+   "sandbox": "Free play with pies: make up a problem for a friend."
+  },
+  "phys7.f01-force": {
+   "title": "What is a force",
+   "hook": "Why does a crate move when you pull it, but stay put when it is pulled from both sides?",
+   "page": "A force is the action of one object on another. A force can move an object, stop it, or change its shape.\nForce is measured in newtons (N). In pictures a force is drawn as an arrow: the arrow points where the force acts, and its length shows how big the force is.",
+   "predict": {
+    "q": "Two people pull a crate in opposite directions with the same force. What happens?",
+    "opts": [
+     "It moves left",
+     "It stays put",
+     "It moves right"
+    ],
+    "why": "Equal forces in opposite directions balance each other. The crate stays put."
+   },
+   "explore": [
+    "The crate is pulled with 20 N on the left and on the right. The arrows are the same length, and the crate stays put.",
+    "Raise the force on the right to 40 N. Which way did the crate go?",
+    "Now balance the crate: make the force on the left the same."
+   ],
+   "explain": "A force has a size and a direction.\nThe unit of force is the newton (N). Earth pulls on an apple with a mass of 100 g with a force of about 1 N.",
+   "sandbox": "Change the forces on the left and right and watch which way the crate moves."
+  },
+  "phys7.f02-gravity": {
+   "title": "Gravity",
+   "hook": "Why does everything fall down, and why is it easier to jump on the Moon?",
+   "page": "Earth pulls every object toward itself. This force is called the force of gravity.\nThe greater an object's mass, the harder Earth pulls on it. On other planets the pull is different.",
+   "predict": {
+    "q": "Which crate does Earth pull on harder?",
+    "opts": [
+     "The 1 kg crate",
+     "The same",
+     "The 10 kg crate"
+    ],
+    "why": "Gravity is proportional to mass: 10 kg is pulled 10 times harder than 1 kg."
+   },
+   "explore": [
+    "Raise the crate's mass to 10 kg. Look at the arrow and the number.",
+    "Move the crate to the Moon. The mass is the same, but what about the force?",
+    "And now to Jupiter."
+   ],
+   "explain": "Force of gravity: F = m · g.\nm is the mass in kilograms; g is how many newtons act on each kilogram. On Earth g ≈ 9.8 N/kg, and in problems we use 10 N/kg.\nOn the Moon g ≈ 1.6 N/kg, so everything there is about 6 times easier to lift.",
+   "formula": "F = m · g",
+   "sandbox": "Choose a mass and a planet. Where would it be easiest for you to jump?"
+  },
+  "phys7.f03-spring": {
+   "title": "Elastic force",
+   "hook": "How does a spring know what weight is hanging on it?",
+   "page": "If you stretch or squeeze a spring, an elastic force appears in it. It tries to bring the spring back to its original shape.\nThe more a spring is stretched, the bigger the elastic force. This is how a spring scale, a tool for measuring force, works.",
+   "predict": {
+    "q": "With one weight the spring stretched by 2 cm. How much will it stretch with three of the same weights?",
+    "opts": [
+     "3 cm",
+     "6 cm",
+     "9 cm"
+    ],
+    "why": "The stretch is proportional to the force: three times the weight gives three times the stretch, 6 cm."
+   },
+   "explore": [
+    "Hang one 100 g weight; gravity pulls on it with 1 N. Tap the stack of weights on the table.",
+    "Add two more weights. How many times bigger is the stretch now?",
+    "Take a stiffer spring: 100 N/m. What happened to the stretch?"
+   ],
+   "explain": "Hooke's law: the elastic force is proportional to the stretch.\nF = k · Δl, where Δl is the stretch in meters and k is the spring's stiffness in N/m.\nA stiff spring stretches less under the same force.",
+   "formula": "F = k · Δl",
+   "sandbox": "Hang weights and change springs. Make your own spring scale: remember how many centimeters 1 N gives."
+  },
+  "phys7.f04-weight": {
+   "title": "Weight",
+   "hook": "Are mass and weight the same thing?",
+   "page": "Weight is the force with which an object presses on a support or stretches what it hangs from. Weight is measured in newtons, and mass in kilograms.\nIf the object and the support are not moving, the weight equals the force of gravity: P = m · g.",
+   "predict": {
+    "q": "An apple has a mass of 200 g. What is its weight on Earth?",
+    "opts": [
+     "200 N",
+     "2 N",
+     "0.2 N"
+    ],
+    "why": "200 g = 0.2 kg. P = 0.2 kg × 10 N/kg = 2 N."
+   },
+   "explore": [
+    "Put 1 kg on the support. Weight is the force with which the crate presses on the support.",
+    "Move the crate to the Moon. The mass is the same, but the weight is about 6 times smaller."
+   ],
+   "explain": "Mass shows how much matter is in an object and doesn't depend on the planet.\nWeight is a force, and it depends on g: P = m · g.\nOn the Moon your mass is the same, but your weight is 6 times smaller.",
+   "formula": "P = m · g",
+   "sandbox": "Compare the weight of the same crate on different planets."
+  },
+  "phys7.f05-friction": {
+   "title": "Friction",
+   "hook": "Why is a heavy wardrobe so hard to move?",
+   "page": "When one object slides over another, a friction force appears. It points against the motion.\nFriction depends on the surfaces and on how hard the object is pressed against its support.",
+   "predict": {
+    "q": "Someone pulls a crate, but it doesn't move. Why?",
+    "opts": [
+     "The pull is bigger than friction",
+     "Friction balances the pull",
+     "No forces act on the crate"
+    ],
+    "why": "While the crate stays put, static friction equals the pull and balances it."
+   },
+   "explore": [
+    "Pull the blue ring of the spring scale or press “+”. At what force does the crate start to move?",
+    "Put the crate on ice. How much force do you need to move it now?",
+    "Raise the mass to 10 kg. How did friction change?"
+   ],
+   "explain": "Sliding friction: F = μ · N.\nN is the force with which the object presses on the support. On a flat floor N = m · g.\nμ is the coefficient of friction: small for ice, large for rubber.",
+   "formula": "F = μ · m · g",
+   "sandbox": "Try every surface and different masses. Where is friction smallest?"
+  },
+  "phys7.f06-sum": {
+   "title": "Adding forces",
+   "hook": "If two people pull, is it twice as strong?",
+   "page": "If several forces act on an object, they can be replaced by one force: the net force.\nForces in the same direction add up. Forces in opposite directions subtract, and the net force points toward the bigger one.",
+   "predict": {
+    "q": "Two people pull a crate to the right: one with 30 N, the other with 20 N. How strongly do they pull together?",
+    "opts": [
+     "10 N",
+     "50 N",
+     "600 N"
+    ],
+    "why": "The forces point the same way, so they add up: 30 + 20 = 50 N."
+   },
+   "explore": [
+    "Right now the crate is pulled to the right with 30 N. Add another 20 N on the right.",
+    "30 N on the left, 50 N on the right. The net force is 20 N to the right: bigger minus smaller.",
+    "Raise the force on the left to 50 N. What happened to the net force?"
+   ],
+   "explain": "Forces along one line:\nsame direction: R = F₁ + F₂;\nopposite directions: R = bigger − smaller, pointing toward the bigger one.\nIf R = 0, the object behaves as if there were no forces.",
+   "sandbox": "Choose forces so that the net force is 10 N to the left."
+  },
+  "phys7.f07-balance": {
+   "title": "Equilibrium",
+   "hook": "Why doesn't a hanging lamp fall?",
+   "page": "An object is in equilibrium if all the forces on it are balanced. Then the net force is zero.\nAn object at rest stays at rest, and a moving object keeps moving at a steady speed.",
+   "predict": {
+    "q": "A crate is standing still. That means…",
+    "opts": [
+     "No forces act on it",
+     "Balanced forces act on it",
+     "Only gravity acts on it"
+    ],
+    "why": "Gravity always acts on the crate. It stays still because the support balances gravity."
+   },
+   "explore": [
+    "60 N on the left, 20 N on the right. Balance the crate by adding force on the right.",
+    "A weight hangs still on a spring: the elastic force up equals gravity down."
+   ],
+   "explain": "Equilibrium: the net force of all forces is zero.\nFor a weight on a spring: k · Δl = m · g.\nFor a crate pulled from both sides: F on the left = F on the right.",
+   "sandbox": "Balance the crate with different forces."
+  },
+  "phys7.f08-mission": {
+   "title": "Final mission: forces",
+   "hook": "Six problems for a real engineer.",
+   "page": "In this mission you will meet gravity, springs, friction and adding forces.\nIn every problem g = 10 N/kg unless it says otherwise. Hints are close by.",
+   "predict": {
+    "q": "An astronaut picks up a weight on the Moon. What is different compared with Earth?",
+    "opts": [
+     "The mass of the weight",
+     "The weight of the weight",
+     "Both the mass and the weight"
+    ],
+    "why": "Mass doesn't depend on the planet. The weight changes, because g is smaller on the Moon."
+   },
+   "explore": [
+    "Move a 20 kg weight to Mars and look at the force of gravity."
+   ],
+   "explain": "Cheat sheet.\nF = m · g: gravity.\nF = k · Δl: elastic force (Δl in meters).\nF = μ · m · g: sliding friction.\nForces in the same direction add up; in opposite directions they subtract.",
+   "sandbox": "Free lab: pull the crate across ice and across rubber."
+  }
+ }
+}

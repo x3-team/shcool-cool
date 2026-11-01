@@ -1,0 +1,85 @@
+{
+ "id": "phys7.f08-mission",
+ "unit": "phys7-forces",
+ "track": "core",
+ "skills": [
+  "phys.force.review"
+ ],
+ "prereq": [
+  "phys.force.friction",
+  "phys.force.balance"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 7
+  },
+  "us-ccss": {
+   "grade": "6–8",
+   "code": "MS-PS2-2"
+  },
+  "in-ncert": {
+   "grade": 8
+  }
+ },
+ "scene": {
+  "instrument": "forces-lab",
+  "state": {
+   "mode": "gravity",
+   "mass": 20,
+   "planet": "earth",
+   "g": 10
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "mode": "gravity",
+    "mass": 20,
+    "planet": "earth",
+    "g": 10
+   },
+   "goal": {
+    "planet": "mars"
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "force.gravityGrams",
+   "level": 2
+  },
+  {
+   "type": "force.hooke",
+   "level": 2
+  },
+  {
+   "type": "force.sumOpp",
+   "level": 2
+  },
+  {
+   "type": "force.friction",
+   "level": 3
+  },
+  {
+   "type": "force.planet",
+   "level": 3
+  },
+  {
+   "type": "force.stiffness",
+   "level": 3
+  }
+ ],
+ "sandbox": {
+  "instrument": "forces-lab",
+  "state": {
+   "mode": "friction",
+   "mass": 10,
+   "mu": 0.1,
+   "pull": 0
+  }
+ }
+}

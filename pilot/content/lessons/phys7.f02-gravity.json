@@ -1,0 +1,109 @@
+{
+ "id": "phys7.f02-gravity",
+ "unit": "phys7-forces",
+ "track": "core",
+ "skills": [
+  "phys.force.gravity"
+ ],
+ "prereq": [
+  "phys.force.meaning"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 7
+  },
+  "us-ccss": {
+   "grade": "6–8",
+   "code": "MS-PS2-4"
+  },
+  "in-ncert": {
+   "grade": 8
+  }
+ },
+ "scene": {
+  "instrument": "forces-lab",
+  "state": {
+   "mode": "gravity",
+   "mass": 5,
+   "planet": "earth",
+   "g": 10
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 2
+ },
+ "explore": [
+  {
+   "state": {
+    "mode": "gravity",
+    "mass": 1,
+    "planet": "earth",
+    "g": 10
+   },
+   "goal": {
+    "mass": 10
+   }
+  },
+  {
+   "goal": {
+    "planet": "moon"
+   }
+  },
+  {
+   "goal": {
+    "planet": "jupiter"
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "force.gravity",
+   "level": 1,
+   "params": {
+    "masses": [
+     1,
+     2,
+     3,
+     5
+    ]
+   }
+  },
+  {
+   "type": "force.gravity",
+   "level": 1,
+   "params": {
+    "masses": [
+     8,
+     12,
+     20
+    ]
+   }
+  },
+  {
+   "type": "force.gravityGrams",
+   "level": 2
+  },
+  {
+   "type": "force.gravityGrams",
+   "level": 2
+  },
+  {
+   "type": "force.planet",
+   "level": 3
+  },
+  {
+   "type": "force.planet",
+   "level": 3
+  }
+ ],
+ "sandbox": {
+  "instrument": "forces-lab",
+  "state": {
+   "mode": "gravity",
+   "mass": 10,
+   "planet": "earth",
+   "g": 10
+  }
+ }
+}

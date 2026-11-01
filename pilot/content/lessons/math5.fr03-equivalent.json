@@ -1,0 +1,182 @@
+{
+ "id": "math5.fr03-equivalent",
+ "unit": "math5-fractions",
+ "track": "core",
+ "skills": [
+  "math.frac.equivalent"
+ ],
+ "prereq": [
+  "math.frac.meaning"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 5
+  },
+  "us-ccss": {
+   "grade": 4,
+   "code": "4.NF.A.1"
+  },
+  "in-ncert": {
+   "grade": 6
+  }
+ },
+ "scene": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 2,
+     "k": 1
+    },
+    {
+     "n": 4,
+     "k": 2
+    }
+   ]
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 2,
+      "k": 1
+     },
+     {
+      "n": 4,
+      "k": 0
+     }
+    ]
+   },
+   "goal": {
+    "pies.1.k": 2
+   }
+  },
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 3,
+      "k": 1
+     },
+     {
+      "n": 6,
+      "k": 0
+     }
+    ]
+   },
+   "goal": {
+    "pies.1.k": 2
+   }
+  },
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 3,
+      "k": 2
+     },
+     {
+      "n": 9,
+      "k": 0
+     }
+    ]
+   },
+   "goal": {
+    "pies.1.k": 6
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "frac.equiv",
+   "level": 1,
+   "params": {
+    "dens": [
+     2,
+     3
+    ],
+    "maxMul": 3
+   }
+  },
+  {
+   "type": "frac.equiv",
+   "level": 1,
+   "params": {
+    "dens": [
+     2,
+     4
+    ],
+    "maxMul": 3
+   }
+  },
+  {
+   "type": "frac.equiv",
+   "level": 2,
+   "params": {
+    "dens": [
+     3,
+     4,
+     5
+    ],
+    "maxMul": 4
+   }
+  },
+  {
+   "type": "frac.equiv",
+   "level": 2,
+   "params": {
+    "dens": [
+     3,
+     4,
+     5
+    ],
+    "maxMul": 4
+   }
+  },
+  {
+   "type": "frac.equiv",
+   "level": 3,
+   "params": {
+    "dens": [
+     5,
+     6,
+     7
+    ],
+    "maxMul": 6
+   }
+  },
+  {
+   "type": "frac.equiv",
+   "level": 3,
+   "params": {
+    "dens": [
+     6,
+     7,
+     8
+    ],
+    "maxMul": 6
+   }
+  }
+ ],
+ "sandbox": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 3,
+     "k": 2
+    },
+    {
+     "n": 6,
+     "k": 4
+    }
+   ]
+  }
+ }
+}

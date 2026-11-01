@@ -1,0 +1,171 @@
+{
+ "id": "math5.fr06-add-same",
+ "unit": "math5-fractions",
+ "track": "core",
+ "skills": [
+  "math.frac.add-same-den"
+ ],
+ "prereq": [
+  "math.frac.meaning"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 5
+  },
+  "us-ccss": {
+   "grade": 4,
+   "code": "4.NF.B.3"
+  },
+  "in-ncert": {
+   "grade": 6
+  }
+ },
+ "scene": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 8,
+     "k": 3
+    },
+    {
+     "n": 8,
+     "k": 2
+    }
+   ]
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 8,
+      "k": 3
+     },
+     {
+      "n": 8,
+      "k": 2
+     }
+    ]
+   }
+  },
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 8,
+      "k": 0
+     }
+    ]
+   },
+   "goal": {
+    "pies.0.k": 5
+   }
+  },
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 6,
+      "k": 5
+     }
+    ]
+   },
+   "goal": {
+    "pies.0.k": 2
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "frac.addSame",
+   "level": 1,
+   "params": {
+    "dens": [
+     4,
+     5,
+     6
+    ]
+   }
+  },
+  {
+   "type": "frac.subSame",
+   "level": 1,
+   "params": {
+    "dens": [
+     4,
+     5,
+     6
+    ]
+   }
+  },
+  {
+   "type": "frac.addSame",
+   "level": 2,
+   "params": {
+    "dens": [
+     7,
+     8,
+     9,
+     10
+    ]
+   }
+  },
+  {
+   "type": "frac.subSame",
+   "level": 2,
+   "params": {
+    "dens": [
+     8,
+     9,
+     10,
+     12
+    ]
+   }
+  },
+  {
+   "type": "frac.addSame",
+   "level": 3,
+   "params": {
+    "dens": [
+     5,
+     6,
+     7,
+     8
+    ],
+    "overOne": true
+   }
+  },
+  {
+   "type": "frac.subSame",
+   "level": 3,
+   "params": {
+    "dens": [
+     9,
+     10,
+     12
+    ]
+   }
+  }
+ ],
+ "sandbox": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 8,
+     "k": 3
+    },
+    {
+     "n": 8,
+     "k": 2
+    }
+   ]
+  }
+ }
+}

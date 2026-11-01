@@ -1,0 +1,89 @@
+{
+ "id": "phys7.f07-balance",
+ "unit": "phys7-forces",
+ "track": "core",
+ "skills": [
+  "phys.force.balance"
+ ],
+ "prereq": [
+  "phys.force.resultant",
+  "phys.force.elastic"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 7
+  },
+  "us-ccss": {
+   "grade": "6–8",
+   "code": "MS-PS2-2"
+  },
+  "in-ncert": {
+   "grade": 8
+  }
+ },
+ "scene": {
+  "instrument": "forces-lab",
+  "state": {
+   "mode": "tug",
+   "left": 40,
+   "right": 40
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "mode": "tug",
+    "left": 60,
+    "right": 20
+   },
+   "goal": {
+    "right": 60
+   }
+  },
+  {
+   "state": {
+    "mode": "spring",
+    "k": 50,
+    "weights": 4
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "force.tugScene",
+   "level": 1
+  },
+  {
+   "type": "force.sumOpp",
+   "level": 1
+  },
+  {
+   "type": "force.springScene",
+   "level": 2
+  },
+  {
+   "type": "force.hooke",
+   "level": 2
+  },
+  {
+   "type": "force.tugScene",
+   "level": 3
+  },
+  {
+   "type": "force.stiffness",
+   "level": 3
+  }
+ ],
+ "sandbox": {
+  "instrument": "forces-lab",
+  "state": {
+   "mode": "tug",
+   "left": 50,
+   "right": 50
+  }
+ }
+}

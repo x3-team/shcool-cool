@@ -1,0 +1,162 @@
+{
+ "id": "math5.fr09-mixed",
+ "unit": "math5-fractions",
+ "track": "core",
+ "skills": [
+  "math.frac.mixed"
+ ],
+ "prereq": [
+  "math.frac.meaning"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 5
+  },
+  "us-ccss": {
+   "grade": 4,
+   "code": "4.NF.B.3"
+  },
+  "in-ncert": {
+   "grade": 6
+  }
+ },
+ "scene": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 4,
+     "k": 4
+    },
+    {
+     "n": 4,
+     "k": 3
+    }
+   ]
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 4,
+      "k": 4
+     },
+     {
+      "n": 4,
+      "k": 3
+     }
+    ]
+   }
+  },
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 3,
+      "k": 3
+     },
+     {
+      "n": 3,
+      "k": 3
+     },
+     {
+      "n": 3,
+      "k": 0
+     }
+    ]
+   },
+   "goal": {
+    "pies.2.k": 2
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "frac.toImproper",
+   "level": 1,
+   "params": {
+    "dens": [
+     2,
+     3,
+     4
+    ]
+   }
+  },
+  {
+   "type": "frac.toImproper",
+   "level": 1,
+   "params": {
+    "dens": [
+     2,
+     3,
+     4
+    ]
+   }
+  },
+  {
+   "type": "frac.toMixed",
+   "level": 2,
+   "params": {
+    "dens": [
+     2,
+     3,
+     4
+    ]
+   }
+  },
+  {
+   "type": "frac.toMixed",
+   "level": 2,
+   "params": {
+    "dens": [
+     3,
+     4,
+     5
+    ]
+   }
+  },
+  {
+   "type": "frac.toImproper",
+   "level": 3,
+   "params": {
+    "dens": [
+     5,
+     6,
+     8
+    ]
+   }
+  },
+  {
+   "type": "frac.toMixed",
+   "level": 3,
+   "params": {
+    "dens": [
+     5,
+     6,
+     8
+    ]
+   }
+  }
+ ],
+ "sandbox": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 5,
+     "k": 5
+    },
+    {
+     "n": 5,
+     "k": 2
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,180 @@
+{
+ "id": "math5.fr04-simplify",
+ "unit": "math5-fractions",
+ "track": "core",
+ "skills": [
+  "math.frac.simplify"
+ ],
+ "prereq": [
+  "math.frac.equivalent"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 5
+  },
+  "us-ccss": {
+   "grade": 4,
+   "code": "4.NF.A.1"
+  },
+  "in-ncert": {
+   "grade": 6
+  }
+ },
+ "scene": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 8,
+     "k": 6
+    },
+    {
+     "n": 4,
+     "k": 3
+    }
+   ]
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 8,
+      "k": 6
+     }
+    ]
+   },
+   "goal": {
+    "pies.0.n": 4,
+    "pies.0.k": 3
+   }
+  },
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 10,
+      "k": 4
+     }
+    ]
+   },
+   "goal": {
+    "pies.0.n": 5,
+    "pies.0.k": 2
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "frac.simplify",
+   "level": 1,
+   "params": {
+    "dens": [
+     2,
+     3
+    ],
+    "muls": [
+     2
+    ]
+   }
+  },
+  {
+   "type": "frac.simplify",
+   "level": 1,
+   "params": {
+    "dens": [
+     2,
+     3,
+     4
+    ],
+    "muls": [
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "type": "frac.simplify",
+   "level": 2,
+   "params": {
+    "dens": [
+     3,
+     4,
+     5
+    ],
+    "muls": [
+     2,
+     3,
+     4
+    ]
+   }
+  },
+  {
+   "type": "frac.simplify",
+   "level": 2,
+   "params": {
+    "dens": [
+     3,
+     4,
+     5
+    ],
+    "muls": [
+     2,
+     3,
+     4
+    ]
+   }
+  },
+  {
+   "type": "frac.simplify",
+   "level": 3,
+   "params": {
+    "dens": [
+     5,
+     7,
+     8,
+     9
+    ],
+    "muls": [
+     3,
+     4,
+     5,
+     6
+    ]
+   }
+  },
+  {
+   "type": "frac.simplify",
+   "level": 3,
+   "params": {
+    "dens": [
+     5,
+     7,
+     8,
+     9
+    ],
+    "muls": [
+     4,
+     5,
+     6
+    ]
+   }
+  }
+ ],
+ "sandbox": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 12,
+     "k": 8
+    }
+   ]
+  }
+ }
+}

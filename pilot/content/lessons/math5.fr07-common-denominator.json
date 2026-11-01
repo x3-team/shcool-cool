@@ -1,0 +1,173 @@
+{
+ "id": "math5.fr07-common-denominator",
+ "unit": "math5-fractions",
+ "track": "core",
+ "skills": [
+  "math.frac.common-denominator"
+ ],
+ "prereq": [
+  "math.frac.equivalent"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 5
+  },
+  "us-ccss": {
+   "grade": 5,
+   "code": "5.NF.A.1"
+  },
+  "in-ncert": {
+   "grade": 6
+  }
+ },
+ "scene": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 2,
+     "k": 1
+    },
+    {
+     "n": 3,
+     "k": 1
+    }
+   ]
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 2,
+      "k": 1
+     },
+     {
+      "n": 3,
+      "k": 1
+     }
+    ]
+   },
+   "goal": {
+    "pies.0.n": 6,
+    "pies.1.n": 6
+   }
+  },
+  {
+   "state": {
+    "pies": [
+     {
+      "n": 4,
+      "k": 1
+     },
+     {
+      "n": 6,
+      "k": 1
+     }
+    ]
+   },
+   "goal": {
+    "pies.0.n": 12,
+    "pies.1.n": 12
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "frac.lcd",
+   "level": 1,
+   "params": {
+    "dens": [
+     2,
+     4,
+     8
+    ]
+   }
+  },
+  {
+   "type": "frac.lcd",
+   "level": 1,
+   "params": {
+    "dens": [
+     2,
+     3,
+     4,
+     6
+    ]
+   }
+  },
+  {
+   "type": "frac.lcd",
+   "level": 2,
+   "params": {
+    "dens": [
+     3,
+     4,
+     5,
+     6
+    ]
+   }
+  },
+  {
+   "type": "frac.lcd",
+   "level": 2,
+   "params": {
+    "dens": [
+     4,
+     6,
+     8,
+     10
+    ]
+   }
+  },
+  {
+   "type": "frac.lcd",
+   "level": 3,
+   "params": {
+    "dens": [
+     4,
+     6,
+     8,
+     9,
+     10,
+     12
+    ],
+    "notCoprime": true
+   }
+  },
+  {
+   "type": "frac.lcd",
+   "level": 3,
+   "params": {
+    "dens": [
+     6,
+     8,
+     9,
+     10,
+     12
+    ],
+    "notCoprime": true
+   }
+  }
+ ],
+ "sandbox": {
+  "instrument": "fraction-pie",
+  "state": {
+   "pies": [
+    {
+     "n": 4,
+     "k": 1
+    },
+    {
+     "n": 6,
+     "k": 1
+    }
+   ]
+  }
+ }
+}

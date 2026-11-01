@@ -1,0 +1,94 @@
+{
+ "id": "phys7.f05-friction",
+ "unit": "phys7-forces",
+ "track": "core",
+ "skills": [
+  "phys.force.friction"
+ ],
+ "prereq": [
+  "phys.force.gravity"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 7
+  },
+  "us-ccss": {
+   "grade": "6–8",
+   "code": "MS-PS2-2"
+  },
+  "in-ncert": {
+   "grade": 8
+  }
+ },
+ "scene": {
+  "instrument": "forces-lab",
+  "state": {
+   "mode": "friction",
+   "mass": 3,
+   "mu": 0.3,
+   "pull": 0
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "mode": "friction",
+    "mass": 3,
+    "mu": 0.3,
+    "pull": 0
+   },
+   "goal": {
+    "pull": 9
+   }
+  },
+  {
+   "goal": {
+    "mu": 0.1
+   }
+  },
+  {
+   "goal": {
+    "mass": 10
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "force.uniform",
+   "level": 1
+  },
+  {
+   "type": "force.friction",
+   "level": 1
+  },
+  {
+   "type": "force.friction",
+   "level": 2
+  },
+  {
+   "type": "force.uniform",
+   "level": 2
+  },
+  {
+   "type": "force.friction",
+   "level": 3
+  },
+  {
+   "type": "force.friction",
+   "level": 3
+  }
+ ],
+ "sandbox": {
+  "instrument": "forces-lab",
+  "state": {
+   "mode": "friction",
+   "mass": 5,
+   "mu": 0.3,
+   "pull": 0
+  }
+ }
+}

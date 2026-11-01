@@ -1,0 +1,76 @@
+{
+ "id": "pilot-2026-11",
+ "languages": [
+  "ru",
+  "en",
+  "es",
+  "ar",
+  "hi",
+  "zh"
+ ],
+ "curricula": {
+  "ru-fgos": {},
+  "us-ccss": {},
+  "in-ncert": {}
+ },
+ "units": [
+  {
+   "id": "math5-fractions",
+   "subject": "math",
+   "icon": "🥧",
+   "tint": "#FBEFD9",
+   "lessons": [
+    "math5.fr01-parts",
+    "math5.fr02-number-line",
+    "math5.fr03-equivalent",
+    "math5.fr04-simplify",
+    "math5.fr05-compare",
+    "math5.fr06-add-same",
+    "math5.fr07-common-denominator",
+    "math5.fr08-add-unlike",
+    "math5.fr09-mixed",
+    "math5.fr10-of-number",
+    "math5.fr11-decimals",
+    "math5.fr12-mission"
+   ],
+   "curricula": {
+    "ru-fgos": {
+     "grade": "5"
+    },
+    "us-ccss": {
+     "grade": "3–5"
+    },
+    "in-ncert": {
+     "grade": "6"
+    }
+   }
+  },
+  {
+   "id": "phys7-forces",
+   "subject": "physics",
+   "icon": "🧲",
+   "tint": "#E3ECFB",
+   "lessons": [
+    "phys7.f01-force",
+    "phys7.f02-gravity",
+    "phys7.f03-spring",
+    "phys7.f04-weight",
+    "phys7.f05-friction",
+    "phys7.f06-sum",
+    "phys7.f07-balance",
+    "phys7.f08-mission"
+   ],
+   "curricula": {
+    "ru-fgos": {
+     "grade": "7"
+    },
+    "us-ccss": {
+     "grade": "6–8"
+    },
+    "in-ncert": {
+     "grade": "8"
+    }
+   }
+  }
+ ]
+}

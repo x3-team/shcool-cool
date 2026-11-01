@@ -1,0 +1,147 @@
+{
+ "id": "math5.fr10-of-number",
+ "unit": "math5-fractions",
+ "track": "core",
+ "skills": [
+  "math.frac.of-number"
+ ],
+ "prereq": [
+  "math.frac.meaning"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 5
+  },
+  "us-ccss": {
+   "grade": 4,
+   "code": "4.NF.B.4"
+  },
+  "in-ncert": {
+   "grade": 6
+  }
+ },
+ "scene": {
+  "instrument": "chocolate-bar",
+  "state": {
+   "rows": 3,
+   "cols": 4,
+   "total": 12,
+   "pick": 0
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "rows": 3,
+    "cols": 4,
+    "total": 12,
+    "pick": 0
+   },
+   "goal": {
+    "pick": 2
+   }
+  },
+  {
+   "state": {
+    "rows": 4,
+    "cols": 5,
+    "total": 20,
+    "pick": 0
+   },
+   "goal": {
+    "pick": 3
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "frac.ofNumber",
+   "level": 1,
+   "params": {
+    "dens": [
+     2,
+     3,
+     4
+    ],
+    "maxQ": 5
+   }
+  },
+  {
+   "type": "frac.ofNumber",
+   "level": 1,
+   "params": {
+    "dens": [
+     2,
+     3,
+     4
+    ],
+    "maxQ": 5
+   }
+  },
+  {
+   "type": "frac.ofNumber",
+   "level": 2,
+   "params": {
+    "dens": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "maxQ": 8
+   }
+  },
+  {
+   "type": "frac.ofNumber",
+   "level": 2,
+   "params": {
+    "dens": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "maxQ": 8
+   }
+  },
+  {
+   "type": "frac.ofNumber",
+   "level": 3,
+   "params": {
+    "dens": [
+     5,
+     6,
+     8,
+     10
+    ],
+    "maxQ": 25
+   }
+  },
+  {
+   "type": "frac.ofNumber",
+   "level": 3,
+   "params": {
+    "dens": [
+     5,
+     6,
+     8,
+     10
+    ],
+    "maxQ": 25
+   }
+  }
+ ],
+ "sandbox": {
+  "instrument": "chocolate-bar",
+  "state": {
+   "rows": 5,
+   "cols": 6,
+   "total": 30,
+   "pick": 0
+  }
+ }
+}

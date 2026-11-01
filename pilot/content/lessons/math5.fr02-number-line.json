@@ -1,0 +1,139 @@
+{
+ "id": "math5.fr02-number-line",
+ "unit": "math5-fractions",
+ "track": "core",
+ "skills": [
+  "math.frac.number-line"
+ ],
+ "prereq": [
+  "math.frac.meaning"
+ ],
+ "curricula": {
+  "ru-fgos": {
+   "grade": 5
+  },
+  "us-ccss": {
+   "grade": 3,
+   "code": "3.NF.A.2"
+  },
+  "in-ncert": {
+   "grade": 6
+  }
+ },
+ "scene": {
+  "instrument": "number-line",
+  "state": {
+   "n": 4,
+   "max": 1,
+   "point": 1
+  }
+ },
+ "predict": {
+  "options": 3,
+  "correct": 1
+ },
+ "explore": [
+  {
+   "state": {
+    "n": 4,
+    "max": 1,
+    "point": 0
+   },
+   "goal": {
+    "point": 3
+   }
+  },
+  {
+   "goal": {
+    "n": 8,
+    "point": 6
+   }
+  },
+  {
+   "state": {
+    "n": 3,
+    "max": 2,
+    "point": 0
+   },
+   "goal": {
+    "point": 4
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "type": "frac.numline",
+   "level": 1,
+   "params": {
+    "dens": [
+     2,
+     4
+    ]
+   }
+  },
+  {
+   "type": "frac.place",
+   "level": 1,
+   "params": {
+    "dens": [
+     3,
+     4
+    ]
+   }
+  },
+  {
+   "type": "frac.numline",
+   "level": 2,
+   "params": {
+    "dens": [
+     5,
+     6,
+     8
+    ]
+   }
+  },
+  {
+   "type": "frac.place",
+   "level": 2,
+   "params": {
+    "dens": [
+     5,
+     6,
+     8
+    ]
+   }
+  },
+  {
+   "type": "frac.numline",
+   "level": 3,
+   "params": {
+    "dens": [
+     3,
+     4,
+     5
+    ],
+    "max": 2
+   }
+  },
+  {
+   "type": "frac.place",
+   "level": 3,
+   "params": {
+    "dens": [
+     3,
+     4,
+     6
+    ],
+    "max": 2
+   }
+  }
+ ],
+ "sandbox": {
+  "instrument": "number-line",
+  "state": {
+   "n": 5,
+   "max": 2,
+   "point": 3
+  }
+ }
+}
