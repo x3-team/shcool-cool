@@ -1,484 +1,303 @@
 <title>School Cool</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=Caveat:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Manrope:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: notebook page (theory + prediction) beside a toy 3D lab, then the school map below */
+/* Layout: one screen. The 3D experiment fills the stage; a single lesson card floats beside it and shows one step at a time. Blue = something you can press. */
 :root{
-  --sky:#E6F0F7; --paper:#FFFFFF; --grid:#D6E4F2; --margin:#FF8FA3;
-  --ink:#1B2A4E; --ink-soft:#56627F; --line:#C9D7E8;
-  --sun:#FFC83D; --sun-ink:#5A3D00;
-  --coral:#FF6F61; --mint:#22B8A6; --violet:#7B6CF6;
-  --card:#F5F9FD; --ok:#1E9E6A; --shadow:0 10px 30px -12px rgba(27,42,78,.35);
-  --display:"Unbounded","Arial Rounded MT Bold",system-ui,sans-serif;
-  --body:"Nunito","Segoe UI",system-ui,sans-serif;
-  --hand:"Caveat","Comic Sans MS",cursive;
-  --stage1:#CFE4F3; --stage2:#F3F8FC;
+  --desk:#E4E8E3; --paper:#FFFFFF; --ink:#22262B; --muted:#6A706C; --line:#D5DAD4;
+  --act:#2F62E8; --act-soft:#E7EEFF; --good:#1F8A5B; --good-soft:#E3F3EA;
+  --a:#E8A13C; --b:#7C9CC4;
+  --serif:"Literata",Georgia,"Times New Roman",serif;
+  --sans:"Manrope","Segoe UI",system-ui,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --sky:#0F1830; --paper:#16223F; --grid:#22335A; --margin:#B4566A;
-  --ink:#EEF3FF; --ink-soft:#A8B4D3; --line:#2B3C66;
-  --card:#1B2A4C; --shadow:0 10px 30px -12px rgba(0,0,0,.6);
-  --stage1:#1A2A4E; --stage2:#0F1A33; color-scheme:dark }}
+  --desk:#1B1F1D; --paper:#262B29; --ink:#ECEFEC; --muted:#A3AAA5; --line:#3A413D;
+  --act:#7A9CFF; --act-soft:#26304D; --good:#5CC48F; --good-soft:#1F3A2C; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --sky:#0F1830; --paper:#16223F; --grid:#22335A; --margin:#B4566A;
-  --ink:#EEF3FF; --ink-soft:#A8B4D3; --line:#2B3C66;
-  --card:#1B2A4C; --shadow:0 10px 30px -12px rgba(0,0,0,.6);
-  --stage1:#1A2A4E; --stage2:#0F1A33; color-scheme:dark }
+  --desk:#1B1F1D; --paper:#262B29; --ink:#ECEFEC; --muted:#A3AAA5; --line:#3A413D;
+  --act:#7A9CFF; --act-soft:#26304D; --good:#5CC48F; --good-soft:#1F3A2C; color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--sky);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
-.wrap{max-width:1240px;margin:0 auto}
-button{font:inherit;color:inherit;cursor:pointer}
-button:focus-visible,input:focus-visible,.flap:focus-visible{outline:3px solid var(--violet);outline-offset:3px}
+html,body{height:100%}
+body{background:var(--desk);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;
+  display:flex;flex-direction:column;overflow:hidden;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 16px}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--act);outline-offset:2px;border-radius:10px}
 
-/* top bar */
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:18px;flex-wrap:wrap}
-.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.02em}
-.logo b{color:var(--coral)} .logo i{font-style:normal;color:var(--mint)}
-.stats{display:flex;gap:8px;flex-wrap:wrap}
-.pill{display:flex;align-items:center;gap:6px;background:var(--paper);border:2px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:800;font-size:14px;font-variant-numeric:tabular-nums}
-.pill .dot{width:10px;height:10px;border-radius:50%}
-.pill.bump{animation:bump .5s}
-@keyframes bump{40%{transform:scale(1.18)}}
+.bar{display:flex;align-items:center;gap:16px;padding-block:14px;flex:none}
+.logo{font-weight:700;font-size:17px;letter-spacing:-.01em;white-space:nowrap}
+.logo span{color:var(--act)}
+.crumb{color:var(--muted);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.prog{margin-left:auto;display:flex;gap:6px;align-items:center;flex:none}
+.prog i{width:28px;height:5px;border-radius:9px;background:var(--line);transition:background .3s}
+.prog i.on{background:var(--ink)}
 
-/* steps */
-.steps{display:flex;gap:6px;margin-block:4px 16px;flex-wrap:wrap}
-.step{display:flex;align-items:center;gap:8px;padding:6px 14px 6px 6px;border-radius:999px;background:transparent;border:2px dashed var(--line);font-weight:700;font-size:14px;color:var(--ink-soft)}
-.step span{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--card);font-family:var(--display);font-size:12px}
-.step.on{border-style:solid;border-color:var(--ink);color:var(--ink);background:var(--paper)}
-.step.on span{background:var(--sun);color:var(--sun-ink)}
-.step.done{border-style:solid;color:var(--ok);border-color:var(--ok)}
-.step.done span{background:var(--ok);color:#fff}
+.stage{position:relative;flex:1;min-height:0;border-radius:22px;overflow:hidden;background:var(--desk);box-shadow:inset 0 0 0 1px var(--line)}
+#gl{position:absolute;inset:0;cursor:grab;touch-action:none}
+#gl canvas{display:block;width:100%;height:100%}
 
-/* lesson spread */
-.spread{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:0;border-radius:28px;overflow:hidden;box-shadow:var(--shadow);border:3px solid var(--ink)}
-.page{min-width:0;position:relative;background-color:var(--paper);
-  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
-  background-size:22px 22px;padding:28px 28px 28px 56px}
-.page::before{content:"";position:absolute;left:38px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.7}
-.holes{position:absolute;left:12px;top:40px;bottom:40px;display:flex;flex-direction:column;justify-content:space-around}
-.holes i{width:14px;height:14px;border-radius:50%;background:var(--sky);box-shadow:inset 0 2px 3px rgba(0,0,0,.25)}
-.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
-h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,5vw,52px);line-height:1;margin:6px 0 12px;letter-spacing:-.03em;text-wrap:balance}
-h1 .hl{background:linear-gradient(transparent 58%,var(--sun) 58%,var(--sun) 90%,transparent 90%);padding-inline:2px}
-.lead{max-width:44ch;margin:0 0 16px;font-size:17px}
-.formula{display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:var(--card);border:2px solid var(--ink);border-radius:18px;padding:14px 18px;margin-bottom:8px}
-.formula .eq{font-family:var(--display);font-size:34px;font-weight:700;white-space:nowrap}
-.formula .eq sub{font-size:.5em}
-.legend{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:14px}
-.legend b{font-family:var(--display);font-size:13px}
-.hand{font-family:var(--hand);font-size:24px;color:var(--violet);transform:rotate(-2deg);display:inline-block;margin:2px 0 14px}
-.q{border-top:2px dashed var(--line);padding-top:14px}
-.q h3{font-family:var(--display);font-size:17px;margin:0 0 4px;font-weight:700}
-.q p{margin:0 0 10px;font-size:15px}
+.tag{position:absolute;transform:translate(-50%,-100%);pointer-events:none;background:var(--paper);border-radius:12px;padding:6px 10px 7px;
+  box-shadow:0 2px 10px rgba(0,0,0,.1);text-align:center;min-width:86px;transition:box-shadow .3s}
+.tag b{display:block;font-size:12px;font-weight:700;color:var(--muted)}
+.tag b::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:var(--c)}
+.tag .t{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.15}
+.tag .w{font-size:12px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums}
+.tag.fin{box-shadow:0 0 0 2px var(--c),0 2px 10px rgba(0,0,0,.1)}
+
+.rot{position:absolute;right:16px;bottom:16px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);
+  background:var(--paper);border-radius:99px;padding:6px 12px 6px 8px;pointer-events:none;transition:opacity .5s}
+.rot svg{width:20px;height:20px}
+.rot.gone{opacity:0}
+
+/* lesson card */
+.card{position:absolute;left:20px;top:20px;bottom:20px;width:380px;max-width:calc(100% - 40px);background:var(--paper);border-radius:20px;
+  box-shadow:0 12px 40px -16px rgba(0,0,0,.25);display:flex;flex-direction:column;overflow:hidden}
+.body{flex:1;overflow:auto;padding:26px 26px 18px;display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--serif);font-weight:600;font-size:38px;line-height:1.05;margin:0;letter-spacing:-.01em}
+h2{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.2;margin:0;text-wrap:balance}
+p{margin:0}
+.q{font-weight:700;font-size:17px;margin-top:4px}
 .opts{display:grid;gap:8px}
-.opt{display:flex;align-items:center;gap:10px;text-align:left;background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:10px 12px;font-weight:700;transition:transform .15s,border-color .15s}
-.opt:hover{transform:translateX(3px);border-color:var(--ink)}
-.opt .box{flex:none;width:22px;height:22px;border-radius:7px;border:2px solid var(--ink);display:grid;place-items:center;font-size:14px}
-.opt.picked{border-color:var(--ink);background:var(--card)}
-.opt.picked .box{background:var(--ink);color:var(--paper)}
-.opt.right{border-color:var(--ok)} .opt.right .box{background:var(--ok);border-color:var(--ok);color:#fff}
-.opt.wrong{opacity:.55}
-.sw{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:2px;vertical-align:-1px}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:13px 14px;border-radius:14px;background:var(--act-soft);color:var(--act);font-weight:700;
+  transition:transform .15s,background .15s}
+.opt:hover{transform:translateY(-1px)}
+.opt .dot{width:12px;height:12px;border-radius:50%;background:var(--c,transparent);border:2px solid var(--c,var(--act));flex:none}
+.opt .arr{margin-left:auto;opacity:.6}
+.nudge{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--act);font-weight:600}
+.nudge i{width:8px;height:8px;border-radius:50%;background:var(--act);animation:pulse 1.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--act)}100%{box-shadow:0 0 0 10px transparent}}
+.chip{align-self:flex-start;font-size:13px;font-weight:700;padding:5px 11px;border-radius:99px;background:var(--desk);color:var(--muted)}
+.verdict{display:flex;gap:10px;align-items:center;font-weight:700;padding:10px 12px;border-radius:12px}
+.verdict.ok{background:var(--good-soft);color:var(--good)}
+.verdict.no{background:var(--desk);color:var(--ink)}
+.formula{font-family:var(--serif);font-size:30px;text-align:center;padding:14px;border:1px solid var(--line);border-radius:14px}
+.formula small{display:block;font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:2px}
+.rows{display:grid;grid-template-columns:auto 1fr auto;gap:10px 12px;align-items:center;font-size:15px}
+.rows .meter{height:8px;border-radius:9px;background:var(--desk);overflow:hidden}
+.rows .meter i{display:block;height:100%;border-radius:9px;background:var(--c);transition:width .4s}
+.rows .v{font-weight:700;font-variant-numeric:tabular-nums;text-align:right;min-width:62px}
+.rows .n{display:flex;align-items:center;gap:7px;font-weight:600}
+.rows .n::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c)}
+.ctl{display:grid;gap:4px}
+.ctl label{display:flex;justify-content:space-between;font-size:14px;font-weight:600}
+.ctl output{font-variant-numeric:tabular-nums;font-weight:700}
+input[type=range]{width:100%;accent-color:var(--act)}
+.muted{color:var(--muted);font-size:14px}
+.foot{flex:none;border-top:1px solid var(--line);padding:14px 26px;display:flex;align-items:center;gap:12px}
+.foot .muted{margin-right:auto}
+.btn{background:var(--act);color:#fff;font-weight:700;border-radius:12px;padding:11px 18px}
+.btn[disabled]{opacity:.4;cursor:default}
+.ghost{color:var(--act);font-weight:700;padding:11px 8px}
+.fade{animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
 
-/* flap */
-.flapzone{position:relative;margin-top:16px;perspective:900px;min-height:150px}
-.answer{background:var(--card);border:2px solid var(--ok);border-radius:16px;padding:14px 16px;font-size:15px}
-.answer h4{margin:0 0 6px;font-family:var(--display);font-size:15px;color:var(--ok)}
-.answer p{margin:0 0 6px}
-.answer code{font-family:var(--display);font-size:13px;background:var(--paper);border-radius:6px;padding:1px 6px;white-space:nowrap}
-.flap{position:absolute;inset:0;transform-origin:50% 0;transition:transform .7s cubic-bezier(.3,1.4,.5,1);
-  background:repeating-linear-gradient(-45deg,var(--sun) 0 14px,#FFD562 14px 28px);color:var(--sun-ink);
-  border:2px solid var(--ink);border-radius:16px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:14px 18px;gap:4px;box-shadow:0 6px 0 var(--ink);cursor:grab;user-select:none;touch-action:none}
-.flap strong{font-family:var(--display);font-size:16px}
-.flap small{font-weight:700}
-.flap .tab{position:absolute;right:14px;bottom:-14px;background:var(--ink);color:var(--paper);font-size:12px;font-weight:800;padding:3px 10px;border-radius:0 0 10px 10px}
-.flap.locked{cursor:not-allowed;filter:grayscale(.6)}
-.flap.open{transform:rotateX(-172deg);opacity:0;pointer-events:none;transition:transform .7s cubic-bezier(.3,1.4,.5,1),opacity .3s .4s}
-
-/* stage */
-.stage{min-width:0;position:relative;background:radial-gradient(120% 90% at 50% 0%,var(--stage2),var(--stage1));border-left:3px solid var(--ink);display:flex;flex-direction:column}
-#scene{position:relative;flex:1;min-height:440px;cursor:grab;touch-action:pan-y}
-#scene canvas{display:block;width:100%;height:100%;position:absolute;inset:0}
-.hud{position:absolute;top:14px;display:flex;flex-direction:column;gap:2px;background:var(--paper);border:2px solid var(--ink);border-radius:14px;padding:8px 12px;min-width:118px;pointer-events:none}
-.hud.a{left:14px} .hud.b{right:14px}
-.hud .nm{font-weight:800;font-size:13px;display:flex;align-items:center;gap:6px}
-.hud .t{font-family:var(--display);font-size:22px;font-variant-numeric:tabular-nums}
-.hud .w{font-size:13px;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums}
-.hud.fin{box-shadow:0 0 0 4px var(--sun)}
-.hint{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:700;color:var(--ink-soft);background:var(--paper);border-radius:999px;padding:3px 12px;opacity:.9;pointer-events:none;white-space:nowrap}
-.lab{background:var(--paper);border-top:3px solid var(--ink);padding:16px 18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:14px 18px;align-items:end}
-.ctl{min-width:0;display:flex;flex-direction:column;gap:4px}
-.ctl label{font-size:13px;font-weight:800;display:flex;justify-content:space-between;gap:6px}
-.ctl label output{font-family:var(--display);font-size:13px;font-variant-numeric:tabular-nums}
-input[type=range]{width:100%;accent-color:var(--violet)}
-.go{background:var(--sun);color:var(--sun-ink);border:2px solid var(--ink);border-radius:16px;padding:12px 20px;font-family:var(--display);font-weight:700;font-size:15px;box-shadow:0 4px 0 var(--ink);transition:transform .1s,box-shadow .1s;white-space:nowrap}
-.go:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
-.go[disabled]{opacity:.6;cursor:wait}
-.meters{grid-column:1/-1;display:grid;grid-template-columns:auto 1fr auto;gap:6px 10px;align-items:center;font-size:14px;font-weight:700}
-.bar{height:14px;border-radius:999px;background:var(--card);border:2px solid var(--line);overflow:hidden}
-.bar i{display:block;height:100%;border-radius:999px;transition:width .5s cubic-bezier(.3,1.3,.5,1)}
-.meters .v{font-family:var(--display);font-size:13px;font-variant-numeric:tabular-nums;text-align:right;min-width:72px}
-.meters .note{grid-column:1/-1;color:var(--ink-soft);font-weight:600;font-size:13px}
-
-/* mascot */
-.buddy{display:flex;align-items:flex-end;gap:12px;margin-top:18px}
-.buddy svg{flex:none;width:76px;height:76px;animation:float 3s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-6px)}}
-.bubble{position:relative;background:var(--paper);border:2px solid var(--ink);border-radius:18px 18px 18px 4px;padding:10px 14px;font-weight:700;max-width:62ch;min-width:0}
-
-/* school map */
-.school{margin-top:56px}
-.school h2{font-family:var(--display);font-size:clamp(24px,3.4vw,34px);letter-spacing:-.02em;margin:0 0 6px;text-wrap:balance}
-.school .sub{color:var(--ink-soft);margin:0 0 20px;max-width:60ch}
-.worlds{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.world{position:relative;background:var(--paper);border:2px solid var(--ink);border-radius:22px;padding:16px;display:flex;flex-direction:column;gap:6px;min-width:0;transition:transform .2s}
-.world:hover{transform:translateY(-4px) rotate(-.6deg)}
-.world .ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;border:2px solid var(--ink)}
-.world .ico svg{width:28px;height:28px}
-.world h3{margin:4px 0 0;font-family:var(--display);font-size:16px}
-.world p{margin:0;font-size:14px;color:var(--ink-soft)}
-.world .tag{position:absolute;top:14px;right:14px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:2px 8px;border-radius:999px;border:2px solid var(--line);color:var(--ink-soft)}
-.world .tag.live{background:var(--ok);border-color:var(--ok);color:#fff}
-.world .prog{height:8px;border-radius:99px;background:var(--card);margin-top:auto;overflow:hidden}
-.world .prog i{display:block;height:100%}
-.recipe{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:28px}
-.recipe div{border-top:3px solid var(--ink);padding-top:10px}
-.recipe b{font-family:var(--display);font-size:14px;display:block;margin-bottom:4px}
-.recipe p{margin:0;font-size:14px;color:var(--ink-soft)}
-.langs{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:700}
-.langs span{background:var(--paper);border:2px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px}
-
-/* confetti */
-#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
-
-@media (max-width:900px){
-  .spread{grid-template-columns:1fr}
-  .stage{border-left:0;border-top:3px solid var(--ink)}
-  .worlds,.recipe{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .lab{grid-template-columns:1fr 1fr}
-  .lab .go{grid-column:1/-1}
-}
-@media (max-width:520px){
-  .page{padding:22px 16px 22px 40px} .page::before{left:28px} .holes{left:6px}
-  #scene{min-height:360px}
-  .hud{min-width:0;padding:6px 9px} .hud .t{font-size:18px}
-  .worlds,.recipe,.lab{grid-template-columns:1fr}
-  .formula .eq{font-size:28px}
+@media (max-width:760px){
+  body{overflow:auto;height:auto}
+  .stage{flex:none;height:auto;display:flex;flex-direction:column;border-radius:18px}
+  #gl{position:relative;height:50vh;min-height:320px}
+  .card{position:relative;left:auto;top:auto;bottom:auto;width:auto;max-width:none;border-radius:0 0 18px 18px;box-shadow:none}
+  .body{padding:20px 18px 14px} .foot{padding:12px 18px}
+  h1{font-size:32px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
-<div class="wrap">
-  <header class="top">
-    <div class="logo" aria-label="School Cool">
-      <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="6" width="36" height="28" rx="9" fill="var(--sun)" stroke="var(--ink)" stroke-width="3"/><circle cx="14" cy="19" r="3" fill="var(--ink)"/><circle cx="26" cy="19" r="3" fill="var(--ink)"/><path d="M14 26q6 5 12 0" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
-      <span>school <b>c</b><i>oo</i>l</span>
-    </div>
-    <div class="stats">
-      <div class="pill" id="xpPill"><span class="dot" style="background:var(--sun)"></span><span id="xp">120</span> звёзд</div>
-      <div class="pill"><span class="dot" style="background:var(--coral)"></span>Серия 4 дня</div>
-      <div class="pill"><span class="dot" style="background:var(--mint)"></span>Физика · 7 класс</div>
-    </div>
-  </header>
+<header class="bar">
+  <div class="logo">school <span>cool</span></div>
+  <div class="crumb">Физика · Мощность</div>
+  <div class="prog" aria-label="Прогресс урока"><i class="on"></i><i></i><i></i></div>
+</header>
 
-  <nav class="steps" aria-label="Шаги урока">
-    <div class="step on" id="s1"><span>1</span>Предскажи</div>
-    <div class="step" id="s2"><span>2</span>Проверь опытом</div>
-    <div class="step" id="s3"><span>3</span>Пойми почему</div>
-    <div class="step" id="s4"><span>4</span>Поэкспериментируй</div>
-  </nav>
-
-  <main class="spread">
-    <section class="page" aria-label="Страница учебника">
-      <div class="holes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="eyebrow">Физика · Глава 4 · Урок 12</div>
-      <h1><span class="hl">Мощность</span></h1>
-      <p class="lead">Мощность показывает, <b>как быстро</b> совершается работа. Одну и ту же работу можно сделать за минуту или за час, и мощность получится разной.</p>
-      <div class="formula">
-        <div class="eq">N = A / t</div>
-        <div class="legend">
-          <b>N</b><span>мощность, ватт (Вт)</span>
-          <b>A</b><span>работа, джоуль (Дж)</span>
-          <b>t</b><span>время, секунда (с)</span>
-        </div>
-      </div>
-      <span class="hand">1 Вт — это 1 Дж работы за 1 секунду!</span>
-
-      <div class="q">
-        <h3>Сначала угадай</h3>
-        <p>Моторчики <b>Рыжик</b> и <b>Мятик</b> поднимают одинаковые ящики по 5 кг на высоту 1 м. Рыжик справляется за 2 секунды, Мятик за 4 секунды. Кто мощнее?</p>
-        <div class="opts" role="group" aria-label="Варианты ответа">
-          <button class="opt" data-v="a" id="optA"><span class="box"></span><span><span class="sw" style="background:var(--coral)"></span> Рыжик</span></button>
-          <button class="opt" data-v="b" id="optB"><span class="box"></span><span><span class="sw" style="background:var(--mint)"></span> Мятик</span></button>
-          <button class="opt" data-v="eq" id="optEq"><span class="box"></span><span>Одинаково, ведь работа одна и та же</span></button>
-        </div>
-      </div>
-
-      <div class="flapzone">
-        <div class="answer" id="answer" aria-hidden="true">
-          <h4>Рыжик мощнее ровно в 2 раза</h4>
-          <p>Работа у обоих одинаковая: <code>A = m·g·h = 5 · 10 · 1 = 50 Дж</code></p>
-          <p>Рыжик: <code>50 Дж / 2 с = 25 Вт</code>. Мятик: <code>50 Дж / 4 с = 12,5 Вт</code>.</p>
-          <p>Кто ту же работу делает быстрее, тот и мощнее.</p>
-        </div>
-        <div class="flap locked" id="flap" tabindex="0" role="button" aria-label="Приподнять клапан и увидеть ответ">
-          <strong>Приподними клапан, чтобы узнать ответ</strong>
-          <small id="flapNote">Сначала выбери вариант выше</small>
-          <span class="tab">тяни вверх ↑</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="stage" aria-label="3D-лаборатория">
-      <div id="scene">
-        <div class="hud a" id="hudA"><span class="nm"><span class="sw" style="background:var(--coral)"></span>Рыжик</span><span class="t" id="tA">0,0 с</span><span class="w" id="wA">— Вт</span></div>
-        <div class="hud b" id="hudB"><span class="nm"><span class="sw" style="background:var(--mint)"></span>Мятик</span><span class="t" id="tB">0,0 с</span><span class="w" id="wB">— Вт</span></div>
-        <div class="hint">Покрути сцену мышкой или пальцем</div>
-      </div>
-      <div class="lab">
-        <div class="ctl"><label for="mass">Масса ящика <output id="massO">5 кг</output></label><input type="range" id="mass" min="1" max="10" step="1" value="5"></div>
-        <div class="ctl"><label for="timeA">Время Рыжика <output id="timeAO">2 с</output></label><input type="range" id="timeA" min="1" max="8" step="0.5" value="2"></div>
-        <div class="ctl"><label for="timeB">Время Мятика <output id="timeBO">4 с</output></label><input type="range" id="timeB" min="1" max="8" step="0.5" value="4"></div>
-        <button class="go" id="go">Запустить опыт ▶</button>
-        <div class="meters" aria-live="polite">
-          <span>Рыжик</span><div class="bar"><i id="barA" style="width:50%;background:var(--coral)"></i></div><span class="v" id="vA">25 Вт</span>
-          <span>Мятик</span><div class="bar"><i id="barB" style="width:25%;background:var(--mint)"></i></div><span class="v" id="vB">12,5 Вт</span>
-          <span class="note" id="workNote">Работа у обоих: A = 5 кг · 10 Н/кг · 1 м = 50 Дж</span>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <div class="buddy">
-    <svg viewBox="0 0 80 80" aria-hidden="true">
-      <path d="M40 4l-6 12h8l-4 9" stroke="var(--ink)" stroke-width="3" fill="var(--sun)" stroke-linejoin="round" stroke-linecap="round"/>
-      <ellipse cx="40" cy="50" rx="30" ry="26" fill="var(--sun)" stroke="var(--ink)" stroke-width="3"/>
-      <circle cx="30" cy="46" r="5" fill="var(--ink)"/><circle cx="50" cy="46" r="5" fill="var(--ink)"/>
-      <circle cx="31.5" cy="44.5" r="1.6" fill="#fff"/><circle cx="51.5" cy="44.5" r="1.6" fill="#fff"/>
-      <ellipse cx="22" cy="56" rx="5" ry="3" fill="var(--coral)" opacity=".55"/><ellipse cx="58" cy="56" rx="5" ry="3" fill="var(--coral)" opacity=".55"/>
-      <path d="M33 57q7 6 14 0" stroke="var(--ink)" stroke-width="3" fill="none" stroke-linecap="round"/>
-    </svg>
-    <div class="bubble" id="bubble">Привет! Я Ваттик. Сегодня узнаем, почему один моторчик «сильнее» другого. Выбери ответ на странице слева.</div>
-  </div>
-
-  <section class="school" aria-labelledby="schoolH">
-    <h2 id="schoolH">Вся школа устроена так же</h2>
-    <p class="sub">Каждый предмет — это свой мир с уроками-опытами. Урок про мощность выше — первый готовый образец, остальные строятся по тому же шаблону.</p>
-    <div class="worlds">
-      <article class="world"><span class="tag live">Открыто</span><div class="ico" style="background:var(--sun)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"><path d="M13 2L5 14h6l-1 8 8-12h-6z"/></svg></div><h3>Физика</h3><p>Мощность на моторчиках, рычаги на качелях, свет в призме</p><div class="prog"><i style="width:34%;background:var(--sun)"></i></div></article>
-      <article class="world"><span class="tag">Скоро</span><div class="ico" style="background:var(--coral)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l7 5"/></svg></div><h3>Математика</h3><p>Дроби на пицце, которую можно резать пальцем</p><div class="prog"><i style="width:0"></i></div></article>
-      <article class="world"><span class="tag">Скоро</span><div class="ico" style="background:var(--mint)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/></svg></div><h3>Химия</h3><p>Почему шипит газировка и что внутри пузырька</p><div class="prog"><i style="width:0"></i></div></article>
-      <article class="world"><span class="tag">Скоро</span><div class="ico" style="background:#9BE28A"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"><path d="M12 21c-5-3-8-7-8-11a8 8 0 0116 0c0 4-3 8-8 11z"/><path d="M12 21V9"/></svg></div><h3>Биология</h3><p>Путешествие капли крови по сердцу в 3D</p><div class="prog"><i style="width:0"></i></div></article>
-      <article class="world"><span class="tag">Скоро</span><div class="ico" style="background:var(--violet)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></div><h3>География</h3><p>Крутишь глобус и видишь, откуда дует ветер</p><div class="prog"><i style="width:0"></i></div></article>
-      <article class="world"><span class="tag">Скоро</span><div class="ico" style="background:#FFB27A"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"><path d="M4 20h16M6 20l6-15 6 15"/></svg></div><h3>История</h3><p>Построй пирамиду и узнай, сколько это заняло лет</p><div class="prog"><i style="width:0"></i></div></article>
-      <article class="world"><span class="tag">Скоро</span><div class="ico" style="background:#7FD0FF"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"><rect x="4" y="6" width="16" height="12" rx="3"/><path d="M9 11v2M15 11v2M12 3v3"/></svg></div><h3>Информатика</h3><p>Научи робота пройти лабиринт с помощью команд</p><div class="prog"><i style="width:0"></i></div></article>
-      <article class="world"><span class="tag">Скоро</span><div class="ico" style="background:#FF9FD0"><svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"><path d="M4 5h11a3 3 0 013 3v11H7a3 3 0 01-3-3z"/><path d="M8 10h6M8 14h4"/></svg></div><h3>Языки</h3><p>Живые диалоги с персонажами на 10 языках</p><div class="prog"><i style="width:0"></i></div></article>
-    </div>
-
-    <div class="recipe">
-      <div><b>1. Предскажи</b><p>Ребёнок делает ставку до того, как узнал ответ. Так включается любопытство.</p></div>
-      <div><b>2. Проверь опытом</b><p>Живая 3D-модель показывает, что происходит на самом деле.</p></div>
-      <div><b>3. Пойми почему</b><p>Клапан с объяснением открывается только после попытки.</p></div>
-      <div><b>4. Поэкспериментируй</b><p>Ползунки дают менять условия и видеть, как меняется результат.</p></div>
-    </div>
-    <div class="langs"><span style="border:0;background:none;padding:0">Языки школы:</span><span>Русский</span><span>English</span><span>Español</span><span>Português</span><span>Français</span><span>हिन्दी</span><span>العربية</span><span>中文</span><span>+ другие</span></div>
+<main class="stage">
+  <div id="gl" aria-label="3D-опыт: два мотора поднимают ящики. Можно вращать."></div>
+  <div class="tag" id="tagA" style="--c:var(--a)"><b>Мотор А</b><div class="t" id="tA">0,0 с</div><div class="w" id="wA">&nbsp;</div></div>
+  <div class="tag" id="tagB" style="--c:var(--b)"><b>Мотор Б</b><div class="t" id="tB">0,0 с</div><div class="w" id="wB">&nbsp;</div></div>
+  <div class="rot" id="rot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>Потяни, чтобы покрутить</div>
+  <section class="card" aria-live="polite">
+    <div class="body" id="body"></div>
+    <div class="foot" id="foot"></div>
   </section>
-</div>
-<canvas id="confetti"></canvas>
+</main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
 const $=id=>document.getElementById(id);
-const fmt=(n,d=1)=>n.toLocaleString('ru-RU',{minimumFractionDigits:d,maximumFractionDigits:d});
-const fmtW=n=>(Number.isInteger(n)?n.toLocaleString('ru-RU'):fmt(n,1))+' Вт';
-const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const nf=(n,d=1)=>n.toLocaleString('ru-RU',{minimumFractionDigits:d,maximumFractionDigits:d});
+const W=n=>(Number.isInteger(n)?n.toLocaleString('ru-RU'):nf(n,1))+' Вт';
+const S=n=>(Number.isInteger(n)?n:nf(n,1))+' с';
+const g=10,h=1;
+let st={m:5,tA:2,tB:4,pick:null};
 
-/* ---------- lesson state ---------- */
-let picked=null, ranOnce=false, flapOpen=false, xp=120;
-const bubble=$('bubble');
-function say(t){bubble.textContent=t}
-function stepState(n){for(let i=1;i<=4;i++){const s=$('s'+i);s.classList.toggle('done',i<n);s.classList.toggle('on',i===n)}}
-function addXP(n){xp+=n;$('xp').textContent=xp;const p=$('xpPill');p.classList.remove('bump');void p.offsetWidth;p.classList.add('bump')}
+/* ---------- card steps ---------- */
+const body=$('body'),foot=$('foot');
+function dots(n){document.querySelectorAll('.prog i').forEach((d,i)=>d.classList.toggle('on',i<n))}
+function view(html,f){body.innerHTML=`<div class="fade" style="display:flex;flex-direction:column;gap:14px">${html}</div>`;foot.innerHTML=f||'';body.scrollTop=0}
 
-document.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
-  if(flapOpen) return;
-  picked=b.dataset.v;
-  document.querySelectorAll('.opt').forEach(o=>o.classList.toggle('picked',o===b));
-  document.querySelectorAll('.opt .box').forEach(x=>x.textContent='');
-  b.querySelector('.box').textContent='✓';
-  $('flap').classList.remove('locked');
-  $('flapNote').textContent=ranOnce?'Теперь можно посмотреть ответ':'А лучше сначала запусти опыт справа';
-  if(!ranOnce){stepState(2);say('Отличная ставка! Теперь нажми «Запустить опыт» и посмотри, кто поднимет ящик быстрее.')}
-}));
-
-/* flap: drag up or press */
-const flap=$('flap');
-function openFlap(){
-  if(flapOpen||!picked) return;
-  flapOpen=true;flap.classList.add('open');$('answer').setAttribute('aria-hidden','false');
-  const ok=picked==='a';
-  $('optA').classList.add('right');
-  document.querySelectorAll('.opt').forEach(o=>{if(o.dataset.v!=='a')o.classList.add('wrong')});
-  stepState(4);
-  if(ok){addXP(30);confetti();say('Точно! Рыжик быстрее, значит мощнее. +30 звёзд. Теперь поиграй ползунками: что будет, если ящик тяжелее?')}
-  else {addXP(10);say(picked==='eq'?'Работа и правда одинаковая, но мощность ещё зависит от времени. +10 звёзд за попытку. Попробуй ползунки!':'Почти! Мятик медленнее, поэтому слабее. +10 звёзд за попытку. Попробуй ползунки!')}
+function ask(){
+  dots(1);resetRun();
+  view(`
+    <div class="eyebrow">Физика · 7 класс</div>
+    <h1>Мощность</h1>
+    <p>Два мотора поднимают одинаковые ящики по 5 кг на высоту 1 м. Мотор А справляется за 2 секунды, мотор Б за 4 секунды.</p>
+    <p class="q">Как думаешь, какой мотор мощнее?</p>
+    <div class="opts">
+      <button class="opt" data-v="a" style="--c:var(--a)"><span class="dot"></span>Мотор А<span class="arr">→</span></button>
+      <button class="opt" data-v="b" style="--c:var(--b)"><span class="dot"></span>Мотор Б<span class="arr">→</span></button>
+      <button class="opt" data-v="eq"><span class="dot"></span>Одинаково<span class="arr">→</span></button>
+    </div>
+    <div class="nudge"><i></i>Выбери ответ, и опыт запустится</div>`,
+    `<span class="muted">Шаг 1 из 3 · Угадай</span>`);
+  body.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{st.pick=b.dataset.v;watch()});
 }
-let dragY=null;
-flap.addEventListener('pointerdown',e=>{if(!picked)return;dragY=e.clientY;flap.setPointerCapture(e.pointerId);flap.style.transition='none'});
-flap.addEventListener('pointermove',e=>{if(dragY===null)return;const d=Math.max(0,dragY-e.clientY);flap.style.transform=`rotateX(${-Math.min(170,d*1.4)}deg)`});
-function endDrag(e){if(dragY===null)return;const d=dragY-e.clientY;dragY=null;flap.style.transition='';flap.style.transform='';if(d>30||Math.abs(d)<5)openFlap()}
-flap.addEventListener('pointerup',endDrag);flap.addEventListener('pointercancel',endDrag);
-flap.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openFlap()}});
-flap.addEventListener('click',()=>{if(!picked){say('Сначала выбери ответ. Угадать неправильно не страшно, так мозг лучше запоминает!')}});
-
-/* ---------- lab numbers ---------- */
-const H=1,g=10;
-function params(){return{m:+$('mass').value,tA:+$('timeA').value,tB:+$('timeB').value}}
-function updateMeters(){
-  const {m,tA,tB}=params();const A=m*g*H;const nA=A/tA,nB=A/tB;
-  $('massO').textContent=m+' кг';$('timeAO').textContent=fmt(tA,tA%1?1:0)+' с';$('timeBO').textContent=fmt(tB,tB%1?1:0)+' с';
-  const max=100;
-  $('barA').style.width=Math.min(100,nA/max*100)+'%';$('barB').style.width=Math.min(100,nB/max*100)+'%';
-  $('vA').textContent=fmtW(nA);$('vB').textContent=fmtW(nB);
-  $('workNote').textContent=`Работа у обоих: A = ${m} кг · 10 Н/кг · 1 м = ${A} Дж`;
-  boxes.forEach(b=>setBoxLabel(b,m));
-  return {A,nA,nB,tA,tB,m};
+function watch(){
+  dots(2);
+  const names={a:'Мотор А',b:'Мотор Б',eq:'Одинаково'};
+  view(`
+    <span class="chip">Твой ответ: ${names[st.pick]}</span>
+    <h2>Смотри на секундомеры</h2>
+    <p>Ящики одинаковые и поднимаются на одну высоту. Значит, работа у моторов одна и та же. Отличается только время.</p>`,
+    `<span class="muted">Шаг 2 из 3 · Проверь</span><button class="btn" id="next" disabled>Узнать ответ</button>`);
+  startRun(()=>{const n=$('next');if(n){n.disabled=false;n.onclick=reveal;n.focus({preventScroll:true})}});
 }
-['mass','timeA','timeB'].forEach(id=>$(id).addEventListener('input',()=>{const r=updateMeters();if(flapOpen){
-  if(id==='mass')say(`Ящик ${r.m} кг: работа стала ${r.A} Дж. Чем тяжелее груз, тем больше работы и мощности при том же времени.`);
-  else if(r.nA===r.nB)say('Время одинаковое, значит и мощности равны. Ничья!');
-  else say(`${r.nA>r.nB?'Рыжик':'Мятик'} сейчас мощнее: ${fmtW(Math.max(r.nA,r.nB))} против ${fmtW(Math.min(r.nA,r.nB))}.`);
-}}));
+function reveal(){
+  dots(3);
+  const ok=st.pick==='a';
+  const A=st.m*g*h;
+  view(`
+    <div class="verdict ${ok?'ok':'no'}">${ok?'✓ Верно!':'Почти. Правильный ответ: мотор А'}</div>
+    <h2>Кто быстрее делает ту же работу, тот мощнее</h2>
+    <div class="formula">N = A / t<small>мощность = работа / время</small></div>
+    <p class="muted">Работа обоих: A = 5 кг · 10 Н/кг · 1 м = ${A} Дж</p>
+    <div class="rows">
+      <span class="n" style="--c:var(--a)">А</span><span>${A} Дж / ${S(st.tA)}</span><span class="v">${W(A/st.tA)}</span>
+      <span class="n" style="--c:var(--b)">Б</span><span>${A} Дж / ${S(st.tB)}</span><span class="v">${W(A/st.tB)}</span>
+    </div>`,
+    `<button class="ghost" id="again">Ещё раз</button><span class="muted"></span><button class="btn" id="next">Попробуй сам</button>`);
+  $('again').onclick=ask;$('next').onclick=play;
+}
+function play(){
+  dots(3);
+  view(`
+    <h2>Теперь ты управляешь моторами</h2>
+    <p class="muted">Меняй груз и время. Мощность пересчитается сразу, а кнопка внизу покажет опыт.</p>
+    <div class="ctl"><label for="m">Масса ящика <output id="mo"></output></label><input id="m" type="range" min="1" max="10" step="1" value="${st.m}"></div>
+    <div class="ctl"><label for="ta">Время мотора А <output id="tao"></output></label><input id="ta" type="range" min="1" max="8" step="0.5" value="${st.tA}"></div>
+    <div class="ctl"><label for="tb">Время мотора Б <output id="tbo"></output></label><input id="tb" type="range" min="1" max="8" step="0.5" value="${st.tB}"></div>
+    <div class="rows" id="rows"></div>
+    <p class="muted" id="why"></p>`,
+    `<button class="ghost" id="back">С начала</button><span class="muted"></span><button class="btn" id="go">▶ Запустить</button>`);
+  const upd=()=>{
+    st.m=+$('m').value;st.tA=+$('ta').value;st.tB=+$('tb').value;
+    const A=st.m*g*h,nA=A/st.tA,nB=A/st.tB,mx=100;
+    $('mo').textContent=st.m+' кг';$('tao').textContent=S(st.tA);$('tbo').textContent=S(st.tB);
+    $('rows').innerHTML=`
+      <span class="n" style="--c:var(--a)">А</span><span class="meter" style="--c:var(--a)"><i style="width:${Math.min(100,nA/mx*100)}%"></i></span><span class="v">${W(nA)}</span>
+      <span class="n" style="--c:var(--b)">Б</span><span class="meter" style="--c:var(--b)"><i style="width:${Math.min(100,nB/mx*100)}%"></i></span><span class="v">${W(nB)}</span>`;
+    $('why').textContent=nA===nB?`Время одинаковое, поэтому и мощность равная.`:`Работа ${A} Дж. Мотор ${nA>nB?'А':'Б'} мощнее, потому что тратит на неё меньше времени.`;
+    setLabels();resetRun();
+  };
+  ['m','ta','tb'].forEach(id=>$(id).oninput=upd);upd();
+  $('back').onclick=()=>{st={m:5,tA:2,tB:4,pick:null};setLabels();ask()};
+  $('go').onclick=()=>{$('go').disabled=true;startRun(()=>{const b=$('go');if(b)b.disabled=false})};
+}
 
-/* ---------- Three.js scene ---------- */
-const host=$('scene');
-const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-renderer.setPixelRatio(Math.min(2,devicePixelRatio));
-renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-host.prepend(renderer.domElement);
-const scene=new THREE.Scene();
-const cam=new THREE.PerspectiveCamera(36,1,0.1,100);
-cam.position.set(0,6.5,15.5);cam.lookAt(0,2.7,0);
-scene.add(new THREE.HemisphereLight(0xffffff,0x9fb6d6,.75));
-const sun=new THREE.DirectionalLight(0xffffff,.85);sun.position.set(5,10,6);sun.castShadow=true;
-sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-8,right:8,top:8,bottom:-8});
-scene.add(sun);
-
+/* ---------- 3D: sketch-style lab ---------- */
+const host=$('gl');
+const R=new THREE.WebGLRenderer({antialias:true,alpha:true});
+R.setPixelRatio(Math.min(2,devicePixelRatio));R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+host.appendChild(R.domElement);
+const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(32,1,.1,100);
+scene.add(new THREE.HemisphereLight(0xffffff,0xc9cfc8,.85));
+const sun=new THREE.DirectionalLight(0xffffff,.55);sun.position.set(-4,10,6);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.radius=6;
+Object.assign(sun.shadow.camera,{left:-7,right:7,top:7,bottom:-7});scene.add(sun);
 const world=new THREE.Group();scene.add(world);
-const mat=c=>new THREE.MeshStandardMaterial({color:c,roughness:.55,metalness:.05});
-function rbox(w,h,d,c){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat(c));m.castShadow=m.receiveShadow=true;return m}
 
-// toy table
-const base=new THREE.Mesh(new THREE.CylinderGeometry(5.6,5.8,.5,64),mat(0xffffff));base.position.y=-.25;base.receiveShadow=true;world.add(base);
-const rim=new THREE.Mesh(new THREE.TorusGeometry(5.65,.12,12,80),mat(0x1b2a4e));rim.rotation.x=Math.PI/2;world.add(rim);
-// floor marks: 1 m ruler in middle
-const ruler=rbox(.25,4.2,.12,0xffc83d);ruler.position.set(0,2.1,-1.2);world.add(ruler);
-for(let i=0;i<=10;i++){const t=rbox(i%5?0.18:0.34,.04,.14,0x1b2a4e);t.position.set(-.12-(i%5?0.09:0.17)/1,0.3+i*0.36,-1.18);world.add(t)}
-function labelSprite(text,bg,fg,w=256,h=96,size=48){
-  const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');
-  x.fillStyle=bg;x.beginPath();x.roundRect?x.roundRect(4,4,w-8,h-8,28):x.rect(4,4,w-8,h-8);x.fill();
-  x.lineWidth=6;x.strokeStyle='#1b2a4e';x.stroke();
-  x.fillStyle=fg;x.font=`800 ${size}px Nunito, sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(text,w/2,h/2+2);
-  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),depthTest:false}));s.scale.set(w/150,h/150,1);return s}
-const top1=labelSprite('1 м','#ffc83d','#5a3d00',160,80,40);top1.position.set(0,4.15,-1.2);world.add(top1);
+const INK=0x2a2e33;
+const lineMat=new THREE.LineBasicMaterial({color:INK});
+function part(geo,color=0xf7f7f4,edges=true,thr=25){
+  const m=new THREE.Mesh(geo,new THREE.MeshLambertMaterial({color}));m.castShadow=true;m.receiveShadow=true;
+  if(edges)m.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo,thr),lineMat));
+  return m}
+// floor catches shadow only
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.ShadowMaterial({opacity:.12}));floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;world.add(floor);
+// base plate
+const plate=part(new THREE.BoxGeometry(9,.22,3.2));plate.position.y=.11;world.add(plate);
+// ruler in the middle
+const ruler=part(new THREE.BoxGeometry(.3,3.9,.08));ruler.position.set(0,2.17,-1);world.add(ruler);
+for(let i=0;i<=10;i++){const len=i%5?.14:.26;const t=new THREE.Mesh(new THREE.BoxGeometry(len,.025,.02),new THREE.MeshBasicMaterial({color:INK}));t.position.set(-.15+len/2-.0,.6+i*.33,-.95);world.add(t)}
+function sprite(text,size=64,w=256,hh=96,color='#2a2e33'){
+  const c=document.createElement('canvas');c.width=w;c.height=hh;const x=c.getContext('2d');
+  x.fillStyle=color;x.font=`600 ${size}px Literata, Georgia, serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(text,w/2,hh/2);
+  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true}));s.scale.set(w/220,hh/220,1);return s}
+const oneM=sprite('1 м',56,160,80);oneM.position.set(.55,3.95,-1);world.add(oneM);
 
-function makeRig(x,color){
-  const g=new THREE.Group();g.position.x=x;world.add(g);
-  const postGeo=new THREE.CylinderGeometry(.13,.13,5,16);
-  [-1,1].forEach(s=>{const p=new THREE.Mesh(postGeo,mat(0x1b2a4e));p.position.set(s*1.1,2.5,0);p.castShadow=true;g.add(p);
-    const foot=new THREE.Mesh(new THREE.CylinderGeometry(.35,.4,.2,24),mat(0x1b2a4e));foot.position.set(s*1.1,.1,0);g.add(foot)});
-  const beam=rbox(2.6,.26,.5,0x1b2a4e);beam.position.y=5;g.add(beam);
-  // motor body with face
-  const body=new THREE.Mesh(new THREE.CylinderGeometry(.62,.62,1.05,32),mat(color));body.rotation.z=Math.PI/2;body.position.set(0,5.72,0);body.castShadow=true;g.add(body);
-  const cap=new THREE.Mesh(new THREE.SphereGeometry(.62,32,16,0,Math.PI*2,0,Math.PI/2),mat(color));cap.position.set(0,5.72,0);g.add(cap);
-  const eyeM=mat(0x1b2a4e);[-.22,.22].forEach(ex=>{const e=new THREE.Mesh(new THREE.SphereGeometry(.09,16,12),eyeM);e.position.set(ex,5.86,.58);g.add(e);
-    const sh=new THREE.Mesh(new THREE.SphereGeometry(.03,8,8),mat(0xffffff));sh.position.set(ex+.03,5.9,.66);g.add(sh)});
-  const cheek=new THREE.MeshStandardMaterial({color:0xff9fb0,transparent:true,opacity:.8});
-  [-.4,.4].forEach(cx=>{const c=new THREE.Mesh(new THREE.SphereGeometry(.07,12,8),cheek);c.scale.set(1.4,.8,.5);c.position.set(cx,5.7,.56);g.add(c)});
-  const smile=new THREE.Mesh(new THREE.TorusGeometry(.12,.025,8,20,Math.PI),eyeM);smile.rotation.z=Math.PI;smile.position.set(0,5.66,.6);g.add(smile);
+const Y0=.67,LIFT=3.3,SPOOL=4.35;
+function rig(x,accent,letter){
+  const G=new THREE.Group();G.position.x=x;world.add(G);
+  [-1,1].forEach(s=>{const p=part(new THREE.BoxGeometry(.16,4.6,.16));p.position.set(s*.95,2.52,0);G.add(p)});
+  const beam=part(new THREE.BoxGeometry(2.3,.2,.4));beam.position.y=4.85;G.add(beam);
+  // motor: rounded can with a calm face
+  const can=part(new THREE.CylinderGeometry(.5,.5,.9,40),0xf7f7f4,true,40);can.rotation.z=Math.PI/2;can.position.y=5.45;G.add(can);
+  const band=part(new THREE.CylinderGeometry(.515,.515,.18,40),accent,false);band.rotation.z=Math.PI/2;band.position.set(-.2,5.45,0);G.add(band);
+  const eye=new THREE.MeshBasicMaterial({color:INK});
+  [-.13,.13].forEach(ex=>{const e=new THREE.Mesh(new THREE.SphereGeometry(.045,12,8),eye);e.position.set(ex+.12,5.52,.5);G.add(e)});
+  const sm=new THREE.Mesh(new THREE.TorusGeometry(.07,.016,6,16,Math.PI),eye);sm.rotation.z=Math.PI;sm.position.set(.12,5.42,.5);G.add(sm);
+  const lt=sprite(letter,72,96,96);lt.position.set(0,6.2,0);G.add(lt);
   // spool
-  const spool=new THREE.Group();spool.position.set(0,4.62,0);g.add(spool);
-  const drum=new THREE.Mesh(new THREE.CylinderGeometry(.24,.24,.7,24),mat(0xffffff));drum.rotation.z=Math.PI/2;drum.castShadow=true;spool.add(drum);
-  [-.38,.38].forEach(sx=>{const f=new THREE.Mesh(new THREE.CylinderGeometry(.4,.4,.06,24),mat(color));f.rotation.z=Math.PI/2;f.position.x=sx;spool.add(f)});
-  const stripe=rbox(.7,.05,.05,0x1b2a4e);stripe.position.y=.24;spool.add(stripe);
-  // rope
-  const rope=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,1,8),mat(0x56627f));g.add(rope);
-  // crate
-  const crate=new THREE.Group();g.add(crate);
-  const cb=rbox(1.1,.9,1.1,0xffc83d);crate.add(cb);
-  [[0,.46,0,1.16,.08,1.16],[0,-.46,0,1.16,.08,1.16]].forEach(a=>{const r=rbox(a[3],a[4],a[5],0xb9761a);r.position.set(a[0],a[1],a[2]);crate.add(r)});
-  const hook=new THREE.Mesh(new THREE.TorusGeometry(.12,.04,8,16),mat(0x1b2a4e));hook.position.y=.58;crate.add(hook);
-  return {g,spool,rope,crate,label:null,color};
+  const sp=new THREE.Group();sp.position.y=SPOOL+.2;G.add(sp);
+  const drum=part(new THREE.CylinderGeometry(.18,.18,.5,20));drum.rotation.z=Math.PI/2;sp.add(drum);
+  const mark=new THREE.Mesh(new THREE.BoxGeometry(.5,.03,.03),new THREE.MeshBasicMaterial({color:accent}));mark.position.y=.18;sp.add(mark);
+  const rope=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,1,6),new THREE.MeshBasicMaterial({color:INK}));G.add(rope);
+  const crate=new THREE.Group();G.add(crate);
+  const bx=part(new THREE.BoxGeometry(.9,.9,.9),0xefe9dc);crate.add(bx);
+  const hook=new THREE.Mesh(new THREE.TorusGeometry(.09,.025,6,14),eye);hook.position.y=.54;crate.add(hook);
+  return {G,sp,rope,crate,lab:null};
 }
-const rigA=makeRig(-2.6,0xff6f61), rigB=makeRig(2.6,0x22b8a6);
-const boxes=[rigA,rigB];
-function setBoxLabel(r,m){
-  if(r.label){r.crate.remove(r.label);r.label.material.map.dispose()}
-  r.label=labelSprite(m+' кг','#ffffff','#1b2a4e',200,90,46);r.label.position.set(0,0,.62);r.label.scale.multiplyScalar(.75);r.crate.add(r.label)}
-const Y0=.45, LIFT=3.6, SPOOL_Y=4.38;
-function place(r,p){
-  const y=Y0+p*LIFT;r.crate.position.y=y;
-  const top=y+.58, len=SPOOL_Y-top;r.rope.scale.y=Math.max(.01,len);r.rope.position.y=top+len/2;
-  r.spool.rotation.x=-p*14;
-}
-place(rigA,0);place(rigB,0);
+const rA=rig(-2.6,0xe8a13c,'А'),rB=rig(2.6,0x7c9cc4,'Б');
+function setLabels(){[rA,rB].forEach(r=>{if(r.lab){r.crate.remove(r.lab);r.lab.material.map.dispose()}
+  const c=document.createElement('canvas');c.width=256;c.height=128;const x=c.getContext('2d');x.fillStyle='#2a2e33';x.font='600 64px Literata, Georgia, serif';x.textAlign='center';x.textBaseline='middle';x.fillText(st.m+' кг',128,66);
+  r.lab=new THREE.Mesh(new THREE.PlaneGeometry(.8,.4),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c),transparent:true}));r.lab.position.set(0,0,.455);r.crate.add(r.lab)})}
+function place(r,p){const y=Y0+p*LIFT;r.crate.position.y=y;const top=y+.55,len=SPOOL+.02-top;r.rope.scale.y=Math.max(.01,len);r.rope.position.y=top+len/2;r.sp.rotation.x=-p*16}
+setLabels();place(rA,0);place(rB,0);
 
-// rotate by drag
-let rotY=-.25,targetRot=-.25,drag=null;
-host.addEventListener('pointerdown',e=>{drag=e.clientX;host.style.cursor='grabbing'});
-addEventListener('pointermove',e=>{if(drag===null)return;targetRot+=(e.clientX-drag)*.008;targetRot=Math.max(-1.1,Math.min(1.1,targetRot));drag=e.clientX});
-addEventListener('pointerup',()=>{drag=null;host.style.cursor=''});
+// rotate
+let rot=-.35,tgt=-.35,dx=null,touched=false;
+host.addEventListener('pointerdown',e=>{dx=e.clientX;host.setPointerCapture(e.pointerId);host.style.cursor='grabbing'});
+host.addEventListener('pointermove',e=>{if(dx===null)return;tgt=Math.max(-1.2,Math.min(1.2,tgt+(e.clientX-dx)*.007));dx=e.clientX;
+  if(!touched){touched=true;$('rot').classList.add('gone')}});
+host.addEventListener('pointerup',()=>{dx=null;host.style.cursor=''});
 
-function resize(){const w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h,false);cam.aspect=w/h;
-  cam.position.z=w<500?21:15.5;cam.lookAt(0,2.7,0);cam.updateProjectionMatrix()}
+let offX=0;
+function resize(){const w=host.clientWidth,hh=host.clientHeight;R.setSize(w,hh,false);cam.aspect=w/hh;
+  const wide=w>760;offX=wide?-1.9:0; // shift scene right of the card on desktop
+  const dist=wide?19.5:(w<480?22:19);cam.position.set(offX,6,dist);cam.lookAt(offX,3,0);cam.updateProjectionMatrix()}
 new ResizeObserver(resize).observe(host);resize();
 
-// run experiment
-let run=null;
-$('go').addEventListener('click',()=>{
-  const r=updateMeters();run={t0:performance.now(),tA:r.tA,tB:r.tB,doneA:false,doneB:false,r};
-  $('go').disabled=true;$('hudA').classList.remove('fin');$('hudB').classList.remove('fin');
-  $('wA').textContent='считаем…';$('wB').textContent='считаем…';
-  if(picked&&!flapOpen){stepState(2)}
-  say('Смотри на секундомеры! Оба ящика одинаковые и поднимаются на одинаковую высоту.');
-});
-function tick(now){
-  rotY+=(targetRot-rotY)*.1;world.rotation.y=rotY;
-  if(run){
-    const el=(now-run.t0)/1000;
-    const pA=Math.min(1,el/run.tA),pB=Math.min(1,el/run.tB);
-    place(rigA,pA);place(rigB,pB);
-    $('tA').textContent=fmt(Math.min(el,run.tA))+' с';$('tB').textContent=fmt(Math.min(el,run.tB))+' с';
-    if(pA>=1&&!run.doneA){run.doneA=true;$('hudA').classList.add('fin');$('wA').textContent=fmtW(run.r.nA)}
-    if(pB>=1&&!run.doneB){run.doneB=true;$('hudB').classList.add('fin');$('wB').textContent=fmtW(run.r.nB)}
-    if(el>Math.max(run.tA,run.tB)+1.2){
-      run=null;$('go').disabled=false;$('go').textContent='Ещё раз ▶';
-      place(rigA,0);place(rigB,0);
-      if(!ranOnce){ranOnce=true;addXP(10);
-        if(picked&&!flapOpen){stepState(3);$('flapNote').textContent='Теперь можно посмотреть ответ';say('Видел, кто первым? Теперь потяни жёлтый клапан вверх и проверь свой ответ. +10 звёзд за опыт!')}
-        else if(!picked){say('Интересно, правда? Теперь выбери ответ слева, а потом открой клапан.')}}
-    }
-  }else{const b=Math.sin(now/600)*.03;rigA.crate.rotation.z=b;rigB.crate.rotation.z=-b}
-  renderer.render(scene,cam);requestAnimationFrame(tick);
-}
-updateMeters();requestAnimationFrame(tick);
+// html tags follow the motors
+const v=new THREE.Vector3();
+function tagAt(el,r){r.G.localToWorld(v.set(0,6.55,0));v.project(cam);
+  el.style.left=((v.x+1)/2*host.clientWidth+host.offsetLeft)+'px';el.style.top=((1-v.y)/2*host.clientHeight+host.offsetTop)+'px'}
 
-/* ---------- confetti ---------- */
-const cv=$('confetti'),cx=cv.getContext('2d');let parts=[];
-function confetti(){
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  cv.width=innerWidth;cv.height=innerHeight;
-  const cols=[css('--sun'),css('--coral'),css('--mint'),css('--violet')];
-  const r=flap.getBoundingClientRect();
-  for(let i=0;i<120;i++)parts.push({x:r.left+r.width/2,y:r.top,vx:(Math.random()-.5)*12,vy:-Math.random()*12-4,s:Math.random()*8+4,c:cols[i%4],a:Math.random()*6,life:0});
-  if(parts.length===120)requestAnimationFrame(cf);
+let run=null;
+function resetRun(){run=null;place(rA,0);place(rB,0);['A','B'].forEach(k=>{$('t'+k).textContent='0,0 с';$('w'+k).innerHTML='&nbsp;';$('tag'+k).classList.remove('fin')})}
+function startRun(done){resetRun();run={t0:performance.now(),done,fa:0,fb:0}}
+function frame(now){
+  rot+=(tgt-rot)*.08;world.rotation.y=rot;
+  if(run){
+    const el=(now-run.t0)/1000,A=st.m*g*h;
+    const pa=Math.min(1,el/st.tA),pb=Math.min(1,el/st.tB);
+    place(rA,pa);place(rB,pb);
+    $('tA').textContent=nf(Math.min(el,st.tA))+' с';$('tB').textContent=nf(Math.min(el,st.tB))+' с';
+    if(pa>=1&&!run.fa){run.fa=1;$('tagA').classList.add('fin');$('wA').textContent=W(A/st.tA)}
+    if(pb>=1&&!run.fb){run.fb=1;$('tagB').classList.add('fin');$('wB').textContent=W(A/st.tB)}
+    if(pa>=1&&pb>=1&&run.done){const d=run.done;run.done=null;d()}
+  }else{const b=Math.sin(now/700)*.02;rA.crate.rotation.z=b;rB.crate.rotation.z=-b}
+  R.render(scene,cam);tagAt($('tagA'),rA);tagAt($('tagB'),rB);
+  requestAnimationFrame(frame);
 }
-function cf(){cx.clearRect(0,0,cv.width,cv.height);
-  parts.forEach(p=>{p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.a+=.2;p.life++;cx.save();cx.translate(p.x,p.y);cx.rotate(p.a);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore()});
-  parts=parts.filter(p=>p.y<cv.height+20&&p.life<200);
-  if(parts.length)requestAnimationFrame(cf);else cx.clearRect(0,0,cv.width,cv.height)}
+ask();requestAnimationFrame(frame);
 })();
 </script>
