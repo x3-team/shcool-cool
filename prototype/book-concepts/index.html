@@ -1,455 +1,615 @@
-<title>Книга School Cool</title>
+<title>Подачи урока School Cool</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-/* Layout: the 3D book fills the screen; a quiet info panel on the left, a strip of the 8 concepts at the bottom. */
+/* One lesson (Мощность), seven different ways to present it. A shared 3D lab is moved into each layout. Blue = you can press it. */
 :root{
-  --bg:#E6E8E4; --panel:#FFFFFF; --ink:#202427; --muted:#6B716D; --line:#D7DBD6; --act:#2F62E8; --act-soft:#E8EEFF;
-  --serif:"Literata",Georgia,serif; --sans:"Manrope","Segoe UI",system-ui,sans-serif;
+  --bg:#ECEEEA; --surface:#FFFFFF; --ink:#1F2326; --muted:#6A706C; --line:#D8DCD6; --act:#2F62E8; --act-soft:#E8EEFF;
+  --good:#1F8A5B; --good-soft:#E2F3EA; --a:#E39B37; --b:#6F93C4;
+  --serif:"Literata",Georgia,serif; --sans:"Manrope","Segoe UI",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#1A1D1C; --panel:#252928; --ink:#ECEFEC; --muted:#A2A9A4; --line:#3A403D; --act:#7D9EFF; --act-soft:#27304A; color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1A1D1C; --panel:#252928; --ink:#ECEFEC; --muted:#A2A9A4; --line:#3A403D; --act:#7D9EFF; --act-soft:#27304A; color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#191C1B;--surface:#242827;--ink:#ECEFEC;--muted:#A3AAA5;--line:#383F3B;--act:#7D9EFF;--act-soft:#27304A;--good:#5CC48F;--good-soft:#1E3A2B;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#191C1B;--surface:#242827;--ink:#ECEFEC;--muted:#A3AAA5;--line:#383F3B;--act:#7D9EFF;--act-soft:#27304A;--good:#5CC48F;--good-soft:#1E3A2B;color-scheme:dark}
 *{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;display:flex;flex-direction:column;overflow:hidden;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 14px}
+  padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px));padding-block:0 14px}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 :focus-visible{outline:3px solid var(--act);outline-offset:2px;border-radius:10px}
-.top{display:flex;align-items:center;gap:14px;padding-block:12px;flex:none}
-.logo{font-weight:700;font-size:16px;white-space:nowrap}.logo span{color:var(--act)}
-.top .sub{color:var(--muted);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.top{display:flex;align-items:center;gap:14px;padding-block:10px;flex:none;min-width:0}
+.logo{font-weight:800;font-size:16px;white-space:nowrap}.logo span{color:var(--act)}
+.tabs{display:flex;gap:4px;overflow-x:auto;min-width:0;scrollbar-width:none}
+.tab{white-space:nowrap;padding:7px 12px;border-radius:10px;font-weight:700;font-size:14px;color:var(--muted)}
+.tab b{font-family:var(--mono);font-weight:500;margin-right:6px;opacity:.6}
+.tab[aria-current="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+#app{flex:1;min-height:0;position:relative;display:flex}
+.btn{background:var(--act);color:#fff;font-weight:700;border-radius:11px;padding:10px 16px;white-space:nowrap}
+.btn[disabled]{opacity:.4;cursor:default}
+.ghost{color:var(--act);font-weight:700;padding:10px 8px;white-space:nowrap}
+.slot{position:relative;overflow:hidden;min-height:0;min-width:0}
+.slot canvas{display:block;width:100%;height:100%;position:absolute;inset:0;touch-action:none}
+.labtag{position:absolute;transform:translate(-50%,-100%);pointer-events:none;background:var(--surface);color:var(--ink);border-radius:10px;padding:4px 9px 5px;box-shadow:0 2px 10px rgba(0,0,0,.12);text-align:center;font-size:12px;font-weight:700;line-height:1.25;white-space:nowrap}
+.labtag i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c);margin-right:5px}
+.labtag .t{display:block;font-family:var(--mono);font-size:15px}
+.labtag.fin{box-shadow:0 0 0 2px var(--c)}
+.labhint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis;background:var(--surface);color:var(--muted);border-radius:99px;padding:5px 12px;font-size:12px;font-weight:700;pointer-events:none;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.toast{position:absolute;left:50%;top:14px;transform:translateX(-50%);background:var(--ink);color:var(--bg);border-radius:12px;padding:8px 14px;font-weight:700;font-size:14px;pointer-events:none;transition:opacity .4s;white-space:nowrap}
+.toast.hide{opacity:0}
+.stepper{display:inline-flex;align-items:center;gap:2px;background:var(--bg);border-radius:10px;padding:2px}
+.stepper button{width:30px;height:30px;border-radius:8px;font-weight:800;color:var(--act)}
+.stepper span{min-width:52px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--c);margin-right:6px;vertical-align:0}
 
-.stage{position:relative;flex:1;min-height:0;border-radius:22px;overflow:hidden}
-#gl{position:absolute;inset:0;cursor:grab;touch-action:none}
-#gl canvas{display:block;width:100%;height:100%}
+/* 1 book */
+.c-book{flex:1;display:flex;flex-direction:column;border-radius:20px;overflow:hidden}
+.c-book .slot{flex:1}
+.pill{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:6px;background:var(--surface);border-radius:16px;padding:6px;box-shadow:0 8px 30px -10px rgba(0,0,0,.3);max-width:calc(100% - 24px)}
+.pill .nav{width:38px;height:38px;border-radius:11px;font-size:18px;font-weight:800}
+.pill .nav:hover{background:var(--bg)}
+.pill .lbl{padding:0 8px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.pill .lbl small{color:var(--muted);font-weight:600;margin-right:6px;font-family:var(--mono)}
 
-.info{position:absolute;left:18px;top:18px;width:330px;max-height:calc(100% - 36px);overflow:auto;background:var(--panel);border-radius:18px;padding:22px;
-  box-shadow:0 12px 40px -18px rgba(0,0,0,.35);display:flex;flex-direction:column;gap:12px}
-.num{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--muted);font-variant-numeric:tabular-nums}
-.info h1{font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.1;margin:0;text-wrap:balance}
-.subj{align-self:flex-start;font-size:13px;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--bg);color:var(--muted)}
-.info p{margin:0}
-dl{margin:0;display:grid;gap:10px}
-dt{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-dd{margin:2px 0 0}
-.tapline{display:flex;gap:10px;align-items:flex-start;background:var(--act-soft);color:var(--act);border-radius:12px;padding:10px 12px;font-weight:600}
-.tapline i{flex:none;width:9px;height:9px;margin-top:7px;border-radius:50%;background:var(--act);animation:pulse 1.5s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 var(--act)}100%{box-shadow:0 0 0 10px transparent}}
-.diff{display:flex;gap:4px;align-items:center}
-.diff b{width:22px;height:6px;border-radius:9px;background:var(--line)}.diff b.on{background:var(--ink)}
-.diff span{margin-left:8px}
-.acts{display:flex;gap:8px;flex-wrap:wrap}
-.btn{background:var(--act);color:#fff;font-weight:700;border-radius:11px;padding:9px 14px}
-.ghost{color:var(--act);font-weight:700;padding:9px 6px}
+/* 2 lab */
+.c-lab{flex:1;display:grid;grid-template-columns:240px minmax(0,1fr) 280px;grid-template-rows:minmax(0,1fr) auto;gap:10px}
+.c-lab .slot{grid-column:2;grid-row:1;border-radius:18px}
+.panel{background:var(--surface);border-radius:18px;padding:16px;overflow:auto;min-width:0}
+.panel h3{margin:0 0 10px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.task{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);font-weight:600}
+.task .ck{flex:none;width:20px;height:20px;border-radius:6px;border:2px solid var(--line);display:grid;place-items:center;font-size:12px;color:#fff;margin-top:1px}
+.task.done .ck{background:var(--good);border-color:var(--good)}.task.done span{color:var(--muted);text-decoration:line-through}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+th{text-align:left;color:var(--muted);font-weight:700;padding:4px 4px 6px;border-bottom:1px solid var(--line)}
+td{padding:6px 4px;border-bottom:1px solid var(--line)}
+td:last-child,th:last-child{text-align:right}
+.tools{grid-column:1/-1;grid-row:2;display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;background:var(--surface);border-radius:16px;padding:10px 14px}
+.tools .sp{margin-left:auto;display:flex;gap:6px}
+.empty{color:var(--muted);font-size:13px;padding:8px 0}
 
-.hint{position:absolute;right:16px;bottom:16px;display:flex;gap:8px;align-items:center;background:var(--panel);color:var(--muted);font-weight:600;font-size:13px;border-radius:99px;padding:6px 12px 6px 8px;pointer-events:none;transition:opacity .5s}
-.hint svg{width:18px;height:18px}.hint.gone{opacity:0}
-.nav{position:absolute;right:16px;top:16px;display:flex;gap:8px}
-.nav button{width:40px;height:40px;border-radius:50%;background:var(--panel);font-size:18px;font-weight:700;box-shadow:0 4px 14px -6px rgba(0,0,0,.3)}
+/* 3 tutor */
+.c-chat{flex:1;display:grid;grid-template-columns:minmax(300px,400px) minmax(0,1fr);gap:10px}
+.chat{background:var(--surface);border-radius:18px;display:flex;flex-direction:column;min-height:0}
+.chat .head{display:flex;gap:10px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.ava{width:34px;height:34px;border-radius:50%;background:var(--act-soft);display:grid;place-items:center;font-weight:800;color:var(--act)}
+.chat .log{flex:1;overflow:auto;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:85%;padding:9px 12px;border-radius:14px 14px 14px 4px;background:var(--bg)}
+.msg.me{align-self:flex-end;background:var(--act);color:#fff;border-radius:14px 14px 4px 14px}
+.msg.sys{align-self:center;background:none;color:var(--muted);font-size:13px;font-weight:600}
+.typing{color:var(--muted);font-size:13px}
+.quick{display:flex;gap:6px;flex-wrap:wrap;padding:10px 16px 14px;border-top:1px solid var(--line)}
+.quick button{background:var(--act-soft);color:var(--act);font-weight:700;border-radius:99px;padding:7px 13px}
+.c-chat .slot{border-radius:18px}
 
-.strip{flex:none;display:flex;gap:8px;overflow-x:auto;padding-top:12px;scrollbar-width:thin}
-.chip{flex:none;display:flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;border-radius:14px;background:var(--panel);border:2px solid transparent;text-align:left;white-space:nowrap}
-.chip .sw{width:30px;height:30px;border-radius:9px;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
-.chip b{display:block;font-size:14px}.chip small{display:block;color:var(--muted);font-size:12px;font-weight:600}
-.chip[aria-current="true"]{border-color:var(--ink)}
+/* 4 scroll story */
+.c-story{flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:10px;min-height:0}
+.story{overflow:auto;background:var(--surface);border-radius:18px;padding:0 34px;scroll-behavior:smooth}
+.story section{min-height:78%;padding:44px 0;display:flex;flex-direction:column;justify-content:center;gap:12px;max-width:52ch;opacity:.35;transition:opacity .4s}
+.story section.on{opacity:1}
+.story .k{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.story h2{font-family:var(--serif);font-weight:600;font-size:32px;line-height:1.1;margin:0;text-wrap:balance}
+.story p{margin:0;font-size:17px}
+.live{font-family:var(--mono);font-weight:700;color:var(--act)}
+.story .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.story .end{min-height:30%}
+.c-story .slot{border-radius:18px}
 
-@media (max-width:820px){
+/* 5 mission */
+.c-mission{flex:1;position:relative;border-radius:20px;overflow:hidden;background:#11151C}
+.c-mission .slot{position:absolute;inset:0}
+.hud{position:absolute;color:#EAF0FF}
+.mcard{left:16px;top:16px;width:300px;max-width:calc(100% - 32px);background:rgba(18,24,36,.86);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px;backdrop-filter:blur(6px)}
+.mcard .lv{font-family:var(--mono);font-size:12px;color:#8FA6D9;letter-spacing:.06em}
+.mcard h2{margin:4px 0 6px;font-size:20px;line-height:1.2}
+.mcard p{margin:0;color:#B9C5E0;font-size:14px}
+.stars{right:16px;top:16px;display:flex;gap:4px;font-size:24px;letter-spacing:2px}
+.stars span{color:#3A4560}.stars span.on{color:#FFC94D}
+.motors{left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:8px;align-items:stretch;max-width:calc(100% - 24px);overflow-x:auto}
+.mchip{background:rgba(18,24,36,.9);border:2px solid rgba(255,255,255,.12);color:#EAF0FF;border-radius:14px;padding:10px 14px;text-align:left;min-width:96px}
+.mchip b{display:block;font-family:var(--mono);font-size:18px}.mchip small{color:#8FA6D9;font-weight:700}
+.mchip[aria-pressed="true"]{border-color:#FFC94D}
+.mgo{background:#FFC94D;color:#2A1F00;font-weight:800;border-radius:14px;padding:0 20px}
+.result{left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(18,24,36,.94);border-radius:18px;padding:22px 26px;text-align:center;border:1px solid rgba(255,255,255,.12);min-width:260px}
+.result h3{margin:0 0 4px;font-size:22px}.result p{margin:0 0 14px;color:#B9C5E0}
+
+/* 6 cards */
+.c-cards{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:0;perspective:1400px}
+.deck{position:relative;width:min(520px,100%);flex:1;max-height:640px;min-height:0}
+.cardx{position:absolute;inset:0;background:var(--surface);border-radius:24px;box-shadow:0 18px 50px -24px rgba(0,0,0,.4);display:flex;flex-direction:column;overflow:hidden;transition:transform .45s cubic-bezier(.3,1.2,.5,1),opacity .3s}
+.cardx.behind{transform:translateY(14px) scale(.95);opacity:.6}
+.cardx.behind2{transform:translateY(26px) scale(.9);opacity:.3}
+.cardx .slot{height:52%;flex:none;background:var(--bg)}
+.cardx .txt{padding:20px 24px;display:flex;flex-direction:column;gap:10px;flex:1;overflow:auto;touch-action:pan-y}
+.cardx h2{font-family:var(--serif);font-weight:600;font-size:26px;margin:0;line-height:1.15}
+.cardx p{margin:0}
+.cardx .opts{display:flex;gap:8px;flex-wrap:wrap}
+.cardx .opt{background:var(--act-soft);color:var(--act);font-weight:700;border-radius:12px;padding:9px 14px}
+.cnav{display:flex;align-items:center;gap:12px}
+.cdots{display:flex;gap:6px}.cdots i{width:7px;height:7px;border-radius:50%;background:var(--line)}.cdots i.on{background:var(--ink)}
+.flipback{background:var(--good-soft);color:var(--good);border-radius:12px;padding:10px 12px;font-weight:700}
+
+/* 7 live formula */
+.c-formula{flex:1;display:flex;flex-direction:column;gap:10px;min-height:0}
+.fbar{background:var(--surface);border-radius:18px;padding:18px 22px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 26px}
+.eq{font-family:var(--serif);font-size:clamp(28px,4.4vw,52px);display:flex;align-items:baseline;gap:.25em;flex-wrap:wrap}
+.scrub{font-family:var(--mono);font-size:.8em;color:var(--act);border-bottom:2px dashed var(--act);cursor:ew-resize;touch-action:none;user-select:none;padding:0 .1em}
+.scrub:hover{background:var(--act-soft)}
+.res{font-family:var(--mono);font-size:.8em;font-weight:700}
+.fnote{color:var(--muted);font-size:14px;max-width:40ch}
+.fnote b{color:var(--ink)}
+.c-formula .slot{flex:1;border-radius:18px}
+.c-formula .acts{display:flex;gap:8px;margin-left:auto}
+
+.c-ex{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:10px;min-height:0}
+.c-ex .slot{border-radius:18px;background:repeating-linear-gradient(0deg,transparent 0 31px,rgba(120,130,125,.12) 31px 32px),repeating-linear-gradient(90deg,transparent 0 31px,rgba(120,130,125,.12) 31px 32px)}
+.bignum{position:absolute;left:22px;top:18px;pointer-events:none}
+.bignum small{display:block;font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em}
+.bignum b{font-family:var(--mono);font-weight:500;font-size:72px;line-height:1}
+.exp{background:var(--surface);border-radius:18px;display:flex;flex-direction:column;min-height:0}
+.exp .in{padding:20px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:12px}
+.exp h2{margin:0;font-size:24px;line-height:1.15}
+.exp .k{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.parts{display:grid;gap:6px}
+.parts button{display:flex;justify-content:space-between;align-items:center;text-align:left;border:1px solid var(--line);border-radius:12px;padding:9px 12px;font-weight:700}
+.parts button[aria-pressed="true"]{border-color:var(--act);background:var(--act-soft);color:var(--act)}
+.parts button small{color:var(--muted);font-weight:600}
+.exp .foot{border-top:1px solid var(--line);padding:12px 16px;display:flex;gap:8px;align-items:center}
+.exp .foot .sp{margin-left:auto}
+.range label{display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:var(--muted)}
+.range input{width:100%;accent-color:var(--act)}
+.pw{font-family:var(--mono);font-weight:700}
+@media (max-width:900px){
+  .c-ex{display:flex;flex-direction:column}.c-ex .slot{height:52vh;min-height:300px;flex:none}
   body{overflow:auto;height:auto}
-  .stage{flex:none;display:flex;flex-direction:column;overflow:visible;border-radius:0}
-  #gl{position:relative;height:56vh;min-height:330px;border-radius:18px;overflow:hidden}
-  .info{position:relative;left:auto;top:auto;width:auto;max-height:none;margin-top:12px;box-shadow:none}
-  .hint{bottom:auto;top:calc(56vh - 46px)} .nav{top:12px;right:12px}
-  .info h1{font-size:26px}
+  #app{flex:none;display:block}
+  .c-lab,.c-chat,.c-story{display:flex;flex-direction:column}
+  .c-lab .slot,.c-chat .slot,.c-book .slot,.c-formula .slot{height:52vh;min-height:300px;flex:none}
+  .c-story .slot{position:sticky;top:0;height:42vh;min-height:260px;z-index:2;order:-1}
+  .story{overflow:visible;padding:0 18px}.story section{min-height:60vh}
+  .c-book,.c-mission{height:72vh;min-height:460px}
+  .c-cards{height:auto}.deck{height:600px;flex:none}
+  .chat{max-height:none}.chat .log{max-height:340px}
+  .c-chat .slot{order:-1}
+  .c-lab .slot{order:-1}
 }
-@media (max-height:620px) and (min-width:821px){.info{width:300px;padding:16px;gap:8px}.info h1{font-size:24px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
 <header class="top">
   <div class="logo">school <span>cool</span></div>
-  <div class="sub">8 концепций: книга, из страницы которой вырастает опыт</div>
+  <nav class="tabs" id="tabs" aria-label="Концепции"></nav>
 </header>
-
-<main class="stage">
-  <div id="gl" aria-label="3D-книга. Нажми, чтобы взаимодействовать, потяни, чтобы повернуть."></div>
-  <div class="nav"><button id="prev" aria-label="Предыдущая концепция">←</button><button id="next" aria-label="Следующая концепция">→</button></div>
-  <div class="hint" id="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12a8 8 0 0114-5.3M20 12a8 8 0 01-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg>Потяни, чтобы повернуть книгу</div>
-  <section class="info" id="info" aria-live="polite"></section>
-</main>
-<nav class="strip" id="strip" aria-label="Концепции"></nav>
+<div id="app"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (function(){
-const $=id=>document.getElementById(id);
-const PI=Math.PI, clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
-const outBack=t=>{const c1=1.5,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2)};
-const outCubic=t=>1-Math.pow(1-t,3);
+const $=(s,r=document)=>r.querySelector(s), PI=Math.PI, clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const nf=(n,d=1)=>n.toLocaleString('ru-RU',{minimumFractionDigits:d,maximumFractionDigits:d});
+const W=n=>(Math.abs(n-Math.round(n))<.05?Math.round(n).toLocaleString('ru-RU'):nf(n,1))+' Вт';
+const el=(tag,cls,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e};
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 
-/* ---------------- concepts (data) ---------------- */
-const C=[
- {name:'Поп-ап книга',subj:'Физика · Рычаг',idea:'Страница раскрывается, и бумажные детали поднимаются, как в детской книжке-раскладушке.',
-  feel:'Тёплое, рукотворное, уютное. Всё из бумаги и картона.',fits:'Младшие классы, простые механизмы, сказки.',tap:'Нажми на страницу: груз перескочит на другой край, и рычаг наклонится.',diff:2,
-  desk:0xD9DDD5,cover:0x9C6B4A,paper:'#FBF8F1',ink:'#3A2F28',sw:'#E9DCC6',
-  page:{eyebrow:'ФИЗИКА · ГЛАВА 3',title:'Рычаг',text:['Рычаг помогает поднять','тяжёлое малой силой.','Чем длиннее плечо,','тем легче поднимать.'],fact:'F₁ · l₁ = F₂ · l₂'}},
- {name:'Чертёж оживает',subj:'Физика · Мощность',idea:'Сначала на странице появляется тонкий чертёж, потом линии наполняются объёмом.',
-  feel:'Умное, инженерное, очень спокойное.',fits:'Физика, геометрия, черчение, техника.',tap:'Нажми: моторы поднимут ящики. Один быстрее, другой медленнее.',diff:1,
-  desk:0xDCE2E6,cover:0x2C4A6E,paper:'#F6F8FA',ink:'#24426B',sw:'#C9D6E6',
-  page:{eyebrow:'ФИЗИКА · ГЛАВА 4',title:'Мощность',text:['Мощность показывает,','как быстро совершается','работа.','Рис. 1. Два мотора.'],fact:'N = A / t'}},
- {name:'Под стеклянным куполом',subj:'Биология · Росток',idea:'На странице стоит маленький террариум, а внутри него живой опыт.',
-  feel:'Бережное, как музейный экспонат.',fits:'Биология, химия, экосистемы.',tap:'Нажми: лампа перейдёт на другую сторону, и росток потянется к свету.',diff:2,
-  desk:0xD5DDD6,cover:0x3F6B52,paper:'#F8FAF5',ink:'#28402F',sw:'#CFE3D2',
-  page:{eyebrow:'БИОЛОГИЯ · ГЛАВА 2',title:'Фототропизм',text:['Растения поворачиваются','к источнику света.','Так листья получают','больше энергии.'],fact:'свет → рост'}},
- {name:'Остров на странице',subj:'География · Вулкан',idea:'Из страницы поднимается маленький мир, а вокруг него плещется вода.',
-  feel:'Игра и приключение. Хочется рассмотреть каждую деталь.',fits:'География, природоведение, история мест.',tap:'Нажми: вулкан проснётся и выпустит дым.',diff:2,
-  desk:0xD6E0E0,cover:0x2F7C86,paper:'#F7FAF9',ink:'#1F4A50',sw:'#BFE0DE',
-  page:{eyebrow:'ГЕОГРАФИЯ · ГЛАВА 5',title:'Вулканы',text:['Вулкан — это гора,','через которую магма','выходит на поверхность.','Остров может быть вулканом.'],fact:'≈ 1 500 вулканов'}},
- {name:'Ночная книга',subj:'Астрономия · Солнечная система',idea:'Тёмная книга, над страницей светятся планеты на своих орбитах.',
-  feel:'Тайна, космос, вечерний режим чтения.',fits:'Астрономия, свет, тёмная тема для всей школы.',tap:'Нажми: время пойдёт в пять раз быстрее.',diff:2,
-  desk:0x14171F,cover:0x1E2A4A,paper:'#1B2238',ink:'#C9D3F2',sw:'#27335A',dark:true,
-  page:{eyebrow:'АСТРОНОМИЯ · ГЛАВА 1',title:'Солнечная система',text:['Восемь планет','движутся вокруг Солнца.','Чем дальше планета,','тем длиннее её год.'],fact:'Земля: 365 дней'}},
- {name:'Пластилин',subj:'Химия · Молекула воды',idea:'Мягкие, будто вылепленные руками фигуры выпрыгивают со страницы.',
-  feel:'Весело и тактильно. Хорошо для младших.',fits:'Химия, анатомия, начальная школа.',tap:'Нажми: молекула подпрыгнет и покрутится.',diff:1,
-  desk:0xE3DDE0,cover:0xB65A5A,paper:'#FBF8F7',ink:'#4A2E2E',sw:'#F0D2CF',
-  page:{eyebrow:'ХИМИЯ · ГЛАВА 1',title:'Молекула воды',text:['Молекула воды состоит','из одного атома','кислорода и двух','атомов водорода.'],fact:'H₂O'}},
- {name:'Бумажный театр',subj:'История · Древний Египет',idea:'Слои вырезанной бумаги встают друг за другом, как театральные декорации.',
-  feel:'Сказка и рассказ. При повороте книги видна глубина.',fits:'История, литература, языки.',tap:'Нажми: солнце сядет за пирамиды.',diff:2,
-  desk:0xE2DDD3,cover:0xA8742E,paper:'#FBF6EC',ink:'#4B3517',sw:'#F0D9AE',
-  page:{eyebrow:'ИСТОРИЯ · ГЛАВА 2',title:'Пирамиды Гизы',text:['Пирамиды строили','больше 4 500 лет назад.','Самая большая','высотой 139 метров.'],fact:'≈ 2 300 000 блоков'}},
- {name:'Окно в страницу',subj:'Математика · Объём',idea:'В странице открывается окно, а под ним глубина. В книгу можно заглянуть.',
-  feel:'Удивление: книга глубже, чем кажется.',fits:'Математика, геология, анатомия по слоям.',tap:'Нажми: кубики заново заполнят коробку.',diff:3,thick:1.5,
-  desk:0xDDDCE6,cover:0x4E4A8C,paper:'#F9F9FC',ink:'#2E2A5C',sw:'#D6D4EE',
-  page:{eyebrow:'МАТЕМАТИКА · ГЛАВА 6',title:'Объём',text:['Объём показывает,','сколько места','занимает тело.','Посчитай кубики в окне.'],fact:'V = 3 · 3 · 2'}},
+/* =================== shared 3D lab =================== */
+const Lab=(()=>{
+  const R=new THREE.WebGLRenderer({antialias:true,alpha:true});R.setPixelRatio(Math.min(2,devicePixelRatio));
+  R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;R.outputEncoding=THREE.sRGBEncoding;
+  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(32,1,.1,200);
+  const hemi=new THREE.HemisphereLight(0xffffff,0xbfc4bc,.8);scene.add(hemi);
+  const sun=new THREE.DirectionalLight(0xffffff,.65);sun.position.set(-5,12,7);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+  Object.assign(sun.shadow.camera,{left:-8,right:8,top:8,bottom:-8,near:1,far:40});sun.shadow.bias=-.0004;scene.add(sun);
+  const shadowFloor=new THREE.Mesh(new THREE.PlaneGeometry(60,60),new THREE.ShadowMaterial({opacity:.13}));shadowFloor.rotation.x=-PI/2;shadowFloor.receiveShadow=true;scene.add(shadowFloor);
+  const stageG=new THREE.Group();scene.add(stageG);
+  const labG=new THREE.Group();scene.add(labG);
+  const INK=0x2a2e33;
+  const M=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.7},o));
+  const mesh=(g,m,sh=true)=>{const x=new THREE.Mesh(g,m);x.castShadow=sh;x.receiveShadow=true;return x};
+  const lineM=new THREE.LineBasicMaterial({color:INK,transparent:true,opacity:.55});
+  const edged=(g,m)=>{const x=mesh(g,m);x.add(new THREE.LineSegments(new THREE.EdgesGeometry(g,30),lineM));return x};
+  const Y0=.32,LIFT=1.9,TOP=2.62;
+  function sprite(text,size,w,h,color){const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.fillStyle=color||'#2a2e33';x.font=`600 ${size}px Literata, Georgia, serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(text,w/2,h/2);
+    const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;return new THREE.Mesh(new THREE.PlaneGeometry(w/200,h/200),new THREE.MeshBasicMaterial({map:t,transparent:true}))}
+  function rig(key,accent){
+    const g=new THREE.Group();labG.add(g);const white=M(0xf8f8f5);
+    [-.62,.62].forEach(x=>{const p=edged(new THREE.BoxGeometry(.1,TOP+.1,.1),white);p.position.set(x,(TOP+.1)/2,0);g.add(p)});
+    const beam=edged(new THREE.BoxGeometry(1.5,.12,.32),white);beam.position.y=TOP+.1;g.add(beam);
+    const motor=new THREE.Group();motor.position.y=TOP+.48;g.add(motor);
+    const can=edged(new THREE.CylinderGeometry(.3,.3,.62,32),white);can.rotation.z=PI/2;motor.add(can);
+    const band=mesh(new THREE.CylinderGeometry(.305,.305,.12,32),M(accent));band.rotation.z=PI/2;band.position.x=-.2;motor.add(band);
+    const dial=new THREE.Group();dial.position.set(.12,0,.3);motor.add(dial);
+    const disc=mesh(new THREE.CylinderGeometry(.19,.19,.06,32),M(accent,{roughness:.4}));disc.rotation.x=PI/2;dial.add(disc);
+    const notch=mesh(new THREE.BoxGeometry(.035,.15,.03),M(INK));notch.position.set(0,.07,.04);dial.add(notch);
+    const eyeM=new THREE.MeshBasicMaterial({color:INK});[-.21,-.09].forEach(x=>{const e=mesh(new THREE.SphereGeometry(.03,10,8),eyeM,false);e.position.set(x,.08,.29);motor.add(e)});
+    const letter=sprite(key==='A'?'А':'Б',90,120,120);letter.position.set(-.15,.55,0);letter.scale.setScalar(.8);motor.add(letter);
+    const spool=mesh(new THREE.CylinderGeometry(.12,.12,.36,16),white);spool.rotation.z=PI/2;spool.position.y=TOP-.05;g.add(spool);
+    const rope=mesh(new THREE.CylinderGeometry(.012,.012,1,6),M(INK),false);g.add(rope);
+    const crate=new THREE.Group();g.add(crate);
+    const box=edged(new THREE.BoxGeometry(.56,.56,.56),M(0xEFE7D6));crate.add(box);
+    const hook=mesh(new THREE.TorusGeometry(.06,.016,6,12),M(INK));hook.position.y=.33;crate.add(hook);
+    const r={key,g,motor,dial,spool,rope,crate,box,lab:null,mass:5,power:key==='A'?50:25,p:0,state:'idle',t0:0,dur:0,visible:true,tag:null,res:null};
+    setLabel(r);return r}
+  function setLabel(r){if(r.lab){r.crate.remove(r.lab)}r.lab=sprite(r.mass+' кг',60,220,90);r.lab.scale.setScalar(.75);r.lab.position.z=.285;r.crate.add(r.lab)}
+  const rigs={A:rig('A',0xE39B37),B:rig('B',0x6F93C4)};
+  const ruler=new THREE.Group();labG.add(ruler);
+  {const r=edged(new THREE.BoxGeometry(.14,LIFT+.1,.05),M(0xffffff));r.position.y=Y0+LIFT/2+.27;ruler.add(r);
+   for(let i=0;i<=10;i++){const t=mesh(new THREE.BoxGeometry(i%5?.07:.13,.012,.012),M(INK),false);t.position.set(-.07+(i%5?.035:.065),Y0+.28+i*LIFT/10,.03);ruler.add(t)}
+   const s=sprite('1 м',56,140,70);s.position.set(.32,Y0+LIFT+.3,0);s.scale.setScalar(.8);ruler.add(s)}
+  ruler.position.z=-.4;
+  function place(r){const y=Y0+r.p*LIFT;r.crate.position.y=y;const top=y+.36,len=TOP-.12-top;r.rope.scale.y=Math.max(.01,len);r.rope.position.y=top+len/2;r.spool.rotation.x=-r.p*14}
+  Object.values(rigs).forEach(place);
+
+  /* stages */
+  let stage='bench',bookPage=null,flip=null,view={tx:0,ty:1.3,dist:10.5,yaw:-.25,pitch:.42};
+  function clearStage(){while(stageG.children.length)stageG.remove(stageG.children[0])}
+  function pageCanvas(title,lines,foot){const Wc=1024,Hc=1350,c=document.createElement('canvas');c.width=Wc;c.height=Hc;const x=c.getContext('2d');
+    x.fillStyle='#FBFAF6';x.fillRect(0,0,Wc,Hc);const g=x.createLinearGradient(Wc,0,Wc-180,0);g.addColorStop(0,'rgba(0,0,0,.12)');g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,Wc,Hc);
+    x.fillStyle='#22262B';x.font='700 26px Manrope, sans-serif';x.globalAlpha=.55;x.fillText('ФИЗИКА · ГЛАВА 4',110,170);x.globalAlpha=1;
+    x.font='600 88px Literata, Georgia, serif';x.fillText(title,110,290);
+    x.font='500 40px Manrope, sans-serif';lines.forEach((l,i)=>{if(l.startsWith('=')){x.font='600 64px Literata, Georgia, serif';x.fillText(l.slice(1),110,410+i*60+20);x.font='500 40px Manrope, sans-serif'}else x.fillText(l,110,410+i*60)});
+    if(foot){x.fillStyle='#2F62E8';x.font='700 38px Manrope, sans-serif';x.fillText(foot,110,1000)}
+    x.globalAlpha=.4;x.fillStyle='#22262B';x.font='500 28px Manrope, sans-serif';x.fillText('24',110,Hc-90);x.globalAlpha=1;
+    const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=8;return t}
+  function setStage(s){
+    stage=s;clearStage();flows=[];labG.visible=s!=='explode';exG.visible=s==='explode';if(s==='explode'){exE=exT=1;exSel=-1;exApply()}labG.scale.setScalar(1);labG.position.set(0,0,0);bookPage=null;
+    rigs.A.g.position.set(-1.45,0,0);rigs.B.g.position.set(1.45,0,0);ruler.position.set(0,0,-.4);
+    if(s==='bench'){
+      const top=mesh(new THREE.BoxGeometry(9,.24,4.6),M(0xE7DCCB,{roughness:.9}));top.position.y=-.12;stageG.add(top);
+      const plate=edged(new THREE.BoxGeometry(5.2,.08,1.5),M(0xffffff));plate.position.y=.04;stageG.add(plate);
+      labG.position.y=.08;view={tx:0,ty:1.6,dist:12,yaw:-.25,pitch:.36};
+    }else if(s==='book'){
+      const T=.3,PW=4.4,PD=5.8,cover=mesh(new THREE.BoxGeometry(2*PW+.5,.12,PD+.4),M(0x3E5D7E));cover.position.y=.06;stageG.add(cover);
+      const edge=M(0xEDEBE3,{roughness:.95});
+      [-1,1].forEach(sd=>{const b=mesh(new THREE.BoxGeometry(PW,T,PD),edge);b.position.set(sd*(PW/2+.02),.12+T/2,0);stageG.add(b)});
+      const lp=mesh(new THREE.PlaneGeometry(PW,PD),new THREE.MeshStandardMaterial({map:pageCanvas('Мощность',[]),roughness:.95}));lp.rotation.x=-PI/2;lp.position.set(-PW/2-.02,.12+T+.002,0);stageG.add(lp);bookPage=lp;
+      const rp=mesh(new THREE.PlaneGeometry(PW,PD),M(0xFBFAF6,{roughness:.95}));rp.rotation.x=-PI/2;rp.position.set(PW/2+.02,.12+T+.002,0);stageG.add(rp);
+      const fp=new THREE.Group();fp.position.set(0,.12+T+.004,0);const fpm=mesh(new THREE.PlaneGeometry(PW,PD),new THREE.MeshStandardMaterial({color:0xF7F5EE,side:THREE.DoubleSide,roughness:.95}));fpm.rotation.x=-PI/2;fpm.position.x=PW/2;fp.add(fpm);fp.visible=false;stageG.add(fp);flip={g:fp,k:1};
+      labG.scale.setScalar(.82);labG.position.set(2.42,.12+T,-.6);rigs.A.g.position.x=-1.45;rigs.B.g.position.x=1.45;
+      buildFlows(T);
+      view={tx:.9,ty:1.2,dist:12.5,yaw:-.12,pitch:.58};
+    }else if(s==='explode'){
+      view={tx:0,ty:1.6,dist:9.5,yaw:-.55,pitch:.32};
+    }else if(s==='dark'){
+      const disc=mesh(new THREE.CylinderGeometry(4.2,4.4,.3,64),M(0x1B2333,{roughness:.6}));disc.position.y=-.15;stageG.add(disc);
+      const ring=mesh(new THREE.TorusGeometry(4.25,.03,8,120),new THREE.MeshBasicMaterial({color:0xFFC94D}),false);ring.rotation.x=PI/2;stageG.add(ring);
+      view={tx:0,ty:1.5,dist:10.5,yaw:-.3,pitch:.33};
+    }else{view={tx:0,ty:1.6,dist:11.2,yaw:-.2,pitch:.32}}
+    yaw=tyaw=view.yaw;pitch=tpitch=view.pitch;
+    const dark=s==='dark';hemi.intensity=dark?.55:.8;sun.intensity=dark?.5:.65;shadowFloor.material.opacity=dark?.3:.13;
+  }
+  function setPage(title,lines,foot,animate){if(!bookPage)return;const old=bookPage.material.map;bookPage.material.map=pageCanvas(title,lines,foot);bookPage.material.needsUpdate=true;old&&old.dispose();if(animate&&flip){flip.k=0;flip.g.visible=true}}
+
+  /* energy flows on the book page (battery -> motors) */
+  let flows=[];
+  function buildFlows(T){flows=[];
+    const bat=new THREE.Group();bat.position.set(-.2,.12+T,1.85);stageG.add(bat);
+    const body=edged(new THREE.CylinderGeometry(.32,.32,1.1,28),M(0xffffff));body.rotation.z=PI/2;body.position.y=.34;bat.add(body);
+    const cap=mesh(new THREE.CylinderGeometry(.33,.33,.3,28),M(0xE39B37));cap.rotation.z=PI/2;cap.position.set(.45,.34,0);bat.add(cap);
+    const nub=mesh(new THREE.CylinderGeometry(.1,.1,.12,16),M(0x999999,{metalness:.6,roughness:.3}));nub.rotation.z=PI/2;nub.position.set(.66,.34,0);bat.add(nub);
+    [['A',-1.45,0xFF8A3D],['B',1.45,0x3D7BFF]].forEach(([k,x,c])=>{
+      const s=labG.scale.x,lx=labG.position.x+x*s,lz=labG.position.z,top=.12+T+(TOP+.48)*s;
+      const pts=[new THREE.Vector3(.5,.12+T+.34,1.85),new THREE.Vector3(lx,.12+T+.25,1.6),new THREE.Vector3(lx,.12+T+.2,lz+.6),new THREE.Vector3(lx+.55*s,.12+T+.3,lz+.1),new THREE.Vector3(lx+.55*s,top-.2,lz+.05),new THREE.Vector3(lx+.3*s,top,lz)];
+      const curve=new THREE.CatmullRomCurve3(pts);const m=new THREE.MeshStandardMaterial({color:c,emissive:c,emissiveIntensity:.05,roughness:.4});
+      const tube=mesh(new THREE.TubeGeometry(curve,80,.045,10),m);stageG.add(tube);flows.push({k,m})});
+    const lab=sprite('батарейка',40,260,60);lab.rotation.x=-PI/2;lab.position.set(-.2,.12+T+.01,2.45);stageG.add(lab)}
+
+  /* exploded motor (assembly guide) */
+  const exG=new THREE.Group();exG.visible=false;scene.add(exG);
+  const exParts=[];let exE=1,exT=1,exSel=-1,exSpin=0,exRot=0;
+  {const glass=new THREE.MeshStandardMaterial({color:0xdfe8f2,transparent:true,opacity:.28,roughness:.1,depthWrite:false,side:THREE.DoubleSide});
+   const add=(name,obj,off)=>{exG.add(obj);obj.traverse(o=>{if(o.material&&!o.userData.keep){o.material=o.material.clone();o.userData.base=o.material.opacity}});exParts.push({name,obj,off});return obj};
+   const G=()=>new THREE.Group();
+   const shell=G();{const c=mesh(new THREE.CylinderGeometry(.9,.9,2.2,48,1,true),glass,false);c.rotation.z=PI/2;shell.add(c);shell.add(new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.CylinderGeometry(.9,.9,2.2,24,1,true).rotateZ(PI/2),30),lineM))}
+   add('Корпус',shell,new THREE.Vector3(0,1.6,0));
+   const mags=G();[[0xE0584F,1],[0x4F7FE0,-1]].forEach(([c,sd])=>{const g=new THREE.CylinderGeometry(.82,.82,1.6,40,1,true,0,PI);const m=mesh(g,M(c,{side:THREE.DoubleSide}));m.rotation.z=PI/2;m.rotation.x=sd>0?0:PI;m.userData.sd=sd;mags.add(m)});
+   add('Магниты',mags,new THREE.Vector3(0,0,1.7));
+   const rotor=G();{const core=mesh(new THREE.CylinderGeometry(.5,.5,1.3,24),M(0x9aa3ad,{metalness:.5,roughness:.35}));core.rotation.z=PI/2;rotor.add(core);
+     for(let i=0;i<3;i++){const w=mesh(new THREE.TorusGeometry(.42,.09,10,30),M(0xC77B3A,{metalness:.6,roughness:.35}));w.rotation.y=PI/2;w.rotation.x=i*PI/3;w.scale.set(1,1.5,1);rotor.add(w)}}
+   add('Катушка',rotor,new THREE.Vector3(0,0,0));
+   const shaft=mesh(new THREE.CylinderGeometry(.07,.07,3.6,16),M(0xB8BEC6,{metalness:.8,roughness:.25}));shaft.rotation.z=PI/2;add('Вал',shaft,new THREE.Vector3(0,-1.1,0));
+   const comm=G();{const c=mesh(new THREE.CylinderGeometry(.18,.18,.3,16),M(0xC77B3A,{metalness:.7,roughness:.3}));c.rotation.z=PI/2;comm.add(c);[1,-1].forEach(sd=>{const b=mesh(new THREE.BoxGeometry(.12,.22,.14),M(0x333333));b.position.y=sd*.26;comm.add(b)})}
+   comm.position.x=-.95;add('Щётки',comm,new THREE.Vector3(-1.4,0,0));
+   const lid=mesh(new THREE.CylinderGeometry(.92,.92,.12,48),M(0xffffff));lid.rotation.z=PI/2;lid.position.x=1.17;add('Крышка',lid,new THREE.Vector3(1.6,0,0));
+   const pul=G();{const d=mesh(new THREE.CylinderGeometry(.32,.32,.28,24),M(0xE39B37));d.rotation.z=PI/2;pul.add(d);[1,-1].forEach(sd=>{const f=mesh(new THREE.CylinderGeometry(.42,.42,.04,24),M(0xE39B37));f.rotation.z=PI/2;f.position.x=sd*.15;pul.add(f)})}
+   pul.position.x=1.6;add('Шкив',pul,new THREE.Vector3(1.6,0,0));
+   exParts.forEach(p=>p.home=p.obj.position.clone());exG.position.y=1.6}
+  function exApply(){exParts.forEach((p,i)=>{p.obj.position.copy(p.home).addScaledVector(p.off,exE);
+    const dim=exSel>=0&&exSel!==i;p.obj.traverse(o=>{if(o.material&&o.material.opacity!==undefined&&o.type!=='LineSegments'){o.material.transparent=true;o.material.opacity=dim?.15:(o.userData.base??1);o.material.depthWrite=!dim&&(o.userData.base??1)>=1}})})}
+  const Ex={set(e){exT=clamp(e)},get value(){return exT},select(i){exSel=i;exApply()},spin(on){exSpin=on?1:0},get spinning(){return !!exSpin},names:exParts.map(p=>p.name)};
+
+  /* api state */
+  const handlers=[];let host=null,tagsEl=null,hintEl=null,ro=null;
+  function emit(type,data){handlers.slice().forEach(h=>h.type===type&&h.fn(data))}
+  function on(type,fn){handlers.push({type,fn})}
+  function clear(){handlers.length=0}
+  function mount(slot,opts={}){
+    host=slot;slot.appendChild(R.domElement);
+    tagsEl=el('div');slot.appendChild(tagsEl);
+    Object.values(rigs).forEach(r=>{r.tag=el('div','labtag');r.tag.style.setProperty('--c',r.key==='A'?css('--a'):css('--b'));tagsEl.appendChild(r.tag);drawTag(r)});
+    hintEl=el('div','labhint',opts.hint||'Тяни ящик вверх · крути диск на моторе · двигай фон, чтобы повернуть');if(opts.hint!==false)slot.appendChild(hintEl);
+    ro&&ro.disconnect();ro=new ResizeObserver(resize);ro.observe(slot);resize();
+  }
+  function resize(){if(!host)return;const w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
+  function drawTag(r){if(!r.tag)return;r.tag.style.display=r.visible&&labG.visible?'':'none';
+    const t=r.state==='motor'||r.state==='hand'?(performance.now()-r.t0)/1000:(r.res?r.res.t:null);
+    r.tag.classList.toggle('fin',r.state==='done');
+    r.tag.innerHTML=`<i></i>${r.key==='A'?'Мотор А':'Мотор Б'} · ${W(r.power)}<span class="t">${t==null?'—':nf(t)+' с'}</span>`}
+  function setMass(k,m){const r=rigs[k];r.mass=clamp(Math.round(m),1,20);setLabel(r);reset(k);emit('change',{})}
+  function setPower(k,p){const r=rigs[k];r.power=clamp(Math.round(p),5,200);drawTag(r);emit('change',{})}
+  function setVisible(k,v){rigs[k].visible=v;rigs[k].g.visible=v;drawTag(rigs[k]);const solo=!rigs.B.visible;rigs.A.g.position.x=solo?-.3:-1.45;ruler.position.x=solo?1.0:0}
+  function reset(k){(k?[rigs[k]]:Object.values(rigs)).forEach(r=>{r.state='idle';r.p=0;r.res=null;place(r);drawTag(r)})}
+  function run(keys){keys=(keys||['A','B']).filter(k=>rigs[k].visible);const now=performance.now();
+    keys.forEach(k=>{const r=rigs[k];r.state='motor';r.t0=now;r.p=0;r.res=null;r.dur=r.mass*10/r.power});emit('start',{keys})}
+  function demoHand(k='A'){const r=rigs[k];r.state='demo';r.t0=performance.now();r.p=0}
+
+  /* pointer interaction */
+  const ray=new THREE.Raycaster(),mv=new THREE.Vector2();let drag=null,yaw=-.25,tyaw=-.25,pitch=.4,tpitch=.4;
+  function pick(e){const b=R.domElement.getBoundingClientRect();mv.set((e.clientX-b.left)/b.width*2-1,-(e.clientY-b.top)/b.height*2+1);ray.setFromCamera(mv,cam);
+    if(stage==='explode'){const hits=ray.intersectObjects(exParts.map(p=>p.obj),true);if(hits.length){let o=hits[0].object;const i=exParts.findIndex(p=>{let f=false;p.obj.traverse(x=>{if(x===o)f=true});return f});if(i>=0)return{type:'part',i}}return{type:'orbit'}}
+    for(const r of Object.values(rigs)){if(!r.visible)continue;if(ray.intersectObject(r.crate,true).length)return{type:'crate',r};if(ray.intersectObject(r.motor,true).length)return{type:'dial',r}}return{type:'orbit'}}
+  R.domElement.addEventListener('pointerdown',e=>{const h=pick(e);drag={...h,x:e.clientX,y:e.clientY,moved:false};R.domElement.setPointerCapture(e.pointerId);
+    if(h.type==='crate'&&h.r.state!=='motor'){h.r.state='hand';h.r.t0=performance.now();h.r.res=null;h.r.p=0;hintEl&&(hintEl.style.opacity=0)}
+    if(h.type==='part'){emit('part',{i:h.i});drag=null}
+    R.domElement.style.cursor=h.type==='orbit'?'grabbing':'ns-resize'});
+  R.domElement.addEventListener('pointermove',e=>{
+    if(!drag){const h=pick(e);R.domElement.style.cursor=h.type==='orbit'?'grab':(h.type==='part'?'pointer':(h.type==='crate'?'grab':'ns-resize'));return}
+    const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+    if(drag.type==='orbit'){tyaw=clamp(tyaw+dx*.006,-1.1,1.1);tpitch=clamp(tpitch+dy*.004,.1,.95);drag.x=e.clientX;drag.y=e.clientY}
+    else if(drag.type==='dial'){if(Math.abs(dy)>6){setPower(drag.r.key,drag.r.power+(dy<0?5:-5));drag.r.dial.rotation.z+=dy<0?-.3:.3;drag.y=e.clientY;emit('dial',{key:drag.r.key,power:drag.r.power})}}
+    else if(drag.type==='crate'&&drag.r.state==='hand'){
+      const r=drag.r,wp=new THREE.Vector3();r.g.getWorldPosition(wp);
+      const n=new THREE.Vector3().subVectors(cam.position,wp);n.y=0;n.normalize();
+      const plane=new THREE.Plane().setFromNormalAndCoplanarPoint(n,wp);const b=R.domElement.getBoundingClientRect();
+      mv.set((e.clientX-b.left)/b.width*2-1,-(e.clientY-b.top)/b.height*2+1);ray.setFromCamera(mv,cam);const hit=new THREE.Vector3();
+      if(ray.ray.intersectPlane(plane,hit)){r.g.worldToLocal(hit);r.p=clamp((hit.y-Y0-.1)/LIFT);place(r);
+        if(r.p>=.985){r.state='done';const t=(performance.now()-r.t0)/1000;r.res={t,P:r.mass*10/t,by:'hand'};drawTag(r);emit('hand',{key:r.key,t,P:r.res.P,m:r.mass});drag=null}}
+    }});
+  const up=()=>{if(drag&&drag.type==='crate'&&drag.r.state==='hand'){drag.r.state='fall'}drag=null;R.domElement.style.cursor=''};
+  R.domElement.addEventListener('pointerup',up);R.domElement.addEventListener('pointercancel',up);
+
+  const v=new THREE.Vector3();
+  function frame(now){
+    yaw+=(tyaw-yaw)*.08;pitch+=(tpitch-pitch)*.08;
+    const d=view.dist;cam.position.set(view.tx+Math.sin(yaw)*d*Math.cos(pitch),view.ty+Math.sin(pitch)*d,Math.cos(yaw)*d*Math.cos(pitch));cam.lookAt(view.tx,view.ty,0);
+    Object.values(rigs).forEach(r=>{
+      if(r.state==='motor'){const el=(now-r.t0)/1000;r.p=clamp(el/r.dur);r.dial.rotation.z-=.25;place(r);if(r.p>=1){r.state='done';r.res={t:r.dur,P:r.power,by:'motor'};emit('finish',{key:r.key,t:r.dur,P:r.power,m:r.mass})}}
+      else if(r.state==='fall'){r.p=Math.max(0,r.p-.04);place(r);if(!r.p)r.state='idle'}
+      else if(r.state==='demo'){const el=(now-r.t0)/1000;r.p=el<1.2?outQ(el/1.2):Math.max(0,1-(el-1.6)/.6);place(r);if(el>2.2){r.state='idle';r.p=0;place(r)}}
+      if(r.state==='motor'||r.state==='hand'||r.state==='done'||r.state==='idle')drawTag(r);
+      if(r.tag&&host){r.g.localToWorld(v.set(0,TOP+1.15,0));v.project(cam);r.tag.style.left=((v.x+1)/2*host.clientWidth)+'px';r.tag.style.top=((1-v.y)/2*host.clientHeight)+'px'}
+    });
+    if(exG.visible){exE+=(exT-exE)*.08;exApply();exRot+=exSpin*.25;exParts[2].obj.rotation.x=exRot;exParts[3].obj.rotation.x=exRot;exParts[4].obj.rotation.x=exRot;exParts[6].obj.rotation.x=exRot}
+    flows.forEach(f=>{const r=rigs[f.k];f.m.emissiveIntensity=r.state==='motor'?.6+Math.sin(now/90)*.35:.05});
+    if(flip&&flip.g.visible){flip.k=Math.min(1,flip.k+.03);flip.g.rotation.z=flip.k*PI;flip.g.position.y=.43+Math.sin(flip.k*PI)*.4;if(flip.k>=1)flip.g.visible=false}
+    if(host)R.render(scene,cam);requestAnimationFrame(frame)}
+  const outQ=t=>1-(1-t)*(1-t);
+  requestAnimationFrame(frame);
+  return{mount,setStage,setPage,on,clear,run,reset,setMass,setPower,setVisible,demoHand,rigs,Ex,get busy(){return Object.values(rigs).some(r=>r.state==='motor')}};
+})();
+
+/* =================== concepts =================== */
+const app=$('#app');
+let toastT=0;
+function toast(host,text){let t=$('.toast',host);if(!t){t=el('div','toast');host.appendChild(t)}t.textContent=text;t.classList.remove('hide');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.add('hide'),2600)}
+function defaults(){Lab.setVisible('A',true);Lab.setVisible('B',true);Lab.setMass('A',5);Lab.setMass('B',5);Lab.setPower('A',50);Lab.setPower('B',25);Lab.reset()}
+
+const concepts=[
+/* 1 ---------- BOOK ---------- */
+{name:'Книга',build(){
+  const root=el('div','c-book'),slot=el('div','slot');root.appendChild(slot);app.appendChild(root);
+  Lab.setStage('book');defaults();Lab.mount(slot,{hint:false});
+  const pill=el('div','pill');root.appendChild(pill);
+  let i=0,handRes=null;
+  const steps=[
+    {t:'Мощность',lines:['Мощность показывает,','как быстро совершается','работа.','','=N = A / t'],foot:'Листай кнопкой → внизу',btn:null},
+    {t:'Подними сам',lines:['Схвати ящик А мышкой','и тяни вверх до конца.','Чем быстрее поднимешь,','тем больше мощность.'],foot:()=>handRes?`Твоя мощность: ${W(handRes.P)} (${nf(handRes.t)} с)`:'Потяни ящик А вверх',btn:{l:'Показать',f:()=>Lab.demoHand('A')}},
+    {t:'Два мотора',lines:['Мотор А: 50 Вт.','Мотор Б: 25 Вт.','Ящики по 5 кг на 1 м.','Кто поднимет первым?'],foot:'Нажми «Запустить»',btn:{l:'Запустить',f:()=>{Lab.reset();Lab.run()}}},
+    {t:'Твой мотор',lines:['Потяни диск на моторе Б','вверх, чтобы прибавить','мощность. Сделай Б','быстрее, чем А.'],foot:()=>`А: ${W(Lab.rigs.A.power)} · Б: ${W(Lab.rigs.B.power)}`,btn:{l:'Запустить',f:()=>{Lab.reset();Lab.run()}}},
+  ];
+  const draw=(anim)=>{const s=steps[i];Lab.setPage(s.t,s.lines,typeof s.foot==='function'?s.foot():s.foot,anim);
+    pill.innerHTML=`<button class="nav" id="bp" aria-label="Назад">‹</button><span class="lbl"><small>${i+1}/${steps.length}</small>${s.t}</span><button class="nav" id="bn" aria-label="Дальше">›</button>${s.btn?`<button class="btn" id="ba">${s.btn.l}</button>`:''}`;
+    $('#bp',pill).onclick=()=>{if(i>0){i--;Lab.reset();draw(true)}};$('#bn',pill).onclick=()=>{if(i<steps.length-1){i++;Lab.reset();draw(true)}};
+    if(s.btn)$('#ba',pill).onclick=s.btn.f};
+  Lab.on('hand',d=>{handRes=d;if(i===1)draw(false);toast(root,`Ты поднял ${d.m} кг за ${nf(d.t)} с: это ${W(d.P)}`)});
+  Lab.on('change',()=>{if(i===3)draw(false)});
+  Lab.on('finish',d=>{const A=Lab.rigs.A,B=Lab.rigs.B;if(A.state==='done'&&B.state==='done'){toast(root,A.res.t<B.res.t?'Первым был мотор А: он мощнее':B.res.t<A.res.t?'Первым был мотор Б: он мощнее':'Ничья: мощность одинаковая')}});
+  draw(false);
+}},
+/* 2 ---------- LAB BENCH ---------- */
+{name:'Лаборатория',build(){
+  const root=el('div','c-lab');app.appendChild(root);
+  const left=el('div','panel',`<h3>Задания</h3><div id="tasks"></div><p class="empty" style="margin-top:8px">Задания отмечаются сами, когда ты их делаешь.</p>`);
+  const slot=el('div','slot');
+  const right=el('div','panel',`<h3>Журнал измерений</h3><table><thead><tr><th>Кто</th><th>m</th><th>t</th><th>N</th></tr></thead><tbody id="log"></tbody></table><p class="empty" id="logEmpty">Пока пусто. Подними ящик или запусти моторы.</p>`);
+  const tools=el('div','tools');
+  root.append(left,slot,right,tools);
+  Lab.setStage('bench');defaults();Lab.mount(slot);
+  const tasks=[{id:'hand',t:'Подними ящик рукой'},{id:'run',t:'Запусти оба мотора'},{id:'heavy',t:'Поставь на А груз 10 кг и запусти'},{id:'beat',t:'Сделай мотор Б быстрее А'}],done={};
+  const drawTasks=()=>$('#tasks',root).innerHTML=tasks.map(x=>`<div class="task ${done[x.id]?'done':''}"><span class="ck">${done[x.id]?'✓':''}</span><span>${x.t}</span></div>`).join('');
+  const mark=id=>{if(!done[id]){done[id]=1;drawTasks();toast(slot,'Задание выполнено ✓')}};
+  const addRow=(who,m,t,P)=>{$('#logEmpty',root).hidden=true;const tr=el('tr',null,`<td><span class="dot" style="--c:${who.c}"></span>${who.n}</td><td>${m} кг</td><td>${nf(t)} с</td><td>${W(P)}</td>`);$('#log',root).prepend(tr)};
+  const drawTools=()=>{const A=Lab.rigs.A,B=Lab.rigs.B;tools.innerHTML=`
+    <span><span class="dot" style="--c:var(--a)"></span><b>А</b> груз <span class="stepper"><button data-k="A" data-d="-1">−</button><span>${A.mass} кг</span><button data-k="A" data-d="1">+</button></span></span>
+    <span><span class="dot" style="--c:var(--b)"></span><b>Б</b> груз <span class="stepper"><button data-k="B" data-d="-1">−</button><span>${B.mass} кг</span><button data-k="B" data-d="1">+</button></span></span>
+    <span class="sp"><button class="ghost" id="rs">Сбросить</button><button class="btn" id="go">▶ Запустить моторы</button></span>`;
+    tools.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{Lab.setMass(b.dataset.k,Lab.rigs[b.dataset.k].mass+ +b.dataset.d);drawTools()});
+    $('#go',tools).onclick=()=>{Lab.reset();Lab.run()};$('#rs',tools).onclick=()=>Lab.reset()};
+  Lab.on('hand',d=>{addRow({n:'Рука',c:'var(--ink)'},d.m,d.t,d.P);mark('hand')});
+  let fin={};
+  Lab.on('start',()=>fin={});
+  Lab.on('finish',d=>{fin[d.key]=d;addRow({n:'Мотор '+(d.key==='A'?'А':'Б'),c:d.key==='A'?'var(--a)':'var(--b)'},d.m,d.t,d.P);
+    if(fin.A&&fin.B){mark('run');if(fin.B.t<fin.A.t)mark('beat')}if(d.key==='A'&&d.m>=10)mark('heavy')});
+  drawTasks();drawTools();
+}},
+/* 3 ---------- TUTOR CHAT ---------- */
+{name:'Наставник',build(){
+  const root=el('div','c-chat');app.appendChild(root);
+  const chat=el('div','chat',`<div class="head"><div class="ava">В</div><div><b>Вера</b><div class="typing">наставник по физике</div></div></div><div class="log" id="log"></div><div class="quick" id="q"></div>`);
+  const slot=el('div','slot');root.append(chat,slot);
+  Lab.setStage('none');defaults();Lab.mount(slot);
+  const log=$('#log',chat),q=$('#q',chat);let wait=null,timers=[];
+  const say=(t,cls='')=>{const m=el('div','msg '+cls,t);log.appendChild(m);log.scrollTop=log.scrollHeight};
+  const tutor=(lines,quick,after)=>{q.innerHTML='';let d=0;lines.forEach(l=>{d+=500+l.length*12;timers.push(setTimeout(()=>say(l),d))});timers.push(setTimeout(()=>{setQuick(quick);after&&after()},d+200))};
+  const setQuick=list=>{q.innerHTML='';(list||[]).forEach(([l,f])=>{const b=el('button',null,l);b.onclick=()=>{say(l,'me');q.innerHTML='';f()};q.appendChild(b)})};
+  const s1=()=>tutor(['Привет! Я Вера. Сегодня разберёмся, что такое мощность.','Справа два моторчика с ящиками. Всё там можно трогать.'],[['Поехали!',s2]]);
+  const s2=()=>{wait='hand';tutor(['Сначала сам. Схвати ящик А мышкой и потяни вверх до самого конца.'],[['Покажи, как',()=>{Lab.demoHand('A');tutor(['Вот так. Теперь ты!'],[])}]])};
+  const s3=d=>{wait=null;tutor([`Отлично! Ты поднял ${d.m} кг на 1 метр за ${nf(d.t)} с.`,`Значит, твоя мощность примерно ${W(d.P)}.`,'Теперь моторы: у А 50 Вт, у Б 25 Вт. Кто поднимет быстрее?'],[['Мотор А',()=>s4('A')],['Мотор Б',()=>s4('B')],['Одинаково',()=>s4('=')]])};
+  const s4=g=>{wait='race';Lab.reset();Lab.run();say('Запускаю моторы…','sys');racePick=g};
+  let racePick=null,fin={};
+  const s5=()=>{wait=null;const ok=racePick==='A';tutor([ok?'Верно, первым был А.':'Смотри: первым был мотор А.','Работа у обоих одна: 5 кг · 10 · 1 м = 50 Дж. Но А сделал её за 1 с, а Б за 2 с.','Поэтому мощность N = A / t. Кто быстрее делает ту же работу, тот мощнее.','Хочешь сам? Потяни диск на моторе Б вверх, чтобы прибавить ему мощность.'],[['Запустить ещё',()=>{Lab.reset();Lab.run();wait='free'}],['Начать сначала',()=>{log.innerHTML='';defaults();s1()}]])};
+  Lab.on('hand',d=>{if(wait==='hand')s3(d);else say(`Ты поднял ${d.m} кг за ${nf(d.t)} с: ${W(d.P)}`,'sys')});
+  Lab.on('start',()=>fin={});
+  Lab.on('finish',d=>{fin[d.key]=d;if(fin.A&&fin.B){if(wait==='race')s5();else if(wait==='free')tutor([fin.B.t<fin.A.t?`Ура, Б обогнал А! ${W(fin.B.P)} против ${W(fin.A.P)}.`:`Пока А быстрее. У Б ${W(fin.B.P)}, прибавь ещё.`],[['Запустить ещё',()=>{Lab.reset();Lab.run()}]])}});
+  Lab.on('dial',d=>{if(d.key==='B')wait='free'});
+  s1();
+  return()=>timers.forEach(clearTimeout);
+}},
+/* 4 ---------- SCROLL STORY ---------- */
+{name:'История',build(){
+  const root=el('div','c-story');app.appendChild(root);
+  const story=el('div','story');const slot=el('div','slot');root.append(story,slot);
+  Lab.setStage('none');defaults();Lab.mount(slot);
+  story.innerHTML=`
+   <section data-s="0"><span class="k">01</span><h2>Почему один мотор «сильнее» другого?</h2><p>Листай вниз. Справа живая модель: её меняет текст, а ещё её можно трогать руками.</p></section>
+   <section data-s="1"><span class="k">02</span><h2>Сначала подними сам</h2><p>Схвати ящик А и потяни вверх. Так ты совершаешь работу.</p><p>Твой результат: <span class="live" id="hres">ещё нет</span></p><div class="row"><button class="ghost" id="demo">Показать, как</button></div></section>
+   <section data-s="2"><span class="k">03</span><h2>Работа зависит от груза</h2><p>Работа A = m · g · h. Сейчас ящик <span class="live" id="mv"></span>, значит работа <span class="live" id="av"></span>.</p><div class="row"><button class="btn" id="plus">+1 кг обоим</button><button class="ghost" id="minus">−1 кг</button></div></section>
+   <section data-s="3"><span class="k">04</span><h2>А мощность зависит от времени</h2><p>Моторы делают одну и ту же работу. Тот, кто справится быстрее, мощнее.</p><div class="row"><button class="btn" id="race">▶ Запустить моторы</button></div><p id="rres" class="live"></p></section>
+   <section data-s="4"><span class="k">05</span><h2>Твоя очередь</h2><p>Потяни диск на моторе Б вверх или вниз. Попробуй сделать Б ровно таким же быстрым, как А.</p><p>Мотор Б: <span class="live" id="pb"></span></p><div class="row"><button class="btn" id="race2">▶ Проверить</button></div></section>
+   <div class="end"></div>`;
+  const upd=()=>{const m=Lab.rigs.A.mass;$('#mv',story).textContent=m+' кг';$('#av',story).textContent=m*10+' Дж';$('#pb',story).textContent=W(Lab.rigs.B.power)};upd();
+  $('#demo',story).onclick=()=>Lab.demoHand('A');
+  $('#plus',story).onclick=()=>{Lab.setMass('A',Lab.rigs.A.mass+1);Lab.setMass('B',Lab.rigs.B.mass+1);upd()};
+  $('#minus',story).onclick=()=>{Lab.setMass('A',Lab.rigs.A.mass-1);Lab.setMass('B',Lab.rigs.B.mass-1);upd()};
+  $('#race',story).onclick=()=>{Lab.reset();Lab.run()};$('#race2',story).onclick=()=>{Lab.reset();Lab.run()};
+  let fin={};Lab.on('start',()=>fin={});
+  Lab.on('finish',d=>{fin[d.key]=d;if(fin.A&&fin.B)$('#rres',story).textContent=`А: ${nf(fin.A.t)} с, ${W(fin.A.P)} · Б: ${nf(fin.B.t)} с, ${W(fin.B.P)}`});
+  Lab.on('hand',d=>{$('#hres',story).textContent=`${nf(d.t)} с, это ${W(d.P)}`});
+  Lab.on('change',upd);
+  const secs=[...story.querySelectorAll('section')];
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){secs.forEach(s=>s.classList.toggle('on',s===e.target))}}),{root:window.innerWidth>900?story:null,threshold:.55});
+  secs.forEach(s=>io.observe(s));secs[0].classList.add('on');
+  return()=>io.disconnect();
+}},
+/* 5 ---------- MISSION ---------- */
+{name:'Миссия',build(){
+  const root=el('div','c-mission');app.appendChild(root);const slot=el('div','slot');root.appendChild(slot);
+  Lab.setStage('dark');defaults();Lab.setVisible('B',false);Lab.mount(slot,{hint:'Крути диск, тяни ящик, вращай сцену'});
+  const card=el('div','hud mcard'),stars=el('div','hud stars'),bar=el('div','hud motors');root.append(card,stars,bar);
+  const L=[
+    {t:'Подними 5 кг быстрее, чем за 3 секунды',m:5,goal:3,opts:[10,15,20],tip:'Нужна мощность больше 50 Дж / 3 с ≈ 17 Вт.'},
+    {t:'Подними 10 кг за 2 секунды',m:10,goal:2,opts:[25,40,60],tip:'Работа 100 Дж. Сколько ватт нужно за 2 с?'},
+    {t:'Обгони мотор 25 Вт рукой',m:5,goal:2,hand:true,tip:'Мотор поднимет 5 кг за 2 с. Тяни ящик быстрее!'},
+  ];
+  let lv=0,got=[0,0,0],sel=null;
+  const draw=()=>{const l=L[lv];Lab.reset();Lab.setMass('A',l.m);
+    card.innerHTML=`<div class="lv">МИССИЯ ${lv+1} / ${L.length}</div><h2>${l.t}</h2><p>${l.tip}</p>`;
+    stars.innerHTML=got.map(g=>`<span class="${g?'on':''}">★</span>`).join('');
+    if(l.hand){bar.innerHTML=`<div class="mchip"><small>Задача</small><b>тяни ящик ↑</b></div>`;Lab.setPower('A',25)}
+    else{bar.innerHTML=l.opts.map(p=>`<button class="mchip" data-p="${p}" aria-pressed="${sel===p}"><small>мотор</small><b>${p} Вт</b></button>`).join('')+`<button class="mgo" id="go">Запустить</button>`;
+      bar.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{sel=+b.dataset.p;Lab.setPower('A',sel);draw()});$('#go',bar).onclick=()=>{Lab.reset();Lab.run(['A'])}}};
+  const result=(ok,text)=>{const r=el('div','hud result',`<h3>${ok?'Миссия выполнена!':'Пока не вышло'}</h3><p>${text}</p><button class="btn" id="nx">${ok&&lv<L.length-1?'Следующая миссия':'Ещё раз'}</button>`);root.appendChild(r);
+    $('#nx',r).onclick=()=>{r.remove();if(ok&&lv<L.length-1){lv++;sel=null}draw()}};
+  Lab.on('finish',d=>{const l=L[lv];if(l.hand)return;const ok=d.t<=l.goal+1e-6;if(ok)got[lv]=1;result(ok,`${W(d.P)}: ящик поднят за ${nf(d.t)} с. Цель: ${l.goal} с.`)});
+  Lab.on('hand',d=>{const l=L[lv];if(!l.hand)return;const ok=d.t<l.goal;if(ok)got[lv]=1;result(ok,`Ты поднял за ${nf(d.t)} с, это ${W(d.P)}. Мотору нужно 2 с.`)});
+  Lab.on('dial',d=>{sel=d.power;if(!L[lv].hand)bar.querySelectorAll('[data-p]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.p===sel))});
+  draw();
+  return()=>Lab.setVisible('B',true);
+}},
+/* 6 ---------- CARDS ---------- */
+{name:'Карточки',build(){
+  const root=el('div','c-cards');app.appendChild(root);
+  const deck=el('div','deck'),nav=el('div','cnav');root.append(deck,nav);
+  Lab.setStage('none');defaults();
+  let i=0,flipped=false,hand=null;
+  const C=[
+    {t:'Что такое мощность?',p:'Это то, как быстро совершается работа. Внизу два мотора. Покрути сцену, чтобы рассмотреть.'},
+    {t:'Подними ящик сам',p:()=>hand?`Ты поднял 5 кг за ${nf(hand.t)} с. Твоя мощность: <b>${W(hand.P)}</b>.`:'Схвати ящик А на картинке и потяни вверх.'},
+    {t:'Угадай',p:'У мотора А 50 Вт, у мотора Б 25 Вт. Кто поднимет ящик первым?',opts:['А','Б','Одинаково']},
+    {t:'Формула',p:'N = A / t. Мощность равна работе, делённой на время. Потяни диск на моторе Б, чтобы поменять его мощность, и запусти снова.',btn:'▶ Запустить'},
+  ];
+  let slot=null;
+  const draw=()=>{deck.innerHTML='';
+    C.slice(i,i+3).reverse().forEach((c,k,arr)=>{const depth=arr.length-1-k;const card=el('div','cardx'+(depth===1?' behind':depth===2?' behind2':''));
+      if(depth===0){slot=el('div','slot');card.appendChild(slot);const tx=el('div','txt');
+        const p=typeof c.p==='function'?c.p():c.p;
+        tx.innerHTML=`<span class="k" style="font-family:var(--mono);font-size:12px;color:var(--muted)">${i+1} / ${C.length}</span><h2>${c.t}</h2><p>${p}</p>`;
+        if(c.opts&&!flipped){const o=el('div','opts');c.opts.forEach(x=>{const b=el('button','opt',x);b.onclick=()=>{flipped=x;Lab.reset();Lab.run();draw()};o.appendChild(b)});tx.appendChild(o)}
+        if(c.opts&&flipped)tx.appendChild(el('div','flipback',(flipped==='А'?'Верно! ':'Смотри: ')+'первым будет А. Та же работа за меньшее время значит большая мощность.'));
+        if(c.btn){const b=el('button','btn',c.btn);b.style.alignSelf='flex-start';b.onclick=()=>{Lab.reset();Lab.run()};tx.appendChild(b)}
+        card.appendChild(tx);
+        let sx=null;tx.addEventListener('pointerdown',e=>sx=e.clientX);tx.addEventListener('pointerup',e=>{if(sx!=null&&Math.abs(e.clientX-sx)>60)go(e.clientX<sx?1:-1);sx=null});
+      }else card.appendChild(el('div','txt',`<h2 style="opacity:.4">${c.t}</h2>`));
+      deck.appendChild(card)});
+    Lab.mount(slot,{hint:'Тяни ящик · крути диск'});
+    nav.innerHTML=`<button class="ghost" id="cp">← Назад</button><span class="cdots">${C.map((_,k)=>`<i class="${k===i?'on':''}"></i>`).join('')}</span><button class="btn" id="cn">${i<C.length-1?'Дальше →':'Сначала'}</button>`;
+    $('#cp',nav).onclick=()=>go(-1);$('#cn',nav).onclick=()=>i<C.length-1?go(1):(i=0,flipped=false,draw())};
+  const go=d=>{const n=i+d;if(n<0||n>=C.length)return;i=n;Lab.reset();draw()};
+  Lab.on('hand',d=>{hand=d;if(i===1)draw()});
+  draw();
+}},
+/* 7 ---------- LIVE FORMULA ---------- */
+{name:'Живая формула',build(){
+  const root=el('div','c-formula');app.appendChild(root);
+  const bar=el('div','fbar'),slot=el('div','slot');root.append(bar,slot);
+  Lab.setStage('none');defaults();Lab.setVisible('B',false);Lab.mount(slot,{hint:'Тяни числа в формуле · крути диск · тяни ящик'});
+  let m=5,t=2;
+  bar.innerHTML=`<div class="eq">N =<span class="res" id="N"></span>=<span><span class="scrub" id="sm" title="Потяни влево-вправо"></span><span style="font-family:var(--mono);font-size:.8em"> ·10·1</span></span>/<span class="scrub" id="st" title="Потяни влево-вправо"></span></div>
+    <p class="fnote">Потяни <b>синие числа</b> влево или вправо: масса и время. Мотор сразу получит нужную мощность. Или покрути диск на моторе, и формула пересчитает время.</p>
+    <div class="acts"><button class="btn" id="go">▶ Проверить на моторе</button></div>`;
+  const upd=(fromDial)=>{const A=m*10;if(fromDial)t=A/Lab.rigs.A.power;const N=A/t;$('#sm',bar).textContent=m+' кг';$('#st',bar).textContent=nf(t)+' с';$('#N',bar).textContent=W(N);
+    if(!fromDial){Lab.rigs.A.power=N;}if(Lab.rigs.A.mass!==m)Lab.setMass('A',m)};
+  const scrub=(id,fn)=>{const e=$(id,bar);let x=null;e.addEventListener('pointerdown',ev=>{x=ev.clientX;e.setPointerCapture(ev.pointerId)});
+    e.addEventListener('pointermove',ev=>{if(x==null)return;const d=ev.clientX-x;if(Math.abs(d)>=8){fn(Math.sign(d));x=ev.clientX;Lab.reset();upd(false)}});e.addEventListener('pointerup',()=>x=null)};
+  scrub('#sm',s=>m=clamp(m+s,1,20));scrub('#st',s=>t=Math.round(clamp(t+s*.1,.5,8)*10)/10);
+  $('#go',bar).onclick=()=>{Lab.reset();Lab.run(['A'])};
+  Lab.on('dial',()=>upd(true));
+  Lab.on('finish',d=>toast(slot,`Мотор ${W(d.P)} поднял ${d.m} кг за ${nf(d.t)} с`));
+  Lab.on('hand',d=>toast(slot,`Твоя мощность: ${W(d.P)} (${nf(d.t)} с)`));
+  upd(false);
+  return()=>Lab.setVisible('B',true);
+}},
+/* 8 ---------- ASSEMBLY GUIDE ---------- */
+{name:'Разбор устройства',build(){
+  const root=el('div','c-ex');app.appendChild(root);
+  const slot=el('div','slot'),side=el('div','exp');root.append(slot,side);
+  Lab.setStage('explode');Lab.mount(slot,{hint:'Нажми на деталь · вращай сцену'});
+  const num=el('div','bignum');slot.appendChild(num);
+  const info={'Корпус':'Прозрачная оболочка. Держит все детали вместе.','Магниты':'Два магнита: северный и южный. Между ними магнитное поле.','Катушка':'Медный провод на железном сердечнике. Когда по нему течёт ток, катушка становится магнитом и крутится.','Вал':'Стальная ось. Передаёт вращение наружу.','Щётки':'Подают ток на катушку и переключают его каждые пол-оборота.','Крышка':'Закрывает мотор с другой стороны.','Шкив':'Катушка для троса. На него наматывается трос с ящиком.'};
+  const S=[
+    {t:'Целый мотор',p:'Это мотор из урока про мощность. Снаружи он простой. Давай посмотрим, что внутри.',e:0,sel:-1,parts:[]},
+    {t:'Корпус',p:'Сначала снимаем прозрачный корпус.',e:1,sel:0,parts:[0,5]},
+    {t:'Магниты',p:'Внутри по бокам стоят два магнита. Они создают поле, в котором будет вращаться катушка.',e:1,sel:1,parts:[1]},
+    {t:'Катушка',p:'В центре катушка из медного провода. Это главная деталь: она превращает электричество в вращение.',e:1,sel:2,parts:[2]},
+    {t:'Щётки',p:'Щётки подают ток на катушку и меняют его направление, чтобы она крутилась без остановки.',e:1,sel:4,parts:[4]},
+    {t:'Вал и шкив',p:'Катушка сидит на валу. На конце вала шкив, на него наматывается трос с ящиком.',e:1,sel:3,parts:[3,6]},
+    {t:'Включаем ток',p:'Соберём мотор и подадим ток. Мотор мощностью 50 Вт каждую секунду выполняет 50 Дж работы.',e:0,sel:-1,parts:[],spin:true},
+  ];
+  let i=0,picked=null;
+  const draw=()=>{const st=S[i];Lab.Ex.set(st.e);Lab.Ex.select(picked??st.sel);Lab.Ex.spin(!!st.spin||Lab.Ex.spinning&&picked!=null);
+    num.innerHTML=`<small>ШАГ</small><b>${String(i+1).padStart(2,'0')}</b>`;
+    const list=(picked!=null?[picked]:st.parts);
+    side.innerHTML=`<div class="in"><span class="k">ШАГ ${i+1} ИЗ ${S.length}</span><h2>${picked!=null?Lab.Ex.names[picked]:st.t}</h2><p style="margin:0">${picked!=null?info[Lab.Ex.names[picked]]:st.p}</p>
+      ${list.length?`<div class="k">ДЕТАЛИ</div><div class="parts">${list.map(k=>`<button data-i="${k}" aria-pressed="${(picked??st.sel)===k}">${Lab.Ex.names[k]}<small>смотреть</small></button>`).join('')}</div>`:''}
+      <div class="range"><label for="exr"><span>Собран</span><span>Разобран</span></label><input type="range" id="exr" min="0" max="100" value="${Math.round(Lab.Ex.value*100)}"></div>
+      <div style="display:flex;gap:8px;align-items:center"><button class="ghost" id="spin">${Lab.Ex.spinning?'■ Выключить ток':'⚡ Включить ток'}</button>${Lab.Ex.spinning?'<span class="pw">50 Вт → 50 Дж/с</span>':''}</div>
+      ${picked!=null?'<button class="ghost" id="unpick" style="align-self:flex-start">← К шагу</button>':''}</div>
+      <div class="foot"><button class="ghost" id="pv">← Назад</button><span class="sp"></span><button class="btn" id="nx">${i<S.length-1?'Дальше →':'Сначала'}</button></div>`;
+    side.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{picked=+b.dataset.i;draw()});
+    $('#exr',side).oninput=e=>Lab.Ex.set(e.target.value/100);
+    $('#spin',side).onclick=()=>{Lab.Ex.spin(!Lab.Ex.spinning);draw()};
+    const u=$('#unpick',side);if(u)u.onclick=()=>{picked=null;draw()};
+    $('#pv',side).onclick=()=>{if(i>0){i--;picked=null;draw()}};$('#nx',side).onclick=()=>{i=i<S.length-1?i+1:0;picked=null;draw()}};
+  Lab.on('part',d=>{picked=d.i;if(Lab.Ex.value<.5)Lab.Ex.set(1);draw()});
+  draw();
+  return()=>Lab.Ex.spin(false);
+}},
 ];
 
-/* ---------------- three basics ---------------- */
-const host=$('gl');
-const R=new THREE.WebGLRenderer({antialias:true});
-R.setPixelRatio(Math.min(2,devicePixelRatio));R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
-R.outputEncoding=THREE.sRGBEncoding;
-host.appendChild(R.domElement);
-const scene=new THREE.Scene();
-const cam=new THREE.PerspectiveCamera(30,1,.1,200);
-const hemi=new THREE.HemisphereLight(0xffffff,0xb8bdb5,.75);scene.add(hemi);
-const sun=new THREE.DirectionalLight(0xffffff,.7);sun.position.set(-6,14,8);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
-Object.assign(sun.shadow.camera,{left:-9,right:9,top:9,bottom:-9,near:1,far:40});sun.shadow.bias=-.0005;scene.add(sun);
-const desk=new THREE.Mesh(new THREE.PlaneGeometry(80,80),new THREE.MeshStandardMaterial({color:0xdddddd,roughness:1}));desk.rotation.x=-PI/2;desk.receiveShadow=true;scene.add(desk);
-const world=new THREE.Group();scene.add(world);
-
-const std=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.75,metalness:0},o));
-function mesh(geo,mat,shadow=true){const m=new THREE.Mesh(geo,mat);m.castShadow=shadow;m.receiveShadow=true;return m}
-
-/* ---------------- book ---------------- */
-const PW=4.4,PD=5.8,CURV=.3;
-const curve=u=>CURV*(1-Math.pow(1-u,6)); // u: 0 at spine, 1 at outer edge
-function blockGeo(x0,x1,z0,z1,depth){ // page-stack piece following the page curve, in local coords where x = distance from spine
-  const s=new THREE.Shape();s.moveTo(x0,-depth);
-  const N=24;for(let i=0;i<=N;i++){const x=x0+(x1-x0)*i/N;s.lineTo(x,curve(x/PW)-.012)}
-  s.lineTo(x1,-depth);s.closePath();
-  const g=new THREE.ExtrudeGeometry(s,{depth:z1-z0,bevelEnabled:false,curveSegments:1});g.translate(0,0,z0);return g}
-function pageGeo(){const g=new THREE.PlaneGeometry(PW,PD,48,1);g.rotateX(-PI/2);g.translate(PW/2,0,0);
-  const p=g.attributes.position;for(let i=0;i<p.count;i++){p.setY(i,curve(p.getX(i)/PW))}g.computeVertexNormals();return g}
-function pageTexture(c,side,hole){
-  const W=1024,H=1350,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');
-  x.fillStyle=c.paper;x.fillRect(0,0,W,H);
-  // soft gutter shade
-  const gx=side==='L'?W:0, gr=x.createLinearGradient(gx,0,side==='L'?W-160:160,0);gr.addColorStop(0,'rgba(0,0,0,.13)');gr.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=gr;x.fillRect(0,0,W,H);
-  x.fillStyle=c.ink;x.textBaseline='alphabetic';
-  if(side==='L'){
-    const L=110;
-    x.globalAlpha=.6;x.font='700 26px Manrope, sans-serif';x.fillText(c.page.eyebrow,L,170);x.globalAlpha=1;
-    x.font='600 92px Literata, Georgia, serif';x.fillText(c.page.title,L,290);
-    x.font='500 40px Manrope, sans-serif';c.page.text.forEach((t,i)=>x.fillText(t,L,400+i*58));
-    x.strokeStyle=c.ink;x.globalAlpha=.25;x.lineWidth=2;x.strokeRect(L,690,W-2*L-60,150);x.globalAlpha=1;
-    x.font='600 64px Literata, Georgia, serif';x.textAlign='center';x.fillText(c.page.fact,L+(W-2*L-60)/2,790);x.textAlign='left';
-    x.globalAlpha=.55;x.font='600 32px Manrope, sans-serif';x.fillText('Нажми на модель справа →',L,960);x.globalAlpha=1;
-    x.globalAlpha=.4;x.font='500 28px Manrope, sans-serif';x.fillText('24',L,H-90);x.globalAlpha=1;
-  }else{
-    x.globalAlpha=.45;x.font='italic 500 30px Literata, Georgia, serif';x.fillText('Рис. 1. '+c.page.title,170,H-150);
-    x.font='500 28px Manrope, sans-serif';x.textAlign='right';x.fillText('25',W-110,H-90);x.textAlign='left';x.globalAlpha=1;
-    if(hole){x.clearRect(hole[0]*W/PW,hole[2]*H/PD,(hole[1]-hole[0])*W/PW,(hole[3]-hole[2])*H/PD)}
-  }
-  if(c.dark&&side==='R'&&!hole){for(let i=0;i<220;i++){x.fillStyle=`rgba(220,230,255,${Math.random()*.5+.1})`;x.beginPath();x.arc(Math.random()*W,Math.random()*H*.85,Math.random()*2+.5,0,7);x.fill()}}
-  const t=new THREE.CanvasTexture(cv);t.encoding=THREE.sRGBEncoding;t.anisotropy=8;if(side==='L'){t.wrapS=THREE.RepeatWrapping;t.repeat.x=-1;t.offset.x=1}return t}
-
-function buildBook(c){
-  const B=new THREE.Group(),T=c.thick||.3;
-  const edgeCol=new THREE.Color(c.paper).multiplyScalar(c.dark?1.4:.93);
-  const edgeM=std(edgeCol,{roughness:.95});
-  const coverM=std(c.cover,{roughness:.6});
-  const cover=mesh(new THREE.BoxGeometry(2*PW+.5,.12,PD+.4),coverM);cover.position.y=-T-.06;B.add(cover);
-  const spine=mesh(new THREE.CylinderGeometry(.22,.22,PD+.4,20,1,false,0,PI),coverM);spine.rotation.x=PI/2;spine.rotation.z=PI;spine.position.y=-T-.06;B.add(spine);
-  ['L','R'].forEach(side=>{
-    const S=new THREE.Group();if(side==='L')S.scale.x=-1;B.add(S);
-    let hole=null;
-    if(side==='R'&&c.thick){hole=[1.25,3.65,1.6,4.0]; // x0,x1 from spine, z from far edge
-      const z=v=>v-PD/2, [x0,x1,zf,zn]=hole;
-      [[0,x0,0,PD],[x1,PW,0,PD],[x0,x1,0,zf],[x0,x1,zn,PD]].forEach(r=>S.add(mesh(blockGeo(r[0],r[1],z(r[2]),z(r[3]),T),edgeM)));
-    }else S.add(mesh(blockGeo(0,PW,-PD/2,PD/2,T),edgeM));
-    const tex=pageTexture(c,side,hole);
-    const pm=new THREE.MeshStandardMaterial({map:tex,roughness:.9,side:THREE.DoubleSide,alphaTest:hole?.5:0,transparent:false});
-    const pg=mesh(pageGeo(),pm);S.add(pg);
-    if(hole)B.userData.hole={x0:hole[0],x1:hole[1],z0:hole[2]-PD/2,z1:hole[3]-PD/2,T};
-  });
-  B.position.y=T+.12;
-  return B;
-}
-
-/* ---------------- helpers for scenes ---------------- */
-function canvasTex(w,h,draw){const cv=document.createElement('canvas');cv.width=w;cv.height=h;draw(cv.getContext('2d'),w,h);const t=new THREE.CanvasTexture(cv);t.encoding=THREE.sRGBEncoding;return t}
-function card(w,h,mat){const g=new THREE.BoxGeometry(w,h,.03);g.translate(0,h/2,0);return mesh(g,mat)}
-function glowSprite(color,size){const t=canvasTex(128,128,(x)=>{const g=x.createRadialGradient(64,64,0,64,64,64);g.addColorStop(0,color);g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,128,128)});
-  const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));s.scale.set(size,size,1);return s}
-
-/* ---------------- scene builders: return {items, tap, tick} ---------------- */
-const B=[];
-// 1 pop-up lever
-B[0]=(G)=>{
-  const paper=std(0xfbf8f1,{roughness:.95}),items=[];
-  const back=card(3.6,2.4,new THREE.MeshStandardMaterial({roughness:.95,map:canvasTex(512,342,(x,w,h)=>{x.fillStyle='#EFE6D6';x.fillRect(0,0,w,h);
-    x.fillStyle='#F6C46B';x.beginPath();x.arc(w*.78,h*.32,46,0,7);x.fill();x.fillStyle='#fff';[[.25,.3],[.45,.22]].forEach(([a,b])=>{x.beginPath();x.ellipse(w*a,h*b,60,22,0,0,7);x.fill()});
-    x.fillStyle='#CDBB9C';x.beginPath();x.moveTo(0,h);x.quadraticCurveTo(w*.3,h*.62,w*.6,h*.8);x.quadraticCurveTo(w*.85,h*.95,w,h*.7);x.lineTo(w,h);x.fill()})}));
-  back.position.z=-1.4;G.add(back);items.push({o:back,d:0,mode:'fold'});
-  const tri=new THREE.Shape();tri.moveTo(-.45,0);tri.lineTo(.45,0);tri.lineTo(0,.85);tri.closePath();
-  const fg=new THREE.ExtrudeGeometry(tri,{depth:.5,bevelEnabled:false});fg.translate(0,0,-.25);
-  const ful=mesh(fg,std(0xd9a46a,{roughness:.9}));ful.position.z=.2;G.add(ful);items.push({o:ful,d:.25,mode:'pop'});
-  const piv=new THREE.Group();piv.position.set(0,.88,.2);G.add(piv);
-  const plank=mesh(new THREE.BoxGeometry(3.2,.07,.55),paper);piv.add(plank);items.push({o:plank,d:.45,mode:'pop'});
-  const wA=mesh(new THREE.BoxGeometry(.6,.6,.5),std(0x8a6a52,{roughness:.9}));wA.position.set(-1.25,.34,0);piv.add(wA);
-  const wB=mesh(new THREE.BoxGeometry(.35,.35,.35),std(0xe6b35c,{roughness:.9}));wB.position.set(1.3,.22,0);piv.add(wB);
-  items.push({o:wA,d:.7,mode:'pop'},{o:wB,d:.8,mode:'pop'});
-  const grass=card(3.8,.45,std(0xc9d6a8,{roughness:.95}));grass.position.z=1.6;G.add(grass);items.push({o:grass,d:.15,mode:'fold'});
-  let left=true,ang=.22,tgt=.22;
-  return{items,tap(){left=!left;tgt=left?.22:-.22;wA.position.x=left?-1.25:1.25;wB.position.x=left?1.3:-1.3},tick(t,dt){ang+=(tgt-ang)*Math.min(1,dt*5);piv.rotation.z=ang}};
-};
-// 2 blueprint motors
-B[1]=(G)=>{
-  const items=[],ink=0x24426b;
-  function part(geo,col){const m=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({color:col,roughness:.8,transparent:true,opacity:0}));m.castShadow=true;
-    const l=new THREE.LineSegments(new THREE.EdgesGeometry(geo,25),new THREE.LineBasicMaterial({color:ink,transparent:true,opacity:0}));m.add(l);m.userData.line=l;return m}
-  const rigs=[];
-  [-1,1].forEach((s,i)=>{const g=new THREE.Group();g.position.x=s*1.05;G.add(g);let d=i*.2;
-    const parts=[];
-    [-.5,.5].forEach(px=>{const p=part(new THREE.BoxGeometry(.08,2.6,.08),0xffffff);p.position.set(px,1.3,0);parts.push(p)});
-    const beam=part(new THREE.BoxGeometry(1.2,.1,.25),0xffffff);beam.position.y=2.6;parts.push(beam);
-    const mot=part(new THREE.CylinderGeometry(.26,.26,.5,24),i?0xc9d6e6:0xf0d7b0);mot.rotation.z=PI/2;mot.position.y=2.92;parts.push(mot);
-    const crate=part(new THREE.BoxGeometry(.5,.5,.5),0xffffff);crate.position.y=.25;parts.push(crate);
-    const rope=part(new THREE.CylinderGeometry(.012,.012,1,6),ink);parts.push(rope);
-    parts.forEach((p,k)=>{g.add(p);items.push({o:p,d:d+k*.12,mode:'draw',dur:1.4})});
-    rigs.push({crate,rope,T:i?3.2:1.6,p:0});
-  });
-  const place=r=>{const y=.25+r.p*1.7;r.crate.position.y=y;const top=y+.25,len=2.55-top;r.rope.scale.y=Math.max(.01,len);r.rope.position.y=top+len/2};
-  rigs.forEach(place);
-  let run=null;
-  return{items,tap(){run={t:0}},tick(t,dt){if(run){run.t+=dt;rigs.forEach(r=>{r.p=clamp(run.t/r.T);if(run.t>4.2)r.p=clamp(1-(run.t-4.2)/.8);place(r)});if(run.t>5)run=null}}};
-};
-// 3 glass dome sprout
-B[2]=(G)=>{
-  const items=[];
-  const base=mesh(new THREE.CylinderGeometry(1.45,1.55,.22,48),std(0x8a6142,{roughness:.7}));base.position.y=.11;G.add(base);items.push({o:base,d:0,mode:'pop'});
-  const soil=mesh(new THREE.CylinderGeometry(1.25,1.25,.14,40),std(0x5a4030,{roughness:1}));soil.position.y=.28;G.add(soil);items.push({o:soil,d:.15,mode:'pop'});
-  const plant=new THREE.Group();plant.position.y=.34;G.add(plant);
-  const stem=mesh(new THREE.CylinderGeometry(.035,.05,1.5,8),std(0x5e8f4e));stem.geometry.translate(0,.75,0);plant.add(stem);items.push({o:stem,d:.4,mode:'grow',dur:1.2});
-  const leafM=std(0x7fb069,{roughness:.6});
-  [[.55,1,.3],[.9,-1,.45],[1.3,1,.6],[1.48,-1,.35]].forEach(([y,s,sz],i)=>{const l=mesh(new THREE.SphereGeometry(sz,16,10),leafM);l.scale.set(1,.18,.55);l.position.set(s*sz*.85,y,0);l.rotation.z=s*.35;plant.add(l);items.push({o:l,d:.9+i*.18,mode:'pop'})});
-  const dome=mesh(new THREE.SphereGeometry(1.4,48,24,0,2*PI,0,PI/2),new THREE.MeshStandardMaterial({color:0xe8f4ff,transparent:true,opacity:.16,roughness:.05,metalness:.1,depthWrite:false}),false);
-  dome.position.y=.3;dome.scale.y=1.45;G.add(dome);items.push({o:dome,d:1.6,mode:'pop'});
-  const rim=mesh(new THREE.TorusGeometry(1.4,.05,10,60),std(0xc9a46a,{metalness:.5,roughness:.3}));rim.rotation.x=PI/2;rim.position.y=.3;G.add(rim);items.push({o:rim,d:1.5,mode:'pop'});
-  const knob=mesh(new THREE.SphereGeometry(.12,16,12),std(0xc9a46a,{metalness:.5,roughness:.3}));knob.position.y=.3+1.4*1.45+.08;G.add(knob);items.push({o:knob,d:1.8,mode:'pop'});
-  const lamp=new THREE.Group();G.add(lamp);
-  const bulb=mesh(new THREE.SphereGeometry(.18,20,14),new THREE.MeshStandardMaterial({color:0xffe7a0,emissive:0xffc94d,emissiveIntensity:1}),false);lamp.add(bulb);
-  const gl=glowSprite('rgba(255,210,110,.9)',1.4);lamp.add(gl);
-  const pl=new THREE.PointLight(0xffd27a,.8,6);lamp.add(pl);
-  items.push({o:lamp,d:2,mode:'pop'});
-  let side=1,lx=1.6,lean=0;
-  lamp.position.set(1.6*side,2.2,.3);
-  return{items,tap(){side=-side},tick(t,dt){lx+=(side*1.75-lx)*Math.min(1,dt*3);lamp.position.x=lx;lamp.position.y=2.2+Math.sin(t*2)*.04;
-    lean+=(-side*.28-lean)*Math.min(1,dt*1.5);plant.rotation.z=lean}};
-};
-// 4 island volcano
-B[3]=(G)=>{
-  const items=[];
-  const water=mesh(new THREE.CylinderGeometry(1.75,1.75,.16,40),std(0x6fb7c4,{roughness:.25,transparent:true,opacity:.92}));water.position.y=.08;G.add(water);items.push({o:water,d:0,mode:'pop'});
-  const isle=mesh(new THREE.CylinderGeometry(.95,1.35,.35,9),std(0xe3cf9a,{flatShading:true}));isle.position.y=.2;G.add(isle);items.push({o:isle,d:.2,mode:'rise'});
-  const grass=mesh(new THREE.CylinderGeometry(.9,1,.12,9),std(0x8dbb6a,{flatShading:true}));grass.position.y=.42;G.add(grass);items.push({o:grass,d:.35,mode:'rise'});
-  const volc=mesh(new THREE.CylinderGeometry(.18,.75,1.2,8,1,true),std(0x7b6658,{flatShading:true,side:THREE.DoubleSide}));volc.position.set(-.1,1.05,-.15);G.add(volc);items.push({o:volc,d:.5,mode:'rise'});
-  const lava=mesh(new THREE.CircleGeometry(.17,8),new THREE.MeshStandardMaterial({color:0xff7a3d,emissive:0xff5a1f,emissiveIntensity:.6}),false);lava.rotation.x=-PI/2;lava.position.set(-.1,1.6,-.15);G.add(lava);items.push({o:lava,d:.9,mode:'pop'});
-  const tm=std(0x4f8a4a,{flatShading:true}),trunk=std(0x8a6142);
-  [[.6,.2],[.45,.6],[-.6,.5],[.7,-.35]].forEach(([x,z],i)=>{const t=new THREE.Group();t.position.set(x,.48,z);
-    const tr=mesh(new THREE.CylinderGeometry(.03,.04,.2,6),trunk);tr.position.y=.1;t.add(tr);const c=mesh(new THREE.ConeGeometry(.16,.4,6),tm);c.position.y=.38;t.add(c);G.add(t);items.push({o:t,d:.9+i*.12,mode:'pop'})});
-  const boat=new THREE.Group();const hull=mesh(new THREE.BoxGeometry(.3,.08,.12),std(0xffffff));boat.add(hull);const sail=mesh(new THREE.ConeGeometry(.1,.25,3),std(0xf2efe8));sail.position.y=.16;boat.add(sail);G.add(boat);items.push({o:boat,d:1.4,mode:'pop'});
-  const puffs=[],pm=std(0xdcd8d4,{transparent:true,opacity:.9,roughness:1});
-  return{items,tap(){for(let i=0;i<7;i++){const p=mesh(new THREE.SphereGeometry(.14+Math.random()*.1,10,8),pm.clone(),false);p.position.set(-.1+(Math.random()-.5)*.15,1.65,-.15);p.userData={v:.6+Math.random()*.5,age:-i*.12,dx:(Math.random()-.5)*.25};G.add(p);puffs.push(p)}lava.material.emissiveIntensity=1.8},
-    tick(t,dt){const a=t*.35;boat.position.set(Math.cos(a)*1.45,.2,Math.sin(a)*1.45);boat.rotation.y=-a;
-      lava.material.emissiveIntensity+=(.6-lava.material.emissiveIntensity)*dt*.8;
-      for(let i=puffs.length-1;i>=0;i--){const p=puffs[i];p.userData.age+=dt;if(p.userData.age<0){p.visible=false;continue}p.visible=true;const k=p.userData.age;
-        p.position.y=1.65+k*p.userData.v;p.position.x+=p.userData.dx*dt;p.scale.setScalar(1+k*1.2);p.material.opacity=clamp(.9-k*.35);if(k>2.6){G.remove(p);puffs.splice(i,1)}}}};
-};
-// 5 night solar system
-B[4]=(G)=>{
-  const items=[];
-  const sunM=mesh(new THREE.SphereGeometry(.38,32,20),new THREE.MeshBasicMaterial({color:0xffd27a}),false);sunM.position.y=1;G.add(sunM);items.push({o:sunM,d:0,mode:'pop'});
-  const glow=glowSprite('rgba(255,190,90,.95)',2.6);sunM.add(glow);
-  const pl=new THREE.PointLight(0xffe0a0,1.6,12);sunM.add(pl);
-  const P=[[.75,.07,0x9a9a9a,4.1],[1.0,.1,0xe0b77a,1.6],[1.3,.11,0x5a9be0,1],[1.58,.09,0xd9643c,.53],[1.92,.2,0xd8b88f,.084]];
-  const planets=[];
-  P.forEach(([r,s,c,sp],i)=>{const ring=mesh(new THREE.TorusGeometry(r,.006,6,120),new THREE.MeshBasicMaterial({color:0x8fa3d8,transparent:true,opacity:.35}),false);ring.rotation.x=PI/2;ring.position.y=1;G.add(ring);items.push({o:ring,d:.2+i*.1,mode:'pop'});
-    const p=mesh(new THREE.SphereGeometry(s,24,16),std(c,{roughness:.6}));G.add(p);planets.push({p,r,sp,a:i*1.3});items.push({o:p,d:.5+i*.12,mode:'pop'})});
-  let speed=1,tgt=1,time=0;
-  return{items,tap(){tgt=tgt===1?5:1},tick(t,dt){speed+=(tgt-speed)*dt*2;time+=dt*speed;planets.forEach(o=>{const a=o.a+time*o.sp*.6;o.p.position.set(Math.cos(a)*o.r,1,Math.sin(a)*o.r)});sunM.rotation.y=time*.2}};
-};
-// 6 clay molecule
-B[5]=(G)=>{
-  const items=[];
-  const toon=c=>new THREE.MeshToonMaterial({color:c});
-  const mol=new THREE.Group();mol.position.y=.85;G.add(mol);
-  const O=mesh(new THREE.SphereGeometry(.62,40,28),toon(0xe2665a));mol.add(O);items.push({o:O,d:0,mode:'squash'});
-  const Hs=[];[-1,1].forEach((s,i)=>{const a=s*(104.5/2)*PI/180,dir=new THREE.Vector3(Math.sin(a),Math.cos(a),0);
-    const b=mesh(new THREE.CylinderGeometry(.09,.09,.75,16),toon(0xf2e6d8));b.position.copy(dir.clone().multiplyScalar(.75));b.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir);mol.add(b);items.push({o:b,d:.35+i*.1,mode:'pop'});
-    const h=mesh(new THREE.SphereGeometry(.36,32,24),toon(0xdfe6f5));h.position.copy(dir.clone().multiplyScalar(1.15));mol.add(h);Hs.push(h);items.push({o:h,d:.55+i*.15,mode:'squash'});
-    // eyes on hydrogens: cute but small
-  });
-  const eyeM=new THREE.MeshBasicMaterial({color:0x3a2a2a});[-.18,.18].forEach(x=>{const e=mesh(new THREE.SphereGeometry(.06,12,8),eyeM,false);e.position.set(x,.12,.58);O.add(e)});
-  const mouth=mesh(new THREE.TorusGeometry(.1,.025,8,16,PI),eyeM,false);mouth.rotation.z=PI;mouth.position.set(0,-.06,.6);O.add(mouth);
-  const plate=mesh(new THREE.CylinderGeometry(1.2,1.25,.12,40),toon(0xf2d27a));plate.position.y=.06;G.add(plate);items.push({o:plate,d:.1,mode:'pop'});
-  const shadowDummy=null;
-  let jump=0;
-  return{items,tap(){jump=1},tick(t,dt){mol.rotation.y=Math.sin(t*.6)*.5+(jump>0?(1-jump)*PI*2:0);
-    if(jump>0){jump=Math.max(0,jump-dt*.9);const k=1-jump;mol.position.y=.85+Math.sin(k*PI)*.7;const sq=1+Math.sin(k*PI*2)*.12;mol.scale.set(sq,2-sq,sq)}else{mol.position.y=.85+Math.sin(t*2)*.05;mol.scale.set(1,1,1)}}};
-};
-// 7 paper theatre egypt
-B[6]=(G)=>{
-  const items=[];
-  const layer=(w,h,draw)=>{const t=canvasTex(512,Math.round(512*h/w),draw);const m=new THREE.MeshStandardMaterial({map:t,transparent:true,alphaTest:.5,roughness:.95,side:THREE.DoubleSide});
-    const g=new THREE.PlaneGeometry(w,h);g.translate(0,h/2,0);const o=mesh(g,m);o.customDepthMaterial=new THREE.MeshDepthMaterial({depthPacking:THREE.RGBADepthPacking,map:t,alphaTest:.5});return o};
-  const sky=layer(3.6,2.5,(x,w,h)=>{const g=x.createLinearGradient(0,0,0,h);g.addColorStop(0,'#F4D9A8');g.addColorStop(1,'#F8E9CC');x.fillStyle=g;x.fillRect(0,0,w,h)});
-  sky.position.z=-1.8;G.add(sky);items.push({o:sky,d:0,mode:'fold'});
-  const sunD=mesh(new THREE.CircleGeometry(.32,40),new THREE.MeshBasicMaterial({color:0xF0A04B}),false);sunD.position.set(.8,1.9,-1.75);G.add(sunD);items.push({o:sunD,d:.3,mode:'pop'});
-  const dune=(col,seed)=>(x,w,h)=>{x.fillStyle=col;x.beginPath();x.moveTo(0,h);for(let i=0;i<=20;i++){const u=i/20;x.lineTo(u*w,h*(.45+.25*Math.sin(u*6+seed)+.1*Math.sin(u*13+seed*2)))}x.lineTo(w,h);x.fill()};
-  const far=layer(3.6,.9,dune('#E3BD7E',1));far.position.z=-1.2;G.add(far);items.push({o:far,d:.25,mode:'fold'});
-  const pyr=layer(3.6,1.6,(x,w,h)=>{const P=(cx,bw,ph,c1,c2)=>{x.fillStyle=c1;x.beginPath();x.moveTo(cx-bw/2,h);x.lineTo(cx,h-ph);x.lineTo(cx,h);x.fill();x.fillStyle=c2;x.beginPath();x.moveTo(cx,h-ph);x.lineTo(cx+bw/2,h);x.lineTo(cx,h);x.fill()};
-    P(w*.32,300,240,'#D9A55C','#B9843F');P(w*.62,220,170,'#D9A55C','#B9843F');P(w*.82,130,100,'#D9A55C','#B9843F')});
-  pyr.position.z=-.6;G.add(pyr);items.push({o:pyr,d:.5,mode:'fold'});
-  const front=layer(3.6,.8,(x,w,h)=>{dune('#C99A5A',4)(x,w,h);x.fillStyle='#5E7B3E';const px=w*.14,py=h*.35;x.fillRect(px-4,py,8,h-py);
-    for(let i=0;i<6;i++){x.save();x.translate(px,py);x.rotate(-PI/2+(i-2.5)*.5);x.beginPath();x.ellipse(32,0,36,9,0,0,7);x.fill();x.restore()}});
-  front.position.z=.2;G.add(front);items.push({o:front,d:.75,mode:'fold'});
-  const camel=layer(.7,.5,(x,w,h)=>{x.fillStyle='#7A5530';x.beginPath();x.ellipse(w*.45,h*.45,w*.25,h*.17,0,0,7);x.fill();x.beginPath();x.ellipse(w*.42,h*.3,w*.1,h*.1,0,0,7);x.fill();
-    x.fillRect(w*.27,h*.5,10,h*.5);x.fillRect(w*.6,h*.5,10,h*.5);x.save();x.translate(w*.68,h*.42);x.rotate(-.9);x.fillRect(0,-7,w*.22,14);x.restore();x.beginPath();x.ellipse(w*.85,h*.18,w*.08,h*.06,0,0,7);x.fill()});
-  camel.position.set(-.4,0,1.0);G.add(camel);items.push({o:camel,d:1,mode:'fold'});
-  let set=false,k=0;
-  const c1=new THREE.Color('#F4D9A8'),c2=new THREE.Color('#E89A6B');
-  return{items,tap(){set=!set},tick(t,dt){k+=((set?1:0)-k)*dt*1.2;sunD.position.y=1.9-k*1.6;sky.material.color.setRGB(1,1-k*.15,1-k*.3);camel.position.x=-.4+Math.sin(t*.4)*.9;camel.scale.x=Math.cos(t*.4)>0?1:-1}};
-};
-// 8 window into the page
-B[7]=(G,book)=>{
-  const items=[],h=book.userData.hole;
-  const W=h.x1-h.x0,D=h.z1-h.z0,cx=(h.x0+h.x1)/2-2.3,cz=(h.z0+h.z1)/2,depth=h.T+.0;
-  const well=mesh(new THREE.BoxGeometry(W,depth,D),new THREE.MeshStandardMaterial({color:0xE6E4F2,side:THREE.BackSide,roughness:.9}),false);
-  well.position.set(cx,curve(h.x0/PW)-depth/2-.29,cz);well.receiveShadow=true;G.add(well);
-  const grid=new THREE.GridHelper(Math.min(W,D),3,0x8f88d0,0x8f88d0);grid.position.set(cx,well.position.y-depth/2+.01,cz);grid.scale.set(W/Math.min(W,D),1,D/Math.min(W,D));G.add(grid);
-  const n=3,s=Math.min(depth/2,Math.min(W,D)/n)*.94,bottom=well.position.y-depth/2;
-  const cubes=[],cm=[0x8c84e8,0xa79ff0,0xc2bcf6];
-  for(let y=0;y<2;y++)for(let z=0;z<n;z++)for(let x=0;x<n;x++){
-    const c=mesh(new THREE.BoxGeometry(s*.96,s*.96,s*.96),std(cm[(x+y+z)%3],{roughness:.5}));
-    c.add(new THREE.LineSegments(new THREE.EdgesGeometry(c.geometry),new THREE.LineBasicMaterial({color:0x3b3580,transparent:true,opacity:.35})));
-    c.position.set(cx+(x-1)*W/n,bottom+s/2+y*s,cz+(z-1)*D/n);G.add(c);cubes.push(c)}
-  const counter=document.createElement('canvas');counter.width=256;counter.height=96;
-  const ct=new THREE.CanvasTexture(counter);const spr=new THREE.Sprite(new THREE.SpriteMaterial({map:ct,transparent:true,depthTest:false}));spr.scale.set(1.3,.49,1);spr.position.set(cx,1.25,cz);G.add(spr);
-  let start=0,shown=-1;
-  const draw=k=>{const x=counter.getContext('2d');x.clearRect(0,0,256,96);x.fillStyle='rgba(255,255,255,.92)';x.beginPath();x.roundRect?x.roundRect(8,8,240,80,30):x.rect(8,8,240,80);x.fill();
-    x.fillStyle='#2E2A5C';x.font='700 44px Manrope, sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('V = '+k,128,50);ct.needsUpdate=true};
-  return{items,tap(){start=null},tick(t,dt){if(start===null)start=t;const el=t-start;let k=0;
-    cubes.forEach((c,i)=>{const p=clamp((el-.6-i*.11)/.45);c.visible=p>0;const by=bottom+s/2+Math.floor(i/9)*s;c.position.y=by+(1-outCubic(p))*2.2;if(p>=1)k++});
-    if(k!==shown){shown=k;draw(k)}}};
-};
-
-/* ---------------- runtime ---------------- */
-let cur=-1,book=null,G=null,S=null,t0=0,yaw=-.12,tyaw=-.12,pitch=0,tpitch=0;
-function disposeTree(o){o.traverse(n=>{if(n.geometry)n.geometry.dispose();if(n.material){(Array.isArray(n.material)?n.material:[n.material]).forEach(m=>{if(m.map)m.map.dispose();m.dispose()})}})}
-function show(i){
-  i=(i+C.length)%C.length;if(i===cur){regrow();return}cur=i;const c=C[i];
-  if(book){world.remove(book);disposeTree(book)}
-  book=buildBook(c);world.add(book);
-  G=new THREE.Group();G.position.set(2.3,.27,0);book.add(G);
-  S=B[i](G,book);
-  S.items.forEach(it=>{const o=it.o;o.userData.base={s:o.scale.clone(),p:o.position.clone(),r:o.rotation.clone()}});
-  const dk=c.dark;
-  scene.background=new THREE.Color(c.desk);desk.material.color.set(c.desk);desk.position.y=0;
-  hemi.intensity=dk?.25:.75;sun.intensity=dk?.15:.7;
-  R.toneMappingExposure=1;
-  regrow();renderInfo();resize();
-  try{history.replaceState(null,'','#c'+(i+1))}catch(e){}
-}
-function regrow(){t0=performance.now()/1000;S.items.forEach(it=>apply(it,0))}
-function apply(it,k){const o=it.o,b=o.userData.base;
-  switch(it.mode){
-    case'pop':{const e=Math.max(.0001,outBack(k));o.scale.copy(b.s).multiplyScalar(e);break}
-    case'squash':{const e=Math.max(.0001,outBack(k));const w=k<1?1+Math.sin(k*PI*2)*.18*(1-k):1;o.scale.set(b.s.x*e*w,b.s.y*e/w,b.s.z*e*w);break}
-    case'fold':{o.rotation.x=b.r.x-PI/2*(1-outBack(k));o.visible=true;break}
-    case'rise':{const e=outCubic(k);o.position.y=b.p.y-(1-e)*.8;o.scale.set(b.s.x,Math.max(.0001,b.s.y*e),b.s.z);break}
-    case'grow':{o.scale.set(b.s.x,Math.max(.0001,b.s.y*outCubic(k)),b.s.z);break}
-    case'draw':{const l=o.userData.line;l.material.opacity=clamp(k*2);o.material.opacity=clamp(k*2-1);o.material.depthWrite=o.material.opacity>.5;break}
-  }}
-
-/* info panel & strip */
-const strip=$('strip');
-C.forEach((c,i)=>{const b=document.createElement('button');b.className='chip';b.innerHTML=`<span class="sw" style="background:${c.sw}"></span><span><b>${c.name}</b><small>${c.subj}</small></span>`;b.onclick=()=>show(i);strip.appendChild(b)});
-function renderInfo(){
-  const c=C[cur];
-  $('info').innerHTML=`
-    <div class="num">${String(cur+1).padStart(2,'0')} / ${String(C.length).padStart(2,'0')}</div>
-    <h1>${c.name}</h1>
-    <span class="subj">${c.subj}</span>
-    <p>${c.idea}</p>
-    <dl>
-      <div><dt>Ощущение</dt><dd>${c.feel}</dd></div>
-      <div><dt>Подходит для</dt><dd>${c.fits}</dd></div>
-      <div><dt>Сложность сделать</dt><dd class="diff">${[1,2,3].map(n=>`<b class="${n<=c.diff?'on':''}"></b>`).join('')}<span>${['','низкая','средняя','высокая'][c.diff]}</span></dd></div>
-    </dl>
-    <div class="tapline"><i></i><span>${c.tap}</span></div>
-    <div class="acts"><button class="btn" id="tapBtn">Попробовать</button><button class="ghost" id="regrow">Вырастить заново</button></div>`;
-  $('tapBtn').onclick=()=>S.tap();$('regrow').onclick=regrow;
-  strip.querySelectorAll('.chip').forEach((b,i)=>{b.setAttribute('aria-current',i===cur?'true':'false');if(i===cur)strip.scrollTo({left:b.offsetLeft-strip.clientWidth/2+b.offsetWidth/2,behavior:'smooth'})});
-}
-$('prev').onclick=()=>show(cur-1);$('next').onclick=()=>show(cur+1);
-addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;if(e.key==='ArrowRight')show(cur+1);if(e.key==='ArrowLeft')show(cur-1)});
-
-/* pointer: drag rotates, tap triggers */
-let down=null,moved=false;
-host.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY};moved=false;host.setPointerCapture(e.pointerId);host.style.cursor='grabbing'});
-host.addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-down.x,dy=e.clientY-down.y;if(Math.abs(dx)+Math.abs(dy)>5){moved=true;$('hint').classList.add('gone')}
-  if(moved){tyaw=clamp(tyaw+dx*.006,-.9,.9);tpitch=clamp(tpitch+dy*.004,-.35,.5);down={x:e.clientX,y:e.clientY}}});
-host.addEventListener('pointerup',()=>{if(down&&!moved)S.tap();down=null;host.style.cursor=''});
-
-/* camera framing */
-let panelW=0;
-function resize(){
-  const w=host.clientWidth,h=host.clientHeight;if(!w||!h)return;R.setSize(w,h,false);cam.aspect=w/h;
-  const wide=w>820;panelW=wide?$('info').offsetWidth+18:0;
-  if(wide)cam.setViewOffset(w,h,-panelW*.38,0,w,h);else cam.clearViewOffset();
-  cam.updateProjectionMatrix()}
-new ResizeObserver(resize).observe(host);
-
-function frame(now){
-  const t=now/1000,el=t-t0;
-  yaw+=(tyaw-yaw)*.08;pitch+=(tpitch-pitch)*.08;
-  if(S){
-    S.items.forEach(it=>apply(it,clamp((el-it.d)/(it.dur||.7))));
-    S.tick(t,Math.min(.05,(now-(frame.last||now))/1000));
-  }
-  frame.last=now;
-  const c=C[cur]||{},T=(c.thick||.3);
-  const narrow=host.clientWidth<=820, aspect=host.clientWidth/host.clientHeight;
-  const dist=(narrow?(aspect<.8?20:17):15)+(c.thick?1:0);
-  const ang=.78+pitch, r=dist;
-  const tx=narrow&&aspect<1.1?1.7:0;
-  cam.position.set(tx+Math.sin(yaw)*r*Math.cos(ang),Math.sin(ang)*r+T,.3+Math.cos(yaw)*r*Math.cos(ang));
-  cam.lookAt(tx,T+.6,0.3);
-  R.render(scene,cam);requestAnimationFrame(frame);
-}
-const start=parseInt((location.hash.match(/c(\d)/)||[])[1]||'1',10)-1;
-show(isNaN(start)?0:start);resize();requestAnimationFrame(frame);
+/* =================== switcher =================== */
+const tabs=$('#tabs');let cur=-1,cleanup=null;
+concepts.forEach((c,i)=>{const b=el('button','tab',`<b>${i+1}</b>${c.name}`);b.onclick=()=>open(i);tabs.appendChild(b)});
+function open(i){if(cleanup)cleanup();cleanup=null;Lab.clear();Lab.reset();app.innerHTML='';cur=i;
+  tabs.querySelectorAll('.tab').forEach((b,k)=>b.setAttribute('aria-current',k===i?'true':'false'));
+  cleanup=concepts[i].build()||null;try{history.replaceState(null,'','#v'+(i+1))}catch(e){}}
+const h=parseInt((location.hash.match(/v(\d)/)||[])[1],10);
+open(h>=1&&h<=concepts.length?h-1:0);
 })();
 </script>
